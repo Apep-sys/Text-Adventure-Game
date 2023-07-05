@@ -21,7 +21,7 @@ class Player:
 
     def creation(self, place_choice):
         self.place_choice = place_choice
-        fantasy_options = ['Knight', 'Mage', 'Druid']  # De facut clase pt fiecare optiune
+        fantasy_options = ['Knight', 'Mage', 'Druid']
         forest_options = ['Wawanakwa', 'Red Root', 'Blue Dawn']
         murder_options = ['room 09', 'room 13', 'room 256']
         if self.place_choice.title() == 'Forest Trip':
@@ -141,6 +141,7 @@ class Player:
 
     def change_state(self):
         self.state = 'dead'
+
 
 class Game(Player):
     phases = 1
