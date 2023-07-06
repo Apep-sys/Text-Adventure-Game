@@ -92,11 +92,11 @@ class Player:
                           'Magnifying Glass\n')
                     self.action1 = self.make_choice()
                     if self.action1.lower() == 'magnifying glass':
-                        print('You pick up a magnifyin glass woo')
+                        print('You pick up a magnifying glass. Hopefully, it will be useful in the way you think.\n')
                         self.inventory.append('Magnifying Glass')
                         continue
                     elif self.action1.lower() == 'fuse':
-                        print('You picked up the fuse woo')
+                        print('You picked up a fuse. Someone might miss it.\n')
                         self.inventory.append('Fuse')
                         continue
                 elif self.action1.lower() == 'go to rooms':
@@ -131,6 +131,8 @@ class Player:
                               'No, no. They find your body. \n'
                               'Cause of death: Asphyxiation.\n')
                         self.change_state()
+                    if self.action1.lower() == 'balcony':
+                        print('The wind lifts your hair...')
                     # Need to finish the rest of the rooms.
 
 
