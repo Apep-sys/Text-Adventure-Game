@@ -185,7 +185,7 @@ class Game(Player):
         elif Game.phases == 4:
             Game.narrator4()
         elif Game.phases == 5:
-            Game.narrator5()
+            Game.narrator5()aw
 
         print(f"Your choice for your setting is...: \n"
               f"1.{Game.places[0]}\n"
