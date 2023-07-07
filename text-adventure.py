@@ -126,7 +126,7 @@ class Player:
                               'With you.\n'
                               '...\n'
                               '...\n'
-                              '...\n'a
+                              '...\n'
                               'Hours later, they come back with a fuse. Upon opening the closet door, they find you.\n'
                               'No, no. They find your body. \n'
                               'Cause of death: Asphyxiation.\n')
@@ -185,7 +185,7 @@ class Game(Player):
         elif Game.phases == 4:
             Game.narrator4()
         elif Game.phases == 5:
-            Game.narrator5()aw
+            Game.narrator5()
 
         print(f"Your choice for your setting is...: \n"
               f"1.{Game.places[0]}\n"
