@@ -126,7 +126,7 @@ class Player:
                               'With you.\n'
                               '...\n'
                               '...\n'
-                              '...\n'
+                              '...\n'a
                               'Hours later, they come back with a fuse. Upon opening the closet door, they find you.\n'
                               'No, no. They find your body. \n'
                               'Cause of death: Asphyxiation.\n')
