@@ -132,7 +132,7 @@ class Player:
                               'Cause of death: Asphyxiation.\n')
                         self.change_state()
                     if self.action1.lower() == 'balcony':
-                        print('The wind lifts your hair...')
+                        print('The wind lifts your hair...')aw
                     # Need to finish the rest of the rooms.
 
 
