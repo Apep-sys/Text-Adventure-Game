@@ -60,14 +60,14 @@ class Player:
                                     "2. Room 13\n"
                                     "3. Room 256\n>").lower()
             self.place = 'Hotel Margot'
-            self.detail1 = ['fashion gala, in the main hall,', 'interview for your paper, in the main hall,',
-                            'guests\'s appetite, in the main hall,']
+            self.detail1 = ['fashion gala', 'interview for your paper',
+                            'guests\'s appetite']
             self.level1 = 'Hallway\n'
             self.rooms1  = ['Closet', 'Elevator', 'Balcony']
             self.items = ['Magnifying Glass', 'Fuse']
             self.intro = f"Oh, dear! If it isn't {self.name}! We were expecting you, and we are pleased to have you.\n" \
                          f"Please, make yourself at home in our dear {self.place}. Your room is {self.pclass}.\n" \
-                         f"For tonight, the {self.detail1[murder_options.index(self.pclass)]} " \
+                         f"For tonight, the {self.detail1[murder_options.index(self.pclass)]}, in the main hall, " \
                          f"awaits you. Do consider taking your time when " \
                          f"deciding how to best approach this event!\nIt won't be long until the MAIN event will begin...\n" \
                          f"Consider yourself lucky for the heads up. The other guests aren't so lucky. \nOne, in particular...\n" \
@@ -155,8 +155,15 @@ class Player:
         if self.place_choice.title() == 'Murder Mystery':
             if self.pclass == 'room 09':
                 pass # You arrive at the basement
-            else:
-                print('...') # To add atmospheric description of room 2
+            elif self.pclass == 'room 13' or self.pclass == 'room 256':
+                print('The elevator descends smoothly, carrying you to the lower level. As the doors open, a cool atmosphere greets you.\n'
+                      'Three distinct doors stand before you, each holding its own allure.\n'
+                      'To your left, a partially opened door with a tint of green reveals a glimpse of light streaming from within. The soft glow suggests the bathroom light may still be on, hinting at recent activity.\n'
+                      'Straight ahead, a closed door painted in a bold shade of red captures your attention. Its vibrant color holds an air of intrigue, hiding the secrets that lie beyond its surface.\n'
+                      'To your right, a sleek black door commands your curiosity. Its smooth exterior reflects the ambient light, promising a realm of mysteries waiting to be explored.\n'
+                      'You stand at a pivotal moment, faced with choices that will shape your investigation.\n'
+                      'The room with the green-tinged door may hold immediate interest, but the red and black doors hold their own enigmas.\n'
+                      'It is time to make your move and uncover the truth that awaits behind one of these doors.\n')
             while self.check2 == False:
                 print('What is your next move?\n'
                       'Go to green bedroom\n'
@@ -181,8 +188,41 @@ class Player:
                         self.change_state()
                         self.check2 = True
                     elif self.action == 'no':
-                        # To be added.
-                        pass
+                        print('Deciding the bathroom is of no interest to you, you look around the room.\n'
+                              'Your gaze dances around, on the pictures on the walls, on the messy clothes thrown around,\n'
+                              'on the ugly furniture and wall paint. It is almost as someone intended this room to be '
+                              'the ugliest.\nLastly, your gaze settles upon a ticket on the bed.\nIt seems to be a VIP ticket.\n'
+                              'Do you take it?')
+                        self.action = self.make_choice()
+                        if self.action == 'yes':
+                            print('You carefully put the ticket in your jacket\'s inner pocket.\n')
+                            self.inventory.append('VIP Ticket')
+                        elif self.action == 'no':
+                            pass
+                        print('Before leaving the room, a gunshot draws your attention. It seems like it came from the room '
+                              'with the black door.\nDo you pursue the gunshot?\n')
+                        self.action = self.make_choice()
+                        if self.action == 'yes':
+                            print('You rush towards the black door, propelled by the piercing sound of the gunshot.\n'
+                                  'As the door swings open, a surge of unease washes over you.\n'
+                                  'The room is shrouded in an eerie atmosphere, adorned with sinister cult objects.\n'
+                                  'Their unsettling presence creates a sense of foreboding, casting long, menacing shadows along the walls.\n'
+                                  'The air is heavy with an otherworldly energy, as if the room itself holds a dark secret.\n'
+                                  'Amidst this macabre scene, a chilling path of blood stains the floor, beckoning you deeper into the heart of the ominous mystery.\n'
+                                  'Do you pursue further?\n')
+                            if self.action == 'yes':
+                                print('The trail of blood leads you through the hidden door of a wardrobe.\n'
+                                      'You enter something akin to a tunnel. The walls are carved and made of stone.\n'
+                                      'A wooden door... ') # To be finished
+
+
+                if self.action.lower() == 'go to red bedroom':
+                    pass
+
+
+
+
+
 
 
         self.state = 'alive'
