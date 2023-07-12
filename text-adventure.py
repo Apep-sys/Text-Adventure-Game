@@ -5,16 +5,20 @@ class Player:
         self.place = None
         self.detail1 = None
         self.level1 = None
+        self.level2 = None
         self.pclass = None
         self.intro = None
-        self.room_intro2 = None
         self.choice = None
         self.state = None
         self.inventory = []
         self.items = None
         self.rooms1 = None
-        self.action1 = None
+        self.rooms2 = None
+        self.action = None
         self.check1 = False
+        self.check2 = False
+        self.place_choice = None
+        self.game_end = False
     def make_choice(self):
         self.choice = input("\n>").lower()
         return self.choice
@@ -68,51 +72,55 @@ class Player:
                          f"deciding how to best approach this event!\nIt won't be long until the MAIN event will begin...\n" \
                          f"Consider yourself lucky for the heads up. The other guests aren't so lucky. \nOne, in particular...\n" \
                          f"But enough talk! Go on! Have a wonderful evening!\nMaybe your last one.\n "
+            if self.pclass == 'room 09':
+                self.level2 = 'Basement'
+            elif self.pclass == 'room 13' or self.pclass == 'room 256':
+                self.level2 = 'The Lower Floor'
+            self.rooms2 = ['The Green Door', 'The Red Door', 'The Black Door']
+            self.items = ['Bloody Letter', 'VIP Ticket']
 
     def room_intro1(self):
         if self.place_choice.title() == 'Murder Mystery':
-            print('You enter the dimly lit hallway, caught between the safety of your room and the mysteries ahead.\n ' 
-                'The air is still, carrying a hint of aged wood. The faded wallpaper peels, revealing the passage of time.\n ' 
+            print('You enter the dimly lit hallway, caught between the safety of your room and the mysteries ahead.\n' 
+                'The air is still, carrying a hint of aged wood. The faded wallpaper peels, revealing the passage of time.\n' 
                 'To your left, a closed door leads to a balcony, teasing glimpses of the outside world. \n' 
-                'To your right, a slightly ajar door reveals a cramped closet, holding secrets within its limited space.\n ' 
-                'Straight ahead, a closed door guards the elevator, its faint hum echoing through the corridor.\n ' 
-                'You observe two items: a fuse, laying on a shelf, and a magnifying glass, somehow waiting for a firm hand to pick it up.' 
-                'Anticipation settles upon you as you stand in this hallway, ready to unlock the stories within each room. The adventure awaits, just beyond the threshold.\n' 
-                'What is your next move?\n' 
-                'Go to Rooms\n' 
-                'Pick up Items\n')
+                'To your right, a slightly ajar door reveals a cramped closet, holding secrets within its limited space.\n' 
+                'Straight ahead, a closed door guards the elevator, its faint hum echoing through the corridor.\n' 
+                'You observe two items: a fuse, laying on a shelf, and a magnifying glass, somehow waiting for a firm hand to pick it up.\n' 
+                'Anticipation settles upon you as you stand in this hallway, ready to unlock the stories within each room.\n'
+                'The adventure awaits, just beyond the threshold.\n' )
             while self.check1 == False:
                 print('What is your next move?\n' 
                                'Go to Rooms\n' 
                                'Pick up Items\n')
-                self.action1 = self.make_choice()
-                if self.action1.lower() == 'pick up items':
+                self.action = self.make_choice()
+                if self.action.lower() == 'pick up items':
                     print('Which item do you pick up?\n'
                           'Fuse\n'
                           'Magnifying Glass\n')
-                    self.action1 = self.make_choice()
-                    if self.action1.lower() == 'magnifying glass':
+                    self.action = self.make_choice()
+                    if self.action.lower() == 'magnifying glass':
                         print('You pick up a magnifying glass. Hopefully, it will be useful in the way you think.\n')
                         self.inventory.append('Magnifying Glass')
                         continue
-                    elif self.action1.lower() == 'fuse':
+                    elif self.action.lower() == 'fuse':
                         print('You picked up a fuse. Someone might miss it.\n')
                         self.inventory.append('Fuse')
                         continue
-                elif self.action1.lower() == 'go to rooms':
+                elif self.action.lower() == 'go to rooms':
                     print('Which room are you going to?\n'
                                      'Closet\n'
                                      'Elevator\n'
                                      'Balcony\n')
-                    self.action1 = self.make_choice()
-                    if self.action1.lower() == 'closet' and 'Fuse' not in self.inventory:
+                    self.action = self.make_choice()
+                    if self.action.lower() == 'closet' and 'Fuse' not in self.inventory:
                         print('You enter the cramped closet. The janitor\'s tools are lying about.\nThe stingy smell of cleaning '
                           'products bothers you, but due to the odor of the freshly washed sheets, it is a minor nuisance.\n'
                           'You think there is nothing interesting here to be seen, but then you spot a multitude of red spots, '
                           'splattered all over a sheet, in a tucked away basket.\nIt looks like...blood.\n'
                           'You take a mental note of this and return to the hallway.\n')
                         continue
-                    elif self.action1.lower() == 'closet' and 'Fuse' in self.inventory:
+                    elif self.action.lower() == 'closet' and 'Fuse' in self.inventory:
                         print('As you enter the cramped closet, you hear an ominous buzz, followed by a cable having a sudden jolt of electricity.\n'
                               'The entire hallway goes into lockdown and a red light turns on. The door slams shut behind you and it locks in place.\n'
                               'Hours pass in the confined space, and the stingy smell of cleaning products is omnipresent.\n'
@@ -131,12 +139,50 @@ class Player:
                               'No, no. They find your body. \n'
                               'Cause of death: Asphyxiation.\n')
                         self.change_state()
-                    if self.action1.lower() == 'balcony':
-                        print('The wind lifts your hair...')
-                    # Need to finish the rest of the rooms.
-
-
-
+                        self.check1 = True
+                    if self.action.lower() == 'balcony':
+                        print('The wind lifts your hair...The fresh smell of the air makes you inhale with a sense of relief.\n'
+                              'You are invigorated.\nOutside, you notice numerous black limousines are arriving.'
+                              'The people coming out of them all wear red masks, along with black suits and dresses.\n'
+                              'It looks like they were expected. A great portion of the hotel staff is waiting for them, '
+                              'quickly rushing to escort them once they reach the hotel\'s steps.\n'
+                              'An ominous aura surrounds these new guests...\n'
+                              'You return to the hallway.\n')
+                        continue
+                    if self.action.lower() == 'elevator':
+                        self.check1 = True
+    def room_intro2(self):
+        if self.place_choice.title() == 'Murder Mystery':
+            if self.pclass == 'room 09':
+                pass # You arrive at the basement
+            else:
+                print('...') # To add atmospheric description of room 2
+            while self.check2 == False:
+                print('What is your next move?\n'
+                      'Go to green bedroom\n'
+                      'Go to black bedroom\n'
+                      'Go to red bedroom\n')
+                self.action = self.make_choice()
+                if self.action.lower() == 'go to green bedroom':
+                    print('You slowly open the dirty, stained green door and enter the room.\n'
+                          'The first thing that draws your attention is the light in the bathroom.\n'
+                          'Do you go to the bathroom?\n')
+                    self.action = self.make_choice()
+                    if self.action.lower() == 'yes':
+                        print('You enter the bathroom with careful steps. The door creaks as you open it.\n'
+                        '...\n'
+                        '...\n'
+                        '...\n'
+                        'You\'re shocked by the sight before you. A man has committed suicide in the bathtub.\n'
+                        'The water has been running continuously and has overflowed, drenching your shoes.\n'
+                        'As you try to quickly leave the room, in your panic, you slip on the wet floor, and hit your'
+                        'head on the sink.\n'
+                        'You are dead.\n')
+                        self.change_state()
+                        self.check2 = True
+                    elif self.action == 'no':
+                        # To be added.
+                        pass
 
 
         self.state = 'alive'
@@ -195,10 +241,13 @@ class Game(Player):
         player.creation(player_choice)
         print(player.intro)
 
-
     def first_room(self, player):
         print(player.level1)
         player.room_intro1()
+
+    def second_room(self, player):
+        print(player.level2)
+        player.room_intro2()
 
 
 
@@ -207,3 +256,4 @@ player = Player()
 game = Game()
 game.game_start(player)
 game.first_room(player)
+game.second_room(player)
