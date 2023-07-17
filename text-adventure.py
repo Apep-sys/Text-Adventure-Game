@@ -210,11 +210,15 @@ class Player:
                                   'The air is heavy with an otherworldly energy, as if the room itself holds a dark secret.\n'
                                   'Amidst this macabre scene, a chilling path of blood stains the floor, beckoning you deeper into the heart of the ominous mystery.\n'
                                   'Do you pursue further?\n')
+                            self.action = self.make_choice()
                             if self.action == 'yes':
                                 print('The trail of blood leads you through the hidden door of a wardrobe.\n'
                                       'You enter something akin to a tunnel. The walls are carved and made of stone.\n'
-                                      'A wooden door... ') # To be finished
-
+                                      'The air becomes denser as you walk through the never-ending tunnel.\n'
+                                      'You wonder how could such a structure exist in this place.\n'
+                                      'The blood trail has somehow kept the same shape and consistence throughout the tunnel.\n'
+                                      '...') # To be finished
+# TODO To eliminate items from the list once you pick them up and to modify room options once you go through them.
 
                 if self.action.lower() == 'go to red bedroom':
                     pass
