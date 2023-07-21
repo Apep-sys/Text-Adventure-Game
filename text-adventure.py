@@ -9,7 +9,7 @@ class Player:
         self.pclass = None
         self.intro = None
         self.choice = None
-        self.state = None
+        self.state = None # State of the player - Dead/Alive
         self.inventory = []
         self.items = None
         self.rooms1 = None
@@ -17,6 +17,7 @@ class Player:
         self.action = None
         self.check1 = False
         self.check2 = False
+        self.temp_check = False
         self.place_choice = None
         self.game_end = False
     def make_choice(self):
@@ -198,7 +199,7 @@ class Player:
                             print('You carefully put the ticket in your jacket\'s inner pocket.\n')
                             self.inventory.append('VIP Ticket')
                         elif self.action == 'no':
-                            pass
+                            print('You let the VIP ticket remain where it is. It is probably for the best, you think.\n')
                         print('Before leaving the room, a gunshot draws your attention. It seems like it came from the room '
                               'with the black door.\nDo you pursue the gunshot?\n')
                         self.action = self.make_choice()
@@ -217,7 +218,39 @@ class Player:
                                       'The air becomes denser as you walk through the never-ending tunnel.\n'
                                       'You wonder how could such a structure exist in this place.\n'
                                       'The blood trail has somehow kept the same shape and consistence throughout the tunnel.\n'
-                                      '...') # To be finished
+                                      'You come to a dead end. A rock wall proudly defies you, by simply existing '
+                                      'in your way.\nFive blocks of rock are protruding out of it, each with a different '
+                                      'symbol carved on it.\nA door, a circle, a candle, a magnifying glass and a wand.\n')
+                                while self.temp_check == False:
+                                    step = 0    # Steps for completing the puzzle
+                                    print('How do you proceed?\n')
+                                    if 'Magnifying Glass' in self.inventory:
+                                        print('Introduce the magnifying glass in the carving representing it\n'
+                                              'Push the blocks of rock\n')
+                                    else:
+                                        print('Push the blocks of rock\n')
+                                    self.choice = self.make_choice()
+                                    if self.choice == 'introduce the magnifying glass in the carving representing it':
+                                        print('You take out your magnifying glass and fit it into the block\'s carving.\n'
+                                              'You are surprised it worked, as it seemed to be an odd choice.\n')
+                                        step += 1
+                                        continue
+                                    elif self.choice == 'push the blocks of rock':
+                                        print('As the blocks of rock are protruding, you decide they could also be made'
+                                              'to fit in.\nBut, there\'s a catch: in what order should you push them back in?\n'
+                                              'Circle, door, wand, magnifying glass, candle\n'
+                                              'Wand, door, candle, magnifying glass, circle\n'
+                                              'Door, candle, magnifying glass, circle, wand\n')
+                                        self.choice = self.make_choice()
+                                        if self.choice == 'door, candle, magnifying glass, circle, wand':
+                                            step += 1
+                                        else:
+                                            pass
+                                            #TODO To finish the puzzle sequence with messages and options and to attend to the rest of the cases
+
+
+
+
 # TODO To eliminate items from the list once you pick them up and to modify room options once you go through them.
 
                 if self.action.lower() == 'go to red bedroom':
