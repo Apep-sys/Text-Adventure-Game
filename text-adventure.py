@@ -65,7 +65,7 @@ class Player:
                             'guests\'s appetite']
             self.level1 = 'Hallway\n'
             self.rooms1  = ['Closet', 'Elevator', 'Balcony']
-            self.items = ['Magnifying Glass', 'Fuse']
+            self.items1 = ['Magnifying Glass', 'Fuse']
             self.intro = f"Oh, dear! If it isn't {self.name}! We were expecting you, and we are pleased to have you.\n" \
                          f"Please, make yourself at home in our dear {self.place}. Your room is {self.pclass}.\n" \
                          f"For tonight, the {self.detail1[murder_options.index(self.pclass)]}, in the main hall, " \
@@ -76,9 +76,9 @@ class Player:
             if self.pclass == 'room 09':
                 self.level2 = 'Basement'
             elif self.pclass == 'room 13' or self.pclass == 'room 256':
-                self.level2 = 'The Lower Floor'
+                self.level2 = 'The Lower Floor\n'
             self.rooms2 = ['The Green Door', 'The Red Door', 'The Black Door']
-            self.items = ['Bloody Letter', 'VIP Ticket']
+            self.items2 = ['Bloody Letter', 'VIP Ticket']
 
     def room_intro1(self):
         if self.place_choice.title() == 'Murder Mystery':
@@ -91,22 +91,29 @@ class Player:
                 'Anticipation settles upon you as you stand in this hallway, ready to unlock the stories within each room.\n'
                 'The adventure awaits, just beyond the threshold.\n' )
             while self.check1 == False:
-                print('What is your next move?\n' 
-                               'Go to Rooms\n' 
-                               'Pick up Items\n')
-                self.action = self.make_choice()
-                if self.action.lower() == 'pick up items':
-                    print('Which item do you pick up?\n'
-                          'Fuse\n'
-                          'Magnifying Glass\n')
+                if len(self.items1) > 0:
+                    print('What is your next move?\n' 
+                                   'Go to Rooms\n' 
+                                   'Pick up Items\n')
+                    self.action = self.make_choice()
+                else:
+                    print('What is your next move?\n'
+                          'Go to Rooms\n')
+                    self.action = self.make_choice()
+                if self.action.lower() == 'pick up items' and len(self.items1) > 0:
+                    print('Which item do you pick up?\n')
+                    for i in self.items1:
+                        print(f'{i}')
                     self.action = self.make_choice()
                     if self.action.lower() == 'magnifying glass':
                         print('You pick up a magnifying glass. Hopefully, it will be useful in the way you think.\n')
                         self.inventory.append('Magnifying Glass')
+                        self.items1.remove('Magnifying Glass')
                         continue
                     elif self.action.lower() == 'fuse':
                         print('You picked up a fuse. Someone might miss it.\n')
                         self.inventory.append('Fuse')
+                        self.items1.remove('Fuse')
                         continue
                 elif self.action.lower() == 'go to rooms':
                     print('Which room are you going to?\n'
@@ -198,6 +205,7 @@ class Player:
                         if self.action == 'yes':
                             print('You carefully put the ticket in your jacket\'s inner pocket.\n')
                             self.inventory.append('VIP Ticket')
+                            self.items2.remove('VIP Ticket')
                         elif self.action == 'no':
                             print('You let the VIP ticket remain where it is. It is probably for the best, you think.\n')
                         print('Before leaving the room, a gunshot draws your attention. It seems like it came from the room '
@@ -220,10 +228,11 @@ class Player:
                                       'The blood trail has somehow kept the same shape and consistence throughout the tunnel.\n'
                                       'You come to a dead end. A rock wall proudly defies you, by simply existing '
                                       'in your way.\nFive blocks of rock are protruding out of it, each with a different '
-                                      'symbol carved on it.\nA door, a circle, a candle, a magnifying glass and a wand.\n')
+                                      'symbol carved on it.\nA door, a circle, a candle, a magnifying glass and a wand.\n'
+                                      'How do you proceed?\n')
+                                step = 0  # Steps for completing the puzzle
+                                death_counter = 0  # Counter for the amount of times you can try pushing the blocks, 2 is max
                                 while self.temp_check == False:
-                                    step = 0    # Steps for completing the puzzle
-                                    print('How do you proceed?\n')
                                     if 'Magnifying Glass' in self.inventory:
                                         print('Introduce the magnifying glass in the carving representing it\n'
                                               'Push the blocks of rock\n')
@@ -233,10 +242,11 @@ class Player:
                                     if self.choice == 'introduce the magnifying glass in the carving representing it':
                                         print('You take out your magnifying glass and fit it into the block\'s carving.\n'
                                               'You are surprised it worked, as it seemed to be an odd choice.\n')
+                                        self.inventory.remove('Magnifying Glass')
                                         step += 1
                                         continue
                                     elif self.choice == 'push the blocks of rock':
-                                        print('As the blocks of rock are protruding, you decide they could also be made'
+                                        print('As the blocks of rock are protruding, you decide they could also be made '
                                               'to fit in.\nBut, there\'s a catch: in what order should you push them back in?\n'
                                               'Circle, door, wand, magnifying glass, candle\n'
                                               'Wand, door, candle, magnifying glass, circle\n'
@@ -244,24 +254,62 @@ class Player:
                                         self.choice = self.make_choice()
                                         if self.choice == 'door, candle, magnifying glass, circle, wand':
                                             step += 1
+                                            death_counter += 1
+                                            if step < 2:
+                                                print('The decision you made seems to have been inspired.\n')
+                                                continue
+                                            else:
+                                                print('As you push the blocks back into place, stairs are starting to form below the rock wall.\n'
+                                                    'They seem to be leading towards a bright, white light.')
+                                                self.temp_check = True
+                                                self.check2 = True
                                         else:
-                                            pass
-                                            #TODO To finish the puzzle sequence with messages and options and to attend to the rest of the cases
+                                            if death_counter < 2:
+                                                print('You decide on a sequence and...nothing.\nA sinister hum is heard emanating '
+                                                      'from the wall.')
+                                                death_counter += 1
+                                                continue
+                                            elif death_counter == 2:
+                                                print('The hum turns into a loud buzz that makes you cover up your ears...\n'
+                                                      'And then, nothing. The wall then starts crumbling from the middle to the sides.\n'
+                                                      'You see nothing but pitch black darkness before you. Then, you feel something on the back of your neck.\n'
+                                                      'It\'s like a sting. It feels warm on your skin at first, but then its cold runs through your entire body.\n'
+                                                      'You feel numb from the cold. Your head feels detached from your body, like it\'s floating...\n'
+                                                      'The sequence of events that follows isn\'t very clear. You remember dropping on the ground.\n'
+                                                      'A sensation that could be described as being engulfed, swallowed, by darkness that has teeth, is then felt.\n'
+                                                      'In reality, your body is discovered in the room you heard the gunshot from.\n'
+                                                      'It marks the beginning of the blood trail. You are found sitting on your knees, mouth wide open and eyes staring in awe at the ceiling.\n'
+                                                      'Your pupils are fully dilated. Your bodily liquids have found their way out...\n'
+                                                      'An unfortunate end.\n'
+                                                      'You are dead.\n')
+                                                self.temp_check = True
+                                                self.check2 = True
+                                                self.change_state()
+                            elif self.action == 'no':
+                                print('This hotel has definitely got something wrong going on., you think.\n'
+                                      'You carefully walk around the room, analyzing everything and deciding if this would be the time\n'
+                                      'to call the police. You notice a bloody letter on the desk facing the window.\n'
+                                      'It seems to be the only item on that desk. It is sealed with a crimson seal, also reminiscent of blood.\n'
+                                      'You step closer to it, curious of its contents. But first, you think, you should search the desk\'s drawers.\n'
+                                      'Nothing comes out of your search, except for old, irrelevant papers, a broken cable and the hotel\'s assistance book.\n'
+                                      'In this case, all that\'s left is taking the letter for yourself.\n'
+                                      'Do you take it?\n ')
+                                self.action = self.make_choice()
+                                if self.action == 'yes':
+                                    print('Your curiosity got the better of you. You quickly took the letter and stuffed it well.\n'
+                                          'Now, nobody will know what you\'ve been up to.')
+                                elif self.action == 'no':
+                                    print('Perhaps it is wiser to let it where it is. Or so your confused senses tell you.\n')
+                                print('You can\'t help but wonder where the gunshot came from. It was clearly from this room.\n'
+                                      'Perhaps you\'ve misheard. There is certainly no gun laying around.\n'
+                                      'And there is certainly no way you will go after the blood trail. Or maybe...?\n')
 
-
-
-
+# TODO To add text and options for the choice of not pursuing the gunshot.
+#  Will have to re-use text from the 'no' option of not following the blood trail for the black bedroom choice.
 # TODO To eliminate items from the list once you pick them up and to modify room options once you go through them.
 
                 if self.action.lower() == 'go to red bedroom':
                     pass
-
-
-
-
-
-
-
         self.state = 'alive'
 
     def change_state(self):
