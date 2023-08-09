@@ -66,7 +66,7 @@ class Player:
             self.detail1 = ['fashion gala', 'interview for your paper',
                             'guests\'s appetite']
             self.level1 = 'Hallway\n\n'
-            self.rooms1  = ['Closet', 'Elevator', 'Balcony']
+            self.rooms1 = ['Closet', 'Elevator', 'Balcony']
             self.items1 = ['Magnifying Glass', 'Fuse']
             self.intro = (f"Oh, dear! If it isn't {self.name}! We were expecting you, and we are pleased to have you.\n" 
                          f"Please, make yourself at home in our dear {self.place}. Your room is {self.pclass}.\n" 
@@ -168,7 +168,9 @@ class Player:
                               'It looks like they were expected. A great portion of the hotel staff is waiting for them, '
                               'quickly rushing to escort them once they reach the hotel\'s steps.\n'
                               'An ominous aura surrounds these new guests...\n'
-                              'You return to the hallway.\n')
+                              'You notice something peculiar about the limousines. They each seem to carry a certain symbol.\n'
+                              'The symbols are beautifully blazoned on their hoods. A door, a candle and a circle.\n'
+                              'You ponder this peculiarity for a second and then return to the hallway.\n')
                         self.print_message(message)
                         continue
                     if self.action.lower() == 'elevator':
@@ -188,26 +190,31 @@ class Player:
                       'It is time to make your move and uncover the truth that awaits behind one of these doors.\n')
                 self.print_message(message)
                 progression_check = -1
+                first_door = None
+                gunshot = False
                 while self.check2 == False:
                     if progression_check == -1:
                         for i in self.rooms2:
                             message = (f'Go to {i.lower()}\n')
                             self.print_message(message)
                     else:
-                        self.rooms2.remove(self.rooms2[progression_check])
+                        self.rooms2.remove(progression_check)
                         self.rooms2.sort()
                         for i in self.rooms2:
                             message = (f'Go to {i.lower()}\n')
                             self.print_message(message)
                     self.action = self.make_choice()
+
                     if self.action.lower() == 'go to the green door':
+                        if first_door == None:
+                            first_door = 'Green'
                         message = ('You slowly open the dirty, stained green door and enter the room.\n'
                               'The first thing that draws your attention is the light in the bathroom.\n'
                               'Do you go to the bathroom?\n'
                               '>Yes\n'
                               '>No\n')
                         self.print_message(message)
-                        progression_check = 0
+                        progression_check = 'The Green Door'
                         self.action = self.make_choice()
                         if self.action.lower() == 'yes':
                             message = ('You enter the bathroom with careful steps. The door creaks as you open it.\n'
@@ -240,187 +247,214 @@ class Player:
                             elif self.action == 'no':
                                 message = ('You let the VIP ticket remain where it is. It is probably for the best, you think.\n')
                                 self.print_message(message)
-                            message = ('Before leaving the room, a gunshot draws your attention. It seems like it came from the room '
-                                  'with the black door.\nDo you pursue the gunshot?\n'
-                                  '>Yes\n'
-                                  '>No\n')
-                            #TODO Remove hearing the gunshot if you first enter the black room.
-                            #TODO Add the 'no' option for refusing the gunshot and work on it.
-                            self.print_message(message)
-                            self.action = self.make_choice()
-                            if self.action == 'yes':
-                                message = ('You rush towards the black door, propelled by the piercing sound of the gunshot.\n'
-                                      'As the door swings open, a surge of unease washes over you.\n'
-                                      'The room is shrouded in an eerie atmosphere, adorned with sinister cult objects.\n'
-                                      'Their unsettling presence creates a sense of foreboding, casting long, menacing shadows along the walls.\n'
-                                      'The air is heavy with an otherworldly energy, as if the room itself holds a dark secret.\n'
-                                      'Amidst this macabre scene, a chilling path of blood stains the floor, beckoning you deeper into the heart of the ominous mystery.\n'
-                                      'Do you pursue further?\n'
+                            if first_door == 'Green':
+                                message = ('Before leaving the room, a gunshot draws your attention. It seems like it came from the room '
+                                      'with the black door.\nDo you pursue the gunshot?\n'
                                       '>Yes\n'
                                       '>No\n')
                                 self.print_message(message)
                                 self.action = self.make_choice()
                                 if self.action == 'yes':
-                                    message = ('The trail of blood leads you through the hidden door of a wardrobe.\n'
-                                          'You enter something akin to a tunnel. The walls are carved and made of stone.\n'
-                                          'The air becomes denser as you walk through the never-ending tunnel.\n'
-                                          'You wonder how could such a structure exist in this place.\n'
-                                          'The blood trail has somehow kept the same shape and consistence throughout the tunnel.\n'
-                                          'You come to a dead end. A rock wall proudly defies you, by simply existing '
-                                          'in your way.\nFive blocks of rock are protruding out of it, each with a different '
-                                          'symbol carved on it.\nA door, a circle, a candle, a magnifying glass and a wand.\n'
-                                          'How do you proceed?\n')
-                                    self.print_message(message)
-                                    step = 0  # Steps for completing the puzzle
-                                    death_counter = 0  # Counter for the amount of times you can try pushing the blocks, 2 is max
-                                    while self.temp_check == False:
-                                        if 'Magnifying Glass' in self.inventory:
-                                            message = ('Introduce the magnifying glass in the carving representing it\n'
-                                                  'Push the blocks of rock\n')
-                                            self.print_message(message)
-                                        else:
-                                            message = ('Push the blocks of rock\n')
-                                            self.print_message(message)
-                                        self.choice = self.make_choice()
-                                        if self.choice == 'introduce the magnifying glass in the carving representing it':
-                                            message = ('You take out your magnifying glass and fit it into the block\'s carving.\n'
-                                                  'You are surprised it worked, as it seemed to be an odd choice.\n')
-                                            self.inventory.remove('Magnifying Glass')
-                                            step += 1
-                                            self.print_message(message)
-                                            continue
-                                        elif self.choice == 'push the blocks of rock':
-                                            message = ('As the blocks of rock are protruding, you decide they could also be made '
-                                                  'to fit in.\nBut, there\'s a catch: in what order should you push them back in?\n'
-                                                  'Circle, door, wand, magnifying glass, candle\n'
-                                                  'Wand, door, candle, magnifying glass, circle\n'
-                                                  'Door, candle, magnifying glass, circle, wand\n')
-                                            self.print_message(message)
-                                            self.choice = self.make_choice()
-                                            if self.choice == 'door, candle, magnifying glass, circle, wand':
-                                                step += 1
-                                                death_counter += 1
-                                                if step < 2:
-                                                    message = ('The decision you made seems to have been inspired.\n')
-                                                    self.print_message(message)
-                                                    continue
-                                                else:
-                                                    message = ('As you push the blocks back into place, stairs are starting to form below the rock wall.\n'
-                                                        'They seem to be leading towards a bright, white light.')
-                                                    self.temp_check = True
-                                                    self.check2 = True
-                                                    self.print_message(message)
-                                            else:
-                                                if death_counter < 2:
-                                                    message = ('You decide on a sequence and...nothing.\nA sinister hum is heard emanating '
-                                                          'from the wall.')
-                                                    death_counter += 1
-                                                    self.print_message(message)
-                                                    continue
-                                                elif death_counter == 2:
-                                                    message = ('The hum turns into a loud buzz that makes you cover up your ears...\n'
-                                                          'And then, nothing. The wall then starts crumbling from the middle to the sides.\n'
-                                                          'You see nothing but pitch black darkness before you. Then, you feel something on the back of your neck.\n'
-                                                          'It\'s like a sting. It feels warm on your skin at first, but then its cold runs through your entire body.\n'
-                                                          'You feel numb from the cold. Your head feels detached from your body, like it\'s floating...\n'
-                                                          'The sequence of events that follows isn\'t very clear. You remember dropping on the ground.\n'
-                                                          'A sensation that could be described as being engulfed, swallowed, by darkness that has teeth, is then felt.\n'
-                                                          'In reality, your body is discovered in the room you heard the gunshot from.\n'
-                                                          'It marks the beginning of the blood trail. You are found sitting on your knees, mouth wide open and eyes staring in awe at the ceiling.\n'
-                                                          'Your pupils are fully dilated. Your bodily liquids have found their way out...\n'
-                                                          'An unfortunate end.\n'
-                                                          'You are dead.\n')
-                                                    self.temp_check = True
-                                                    self.check2 = True
-                                                    self.change_state()
-                                                    self.print_message(message)
-                                elif self.action == 'no':
-                                    message = ('This hotel has definitely got something wrong going on, you think.\n'
-                                          'You carefully walk around the room, analyzing everything and deciding if this would be the time\n'
-                                          'to call the police. You notice a bloody letter on the desk facing the window.\n'
-                                          'It seems to be the only item on that desk. It is sealed with a crimson seal, also reminiscent of blood.\n'
-                                          'You step closer to it, curious of its contents. But first, you think, you should search the desk\'s drawers.\n'
-                                          'Nothing comes out of your search, except for old, irrelevant papers, a broken cable and the hotel\'s assistance book.\n'
-                                          'In this case, all that\'s left is taking the letter for yourself.\n'
-                                          'Do you take it?\n ')
+                                    gunshot = True
+                                    message = ('You rush towards the black door, propelled by the piercing sound of the gunshot.\n'
+                                          'As the door swings open, a surge of unease washes over you.\n'
+                                          'The room is shrouded in an eerie atmosphere, adorned with sinister cult objects.\n'
+                                          'Their unsettling presence creates a sense of foreboding, casting long, menacing shadows along the walls.\n'
+                                          'The air is heavy with an otherworldly energy, as if the room itself holds a dark secret.\n'
+                                          'Amidst this macabre scene, a chilling path of blood stains the floor, beckoning you deeper into the heart of the ominous mystery.\n'
+                                          'Do you pursue further?\n'
+                                          '>Yes\n'
+                                          '>No\n')
                                     self.print_message(message)
                                     self.action = self.make_choice()
                                     if self.action == 'yes':
-                                        message = ('Your curiosity got the better of you. You quickly took the letter and stuffed it well.\n'
-                                              'Now, nobody will know what you\'ve been up to.')
+                                        message = ('The trail of blood leads you through the hidden door of a wardrobe.\n'
+                                              'You enter something akin to a tunnel. The walls are carved and made of stone.\n'
+                                              'The air becomes denser as you walk through the never-ending tunnel.\n'
+                                              'You wonder how could such a structure exist in this place.\n'
+                                              'The blood trail has somehow kept the same shape and consistence throughout the tunnel.\n'
+                                              'You come to a dead end. A rock wall proudly defies you, by simply existing '
+                                              'in your way.\nFive blocks of rock are protruding out of it, each with a different '
+                                              'symbol carved on it.\nA door, a circle, a candle, a magnifying glass and a wand.\n'
+                                              'How do you proceed?\n')
                                         self.print_message(message)
+                                        step = 0  # Steps for completing the puzzle
+                                        death_counter = 0  # Counter for the amount of times you can try pushing the blocks, 2 is max
+                                        while self.temp_check == False:
+                                            if 'Magnifying Glass' in self.inventory:
+                                                message = ('Introduce the magnifying glass in the carving representing it\n'
+                                                      'Push the blocks of rock\n')
+                                                self.print_message(message)
+                                            else:
+                                                message = ('Push the blocks of rock\n')
+                                                self.print_message(message)
+                                            self.choice = self.make_choice()
+                                            if self.choice == 'introduce the magnifying glass in the carving representing it':
+                                                message = ('You take out your magnifying glass and fit it into the block\'s carving.\n'
+                                                      'You are surprised it worked, as it seemed to be an odd choice.\n')
+                                                self.inventory.remove('Magnifying Glass')
+                                                step += 1
+                                                self.print_message(message)
+                                                continue
+                                            elif self.choice == 'push the blocks of rock':
+                                                message = ('As the blocks of rock are protruding, you decide they could also be made '
+                                                      'to fit in.\nBut, there\'s a catch: in what order should you push them back in?\n'
+                                                      'Circle, door, wand, magnifying glass, candle\n'
+                                                      'Wand, door, candle, magnifying glass, triangle\n'
+                                                      'Door, candle, magnifying glass, circle, wand\n')
+                                                self.print_message(message)
+                                                self.choice = self.make_choice()
+                                                if self.choice == 'door, candle, magnifying glass, circle, wand':
+                                                    step += 1
+                                                    death_counter += 1
+                                                    if step < 2:
+                                                        message = ('The decision you made seems to have been inspired.\n')
+                                                        self.print_message(message)
+                                                        continue
+                                                    else:
+                                                        message = ('As you push the blocks back into place, stairs are starting to form below the rock wall.\n'
+                                                            'They seem to be leading towards a bright, white light.')
+                                                        #TODO To make the transition to the third level or maybe straight to fourth.
+                                                        self.temp_check = True
+                                                        self.check2 = True
+                                                        self.print_message(message)
+                                                else:
+                                                    if death_counter < 2:
+                                                        message = ('You decide on a sequence and...nothing.\nA sinister hum is heard emanating '
+                                                              'from the wall.')
+                                                        death_counter += 1
+                                                        self.print_message(message)
+                                                        continue
+                                                    elif death_counter == 2:
+                                                        message = ('The hum turns into a loud buzz that makes you cover up your ears...\n'
+                                                              'And then, nothing. The wall then starts crumbling from the middle to the sides.\n'
+                                                              'You see nothing but pitch black darkness before you. Then, you feel something on the back of your neck.\n'
+                                                              'It\'s like a sting. It feels warm on your skin at first, but then its cold runs through your entire body.\n'
+                                                              'You feel numb from the cold. Your head feels detached from your body, like it\'s floating...\n'
+                                                              'The sequence of events that follows isn\'t very clear. You remember dropping on the ground.\n'
+                                                              'A sensation that could be described as being engulfed, swallowed, by darkness that has teeth, is then felt.\n'
+                                                              'In reality, your body is discovered in the room you heard the gunshot from.\n'
+                                                              'It marks the beginning of the blood trail. You are found sitting on your knees, mouth wide open and eyes staring in awe at the ceiling.\n'
+                                                              'Your pupils are fully dilated. Your bodily liquids have found their way out...\n'
+                                                              'An unfortunate end.\n'
+                                                              'You are dead.\n')
+                                                        self.temp_check = True
+                                                        self.check2 = True
+                                                        self.change_state()
+                                                        self.print_message(message)
                                     elif self.action == 'no':
-                                        message = ('Perhaps it is wiser to let it where it is. Or so your confused senses tell you.\n')
+                                        message = ('This hotel has definitely got something wrong going on, you think.\n'
+                                              'You carefully walk around the room, analyzing everything and deciding if this would be the time\n'
+                                              'to call the police. You notice a bloody letter on the desk facing the window.\n'
+                                              'It seems to be the only item on that desk. It is sealed with a crimson seal, also reminiscent of blood.\n'
+                                              'You step closer to it, curious of its contents. But first, you think, you should search the desk\'s drawers.\n'
+                                              'Nothing comes out of your search, except for old, irrelevant papers, a broken cable and the hotel\'s assistance book.\n'
+                                              'In this case, all that\'s left is taking the letter for yourself.\n'
+                                              'Do you take it?\n ')
                                         self.print_message(message)
-                                    message = ('You can\'t help but wonder where the gunshot came from. It was clearly from this room.\n'
-                                          'Perhaps you\'ve misheard. There is certainly no gun laying around.\n'
-                                          'And there is certainly no way you will go after the blood trail. Perhaps in another life.\n')
+                                        self.action = self.make_choice()
+                                        if self.action == 'yes':
+                                            message = ('Your curiosity got the better of you. You quickly take the letter and stuff it well.\n'
+                                                  'Now, nobody will know what you\'ve been up to.')
+                                            self.print_message(message)
+                                        elif self.action == 'no':
+                                            message = ('Perhaps it is wiser to let it where it is. Or so your confused senses tell you.\n')
+                                            self.print_message(message)
+                                        message = ('You can\'t help but wonder where the gunshot came from. It was clearly from this room.\n'
+                                              'You could\'ve misheard. There is certainly no gun laying around.\n'
+                                              'And there is certainly no way you will go after the blood trail. Perhaps in another life.\n')
+                                        self.print_message(message)
+                                elif self.action == 'no':
+                                    message = ('Was that really a gunshot you just heard? You would rather not find out. Not the time, not the place to go investigating by yourself.\n'
+                                               'You wonder if you should call the police, but decide not to. You hope this was not against your best interests.\n'
+                                               'And so, after giving the room one last look, you ponder which door to explore next.\n')
                                     self.print_message(message)
-# TODO To add text and options for the choice of not pursuing the gunshot.
-
+                            else:
+                                if len(self.rooms2) == 1:
+                                    message = ('Now, time to see what is behind the final door.\n'
+                                           'Nothing good, you think to yourself. Hopefully, that won\'t be the case. Just bad thoughts...\n')
+                                # TODO Maybe I could add another event in this room if the gunshot isn't heard.
+                                # TODO Add an order for which the doors were accessed in. Adapt the text to that.
+                                    self.print_message(message)
+                                else:
+                                    message = ('Now, time to see what is behind the other doors.\n'
+                                               'For a brief second, you feel a hand on your shoulder. Its grip is firm and violent.\n'
+                                               'You turn around and survey the room. The shivers down your spine don\'t fail to appear.\n'
+                                               '...')
+                                    self.print_message(message)
 
                     elif self.action.lower() == 'go to the black door':
-                        progression_check = 1
-                        message = ('You feel an irresistible urge to explore the black door, driven by an inexplicable force.\n'
-                              'As the door creaks open, a wave of cold dread washes over you.\n'
-                              'The room before you is a nightmarish tableau of eerie cult objects, their malevolent presence seeming to watch your every move.\n'
-                              'Sinister shadows writhe along the walls, as if alive and hungry for company.\n'
-                              'The air is thick with an oppressive sense of malevolence, sending shivers down your spine.\n'
-                              'Amidst this macabre display, a black, tall silhouette of a man can be seen standing in the middle of the room.\n'
-                              'It\'s smokey and fully physical, at the same time. An evil apparition.\n'
-                              'But it is not paying attention to you. To your right, another man can be seen. This one, flesh and bone.\n'
-                              'His clothes are torn and bloody, his face, a grin of exhaustion and desperation.\n'
-                              'A plethora of cult items can be seen around him, all broken and smashed.\n'
-                              'With desperation, he loads his gun and tries shooting the black figure. It does nothing.\n'
-                              'The figure dashes across the room, to the man, grabbing his head and quickly dragging it on the floor.\n'
-                              'The black figure seemingly disappears into a darkness in the back of the room, with the man\'s blood forming a trail to it.\n'
-                              'The trail seems to be leading deeper into the heart of the chilling mystery, filling you with a gnawing sense of impending doom.\n'
-                              'You are presented with a choice: follow the blood trail?\n'
-                              '>Yes\n'
-                              '>No\n')
-                        self.print_message(message)
-                        self.action = self.make_choice()
-                        if self.action == 'yes':
-                            message = ('You follow the blood trail through a secret door in the wardrobe.\n'
-                                  'But, as soon as you step through, a darkness quickly engulfs you and throws you out of the room with force.\n'
-                                  'The door immediately slams shut. You feel shivers everywhere in your body. You\'re too fearful to get off the ground and look around.\n'
-                                  'A burning sensation can be felt on your arm. Gasping, you clutch your arm, and to your horror, you find a cursed mark etched upon your skin.\n'
-                                  'The mark appears as a sinister, intricate glyph that seems to writhe with a life of its own.\n'
-                                  'The dark ink spreads across your flesh like a malevolent stain, and you feel an unsettling, pulsating sensation emanating from the mark.\n'
-                                  'The mark glows with an eerie, crimson light, casting an ominous shadow over your surroundings. It throbs with an unseen power, as if the malevolence from the black room has now bonded with your very being.\n'
-                                  'Fear and confusion grip you as you realize you are now marked by an otherworldly force, and the sense of foreboding intensifies with each passing second.\n')
-                            self.print_message(message)
-                            self.inventory.append('Cursed Mark')
-                        elif self.action =='no':
-                            message = ('The chilling scene unfolds, overwhelming fear grips your heart. An eerie foreboding takes hold as you witness the nightmarish tableau.\n'
-                                       'The wardrobe\'s door creaks open, cold dread washes over you, freezing you in place.\n'
-                                       'Fear leaves you torn between curiosity and self-preservation. Maybe you should see where the trail is leading to, after all...\n'
-                                       'Then, the image of the apparition comes back to you. The harrowing scene that unfolded before your eyes haunts you.\n'
-                                       'You are unsure of where to find safe haven. It seems as it the malevolent entity is only toying with you, saving you for the last.\n'
-                                       'You don\'t think it\'s really gone...The dread and evil are all around. You feel almost physically squeezed by it.\n'
-                                       'You almost run out of breath a couple of times. You slowly get up, arms and legs trembling. No, you will not give in to the deadly curiosity.\n'
-                                       'This is no place to die. You didn\'t come here for this.\n'
-                                       'The ordeal leaves you scared and uncertain, unsure of the horrors that await and the choices you must make to survive.\n'
-                                       'You carefully walk around the room, analyzing everything and deciding if this would be the time\n'
-                                       'to call the police. You notice a bloody letter on the desk facing the window.\n'
-                                       'It seems to be the only item on that desk. It is sealed with a crimson seal, also reminiscent of blood.\n'
-                                       'You step closer to it, curious of its contents. But first, you think, you should search the desk\'s drawers.\n'
-                                       'Nothing comes out of your search, except for old, irrelevant papers, a broken cable and the hotel\'s assistance book.\n'
-                                       'In this case, all that\'s left is taking the letter for yourself.\n'
-                                       'Do you take it?\n'
-                                       '>Yes\n'
-                                       '>No\n')
+                        first_door = 'Black'
+                        progression_check = 'The Black Door'
+
+                        if gunshot == False:
+                            message = ('You feel an irresistible urge to explore the black door, driven by an inexplicable force.\n'
+                                  'As the door creaks open, a wave of cold dread washes over you.\n'
+                                  'The room before you is a nightmarish tableau of eerie cult objects, their malevolent presence seeming to watch your every move.\n'
+                                  'Sinister shadows writhe along the walls, as if alive and hungry for company.\n'
+                                  'The air is thick with an oppressive sense of malevolence, sending shivers down your spine.\n'
+                                  'Amidst this macabre display, a black, tall silhouette of a man can be seen standing in the middle of the room.\n'
+                                  'It\'s smokey and fully physical, at the same time. An evil apparition.\n'
+                                  'But it is not paying attention to you. To your right, another man can be seen. This one, flesh and bone.\n'
+                                  'His clothes are torn and bloody, his face, a grin of exhaustion and desperation.\n'
+                                  'A plethora of cult items can be seen around him, all broken and smashed.\n'
+                                  'With desperation, he loads his gun and tries shooting the black figure. It does nothing.\n'
+                                  'The figure dashes across the room, to the man, grabbing his head and quickly dragging it on the floor.\n'
+                                  'The black figure seemingly disappears into a darkness in the back of the room, with the man\'s blood forming a trail to it.\n'
+                                  'The trail seems to be leading deeper into the heart of the chilling mystery, filling you with a gnawing sense of impending doom.\n'
+                                  'You are presented with a choice: follow the blood trail?\n'
+                                  '>Yes\n'
+                                  '>No\n')
                             self.print_message(message)
                             self.action = self.make_choice()
                             if self.action == 'yes':
-                                    message = ('If anything will serve you as proof of what happened here, it\'s this. You quickly took the letter and stuffed it well.\n'
-                                              'Now, maybe you will live to show the world what is truly happening here.\n')
-                                    self.print_message(message)
-                            elif self.action == 'no':
-                                    message = ('Perhaps it is wiser to let it where it is. Or so your confused senses tell you.\n')
-                                    self.print_message(message)
+                                message = ('You follow the blood trail through a secret door in the wardrobe.\n'
+                                      'But, as soon as you step through, a darkness quickly engulfs you and throws you out of the room with force.\n'
+                                      'The door immediately slams shut. You feel shivers everywhere in your body. You\'re too fearful to get off the ground and look around.\n'
+                                      'A burning sensation can be felt on your arm. Gasping, you clutch your arm, and to your horror, you find a cursed mark etched upon your skin.\n'
+                                      'The mark appears as a sinister, intricate glyph that seems to writhe with a life of its own.\n'
+                                      'The dark ink spreads across your flesh like a malevolent stain, and you feel an unsettling, pulsating sensation emanating from the mark.\n'
+                                      'The mark glows with an eerie, crimson light, casting an ominous shadow over your surroundings. It throbs with an unseen power, as if the malevolence from the black room has now bonded with your very being.\n'
+                                      'Fear and confusion grip you as you realize you are now marked by an otherworldly force, and the sense of foreboding intensifies with each passing second.\n')
+                                self.print_message(message)
+                                self.inventory.append('Cursed Mark')
+                            elif self.action =='no':
+                                message = ('The chilling scene unfolds, overwhelming fear grips your heart. An eerie foreboding takes hold as you witness the nightmarish tableau.\n'
+                                           'The wardrobe\'s door creaks open, cold dread washes over you, freezing you in place.\n'
+                                           'Fear leaves you torn between curiosity and self-preservation. Maybe you should see where the trail is leading to, after all...\n'
+                                           'Then, the image of the apparition comes back to you. The harrowing scene that unfolded before your eyes haunts you.\n'
+                                           'You are unsure of where to find safe haven. It seems as it the malevolent entity is only toying with you, saving you for the last.\n'
+                                           'You don\'t think it\'s really gone...The dread and evil are all around. You feel almost physically squeezed by it.\n'
+                                           'You almost run out of breath a couple of times. You slowly get up, arms and legs trembling. No, you will not give in to the deadly curiosity.\n'
+                                           'This is no place to die. You didn\'t come here for this.\n'
+                                           'The ordeal leaves you scared and uncertain, unsure of the horrors that await and the choices you must make to survive.\n'
+                                           'You carefully walk around the room, analyzing everything and deciding if this would be the time\n'
+                                           'to call the police. You notice a bloody letter on the desk facing the window.\n'
+                                           'It seems to be the only item on that desk. It is sealed with a crimson seal, also reminiscent of blood.\n'
+                                           'You step closer to it, curious of its contents. But first, you think, you should search the desk\'s drawers.\n'
+                                           'Nothing comes out of your search, except for old, irrelevant papers, a broken cable and the hotel\'s assistance book.\n'
+                                           'In this case, all that\'s left is taking the letter for yourself.\n'
+                                           'Do you take it?\n'
+                                           '>Yes\n'
+                                           '>No\n')
+                                self.print_message(message)
+                                self.action = self.make_choice()
+                                if self.action == 'yes':
+                                        message = ('If anything will serve you as proof of what happened here, it\'s this. You quickly took the letter and stuffed it well.\n'
+                                                  'Now, maybe you will live to show the world what is truly happening here.\n')
+                                        self.print_message(message)
+                                elif self.action == 'no':
+                                        message = ('Perhaps it is wiser to let it where it is. Or so your confused senses tell you.\n')
+                                        self.print_message(message)
+                        elif gunshot == True:
+                            message = ('The door won\'t even budge. It now refuses to let you in.\n'
+                                       'Should have been thorough with the room the first time.\n'
+                                       'It is as if the door became a part of the wall itself. Curious indeed.\n')
+                            self.print_message(message)
+
                     elif self.action.lower() == 'go to the red door':
-                        progression_check = 2
+                        first_door = 'Red'
+                        progression_check = 'The Red Door'
                         message = ('As you step into the red room, a mysterious ambiance envelops you, carrying an aura of ancient secrets and mystical energies.\n'
                                    'The air is tinged with an intoxicating blend of incense and a faint scent of old parchment, with flickering candles cast dancing shadows upon the walls, creating an almost hypnotic effect.\n'
                                    'In the center of the room lies a crystal ball, perched atop an ornate stand, its surface glimmering with an otherworldly sheen.\n'
