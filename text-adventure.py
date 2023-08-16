@@ -324,7 +324,7 @@ class Player:
                                                             'Something clicks inside the wall. The stone itself sends out a ripple throughout.\n'
                                                             'But something is off. The solid stone now turns into a volatile, liquid substance.\n'
                                                             'Spikes of it are rising and sinking back everywhere. One reaches out so far that it grazes you.\n'
-                                                            'The liquid substance reacts to your blood. Tne entire wall starts buzzing and turning waves of shades of crimson.\n')
+                                                            'The liquid substance reacts to your blood. Tne entire wall starts buzzing and turning waves of shades of crimson.\n\n')
                                                         self.print_message(message)
                                                         continue
                                                     else:
@@ -341,7 +341,7 @@ class Player:
                                                 else:
                                                     if death_counter < 2:
                                                         message = ('You decide on a sequence and...nothing.\nA sinister hum is heard emanating '
-                                                              'from the wall.\n')
+                                                              'from the wall.\n\n')
                                                         death_counter += 1
                                                         self.print_message(message)
                                                         continue
