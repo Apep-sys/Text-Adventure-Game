@@ -340,8 +340,8 @@ class Player:
                                                         self.print_message(message)
                                                 else:
                                                     if death_counter < 2:
-                                                        message = ('You decide on a sequence and...nothing.\nA sinister hum is heard emanating '
-                                                              'from the wall.\n\n')
+                                                        message = ('You decide on a sequence and...nothing.\nA sinister hum is heard emanating'
+                                                              ' from the wall.\n\\n')
                                                         death_counter += 1
                                                         self.print_message(message)
                                                         continue
