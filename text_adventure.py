@@ -1,5 +1,16 @@
 import time
 
+
+def main():
+    player = Player()
+    game = Game()
+    game.game_start(player)
+    game.first_room(player)
+    game.second_room(player)
+
+if __name__ == '__main__':
+    main()
+
 class Player:
 
     def __init__(self):
@@ -42,7 +53,6 @@ class Player:
             self.intro = f"Welcome, {self.name}, to {self.place}. You were tasked by Camp {forest_options[self.pclass - 1]}" \
                          f"with {self.detail1[self.pclass - 1]} the Taibur Forest.\nCarefully weigh your choices, as your" \
                          f"survival depends on them. \nThe night sets in now...and you must survive it. "
-
         if self.place_choice.title() == 'Fantasy Adventure':
             self.name = input("What is your name, adventurer?\n").title()
             self.pclass = int(input("And what order do you belong to?\n"
@@ -58,10 +68,10 @@ class Player:
                          f"beware the horrors in the dark."
         if self.place_choice.title() == 'Murder Mystery':
             self.name = input("What is your name, endorsed guest?\n").title()
-            self.pclass = input("And what room are you from?\n"
-                                    "1. Room 09\n"
-                                    "2. Room 13\n"
-                                    "3. Room 256\n>").lower()
+            self.pclass = input("And what room are you from?\n\n"
+                                    ">Room 09\n"
+                                    ">Room 13\n"
+                                    ">Room 256\n>").lower()
             self.place = 'Hotel Margot'
             self.detail1 = ['fashion gala', 'interview for your paper',
                             'guests\'s appetite']
@@ -295,7 +305,7 @@ class Player:
                                             self.choice = self.make_choice()
                                             if self.choice == 'introduce the magnifying glass in the carving representing it':
                                                 message = ('You take out your magnifying glass and fit it into the block\'s carving.\n'
-                                                      'You are surprised it worked, as it seemed to be an odd choice.\n')
+                                                      'You are surprised it worked, as it seemed to be an odd choice.\n\n')
                                                 self.inventory.remove('Magnifying Glass')
                                                 step += 1
                                                 self.print_message(message)
@@ -370,7 +380,9 @@ class Player:
                                               'You step closer to it, curious of its contents. But first, you think, you should search the desk\'s drawers.\n'
                                               'Nothing comes out of your search, except for old, irrelevant papers, a broken cable and the hotel\'s assistance book.\n'
                                               'In this case, all that\'s left is taking the letter for yourself.\n'
-                                              'Do you take it?\n ')
+                                              'Do you take it?\n\n'
+                                              '>Yes\n'
+                                              '>No\n')
                                         self.print_message(message)
                                         self.action = self.make_choice()
                                         if self.action == 'yes':
@@ -455,14 +467,14 @@ class Player:
                                            'You step closer to it, curious of its contents. But first, you think, you should search the desk\'s drawers.\n'
                                            'Nothing comes out of your search, except for old, irrelevant papers, a broken cable and the hotel\'s assistance book.\n'
                                            'In this case, all that\'s left is taking the letter for yourself.\n'
-                                           'Do you take it?\n'
+                                           'Do you take it?\n\n'
                                            '>Yes\n'
                                            '>No\n')
                                 self.print_message(message)
                                 self.action = self.make_choice()
                                 if self.action == 'yes':
                                         message = ('If anything will serve you as proof of what happened here, it\'s this. You quickly took the letter and stuffed it well.\n'
-                                                  'Now, maybe you will live to show the world what is truly happening here.\n')
+                                                  'Now, maybe you will live to show the world what is truly happening here.\n\n')
                                         self.print_message(message)
                                 elif self.action == 'no':
                                         message = ('Perhaps it is wiser to let it where it is. Or so your confused senses tell you.\n')
@@ -663,9 +675,9 @@ class Game(Player):
             self.narrator5()
 
         message = (f"Your choice for your setting is...: \n"
-              f"1.{Game.places[0]}\n"
-              f"2. {Game.places[1]}\n"
-              f"3. {Game.places[2]}\n")
+              f">{Game.places[0]}\n"
+              f">{Game.places[1]}\n"
+              f">{Game.places[2]}\n")
         self.print_message(message)
         player_choice = player.make_choice()
         player.creation(player_choice)
@@ -683,9 +695,3 @@ class Game(Player):
 
 
 
-
-player = Player()
-game = Game()
-game.game_start(player)
-game.first_room(player)
-game.second_room(player)
