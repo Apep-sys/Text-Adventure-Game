@@ -1,16 +1,6 @@
 import time
 
 
-def main():
-    player = Player()
-    game = Game()
-    game.game_start(player)
-    game.first_room(player)
-    game.second_room(player)
-
-if __name__ == '__main__':
-    main()
-
 class Player:
 
     def __init__(self):
@@ -42,7 +32,7 @@ class Player:
         fantasy_options = ['Knight', 'Mage', 'Druid']
         forest_options = ['Wawanakwa', 'Red Root', 'Blue Dawn']
         murder_options = ['room 09', 'room 13', 'room 256']
-        if self.place_choice.title() == 'Forest Trip':
+        '''if self.place_choice.title() == 'Forest Trip':
             self.name = input("What is your name, scout?\n>").title()
             self.pclass = int(input("And what camp do you come from?\n"
                                     "1. Camp Wawanakwa\n"
@@ -65,13 +55,9 @@ class Player:
                          f"Carefully listen, as you have been tasked with {self.detail1[self.pclass - 1]} of the {self.place}." \
                          f"\nNow, heed my call, as the challenges you will face must be met with proper thought" \
                          f"and strength of mind and body. \nMake it to the end of the cave and finish your task...but" \
-                         f"beware the horrors in the dark."
+                         f"beware the horrors in the dark."'''
         if self.place_choice.title() == 'Murder Mystery':
-            self.name = input("What is your name, endorsed guest?\n").title()
-            self.pclass = input("And what room are you from?\n\n"
-                                    ">Room 09\n"
-                                    ">Room 13\n"
-                                    ">Room 256\n>").lower()
+            self.name = "What is your name, endorsed guest?\n"
             self.place = 'Hotel Margot'
             self.detail1 = ['fashion gala', 'interview for your paper',
                             'guests\'s appetite']
@@ -643,9 +629,10 @@ class Game(Player):
     adventure_count = 0
 
     def narrator1(self):
-        message = ("Tonight, we have a special guest.\nHe is here to begin a journey that will lead him...places."
-              "\nIt is all up to him to make the right choices. Or the ones that seem right, anyway.\n")
-        self.print_message(message)
+        message = ("Tonight, we have a special guest. He is here to begin a journey that will lead him...places."
+              " It is all up to him to make the right choices. Or the ones that seem right, anyway.\n")
+        #self.print_message(message)
+        return message
 
     def narrator2(self):
         print("Tonight, we have a special guest.\nHe is here to begin a journey that will lead him...places."
@@ -694,4 +681,13 @@ class Game(Player):
         player.room_intro2()
 
 
+def main():
+    player = Player()
+    game = Game()
+    game.game_start(player)
+    game.first_room(player)
+    game.second_room(player)
 
+
+if __name__ == '__main__':
+    main()
