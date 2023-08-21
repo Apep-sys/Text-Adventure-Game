@@ -83,8 +83,6 @@ def get_player_input():
     return player_input
 
 
-
-    #intro1 = player_obj.room_intro1()
 pygame.init()
 
 screen = pygame.display.set_mode((1000, 667))

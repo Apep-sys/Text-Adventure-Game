@@ -11,10 +11,8 @@ def start():
     player.place_choice = 'Murder Mystery'
     game_file.screen.fill(game_file.black)
 
-    game_file.display_message('What is your name, endorsed guest?')
+    game_file.display_message('What is your name, endorsed guest?\n')
     player.name = game_file.get_player_input().title()
-    print(player.name)
-    adv_file.time.sleep(1)
     game_file.screen.fill(game_file.black)
 
     game_file.display_message('And what room are you from?\n\n'
@@ -22,9 +20,8 @@ def start():
                                     '>Room 13\n'
                                     '>Room 256\n>').lower()
     player.pclass = game_file.get_player_input().lower()
-    player.creation(player.place_choice)
     game_file.screen.fill(game_file.black)
-
+    player.creation(player.place_choice)
     game_file.display_message(player.intro)
     adv_file.time.sleep(1)
 

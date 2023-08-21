@@ -57,7 +57,6 @@ class Player:
                          f"and strength of mind and body. \nMake it to the end of the cave and finish your task...but" \
                          f"beware the horrors in the dark."'''
         if self.place_choice.title() == 'Murder Mystery':
-            self.name = "What is your name, endorsed guest?\n"
             self.place = 'Hotel Margot'
             self.detail1 = ['fashion gala', 'interview for your paper',
                             'guests\'s appetite']
