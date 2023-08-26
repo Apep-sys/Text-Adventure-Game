@@ -64,7 +64,7 @@ class Player:
             self.rooms1 = ['Closet', 'Elevator', 'Balcony']
             self.items1 = ['Magnifying Glass', 'Fuse']
             self.intro = (f"Oh, dear! If it isn't {self.name}! We were expecting you, and we are pleased to have you.\n" 
-                         f"Please, make yourself at home in our dear {self.place}. Your room is {self.pclass}.\n" 
+                         f"Please, make yourself at home in our dear {self.place}. Your room is {self.pclass.title()}.\n" 
                          f"For tonight, the {self.detail1[murder_options.index(self.pclass)]}, in the main hall, " 
                          f"awaits you. Do consider taking your time when " 
                          f"deciding how to best approach this event!\nIt won't be long until the MAIN event will begin...\n" 
@@ -77,7 +77,7 @@ class Player:
             self.rooms2 = ['The Green Door', 'The Black Door', 'The Red Door']
             self.items2 = ['Bloody Letter', 'VIP Ticket', 'Cursed Mark']
 
-    def room_intro1(self):
+    def room_intro1(self, message):
         if self.place_choice.title() == 'Murder Mystery':
             message = ('You enter the dimly lit hallway, caught between the safety of your room and the mysteries ahead.\n' 
                 'The air is still, carrying a hint of aged wood. The faded wallpaper peels, revealing the passage of time.\n' 
@@ -87,20 +87,20 @@ class Player:
                 'You observe two items: a fuse, laying on a shelf, and a magnifying glass, somehow waiting for a firm hand to pick it up.\n' 
                 'Anticipation settles upon you as you stand in this hallway, ready to unlock the stories within each room.\n'
                 'The adventure awaits, just beyond the threshold.\n' )
-            self.print_message(message)
+            #self.print_message(message)
             while self.check1 == False:
                 if len(self.items1) > 0:
                     message = ('What is your next move?\n\n' 
                                    '>Go to Rooms\n' 
                                    '>Pick up Items\n')
-                    self.print_message(message)
+                    #self.print_message(message)
 
-                    self.action = self.make_choice()
+                    #self.action = self.make_choice()
                 else:
                     message = ('What is your next move?\n\n'
                           '>Go to Rooms\n')
-                    self.print_message(message)
-                    self.action = self.make_choice()
+                    #self.print_message(message)
+                    #self.action = self.make_choice()
                 if self.action.lower() == 'pick up items' and len(self.items1) > 0:
                     message = ('Which item do you pick up?\n\n')
                     self.print_message(message)

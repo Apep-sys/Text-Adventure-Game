@@ -22,34 +22,51 @@ def split_text(text, font, max_width):
     return lines
 
 
-def display_message(message):
+def display_message(value, message):
     displayed_text = ''
     index = 0
     lines = []
 
-    while index < len(message):
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
+    if value == 1:
+        while index < len(message):
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
 
-        displayed_text += message[index]
+            displayed_text += message[index]
+            index += 1
+
+            # Update the lines based on displayed_text
+            lines = split_text(displayed_text, font, 1000 - 2 * 50)
+
+            y_position = 50
+            for line in lines:
+                text_surface = font.render(line, True, white)
+                screen.blit(text_surface, (50, y_position))
+                y_position += font.get_height() # Move to the next line
+            pygame.display.update()
+            time.sleep(0.08)  # Adjust the delay time as needed
+
+    elif value == 2:
         index += 1
+        y_position = 70
+        x_position = 50
+        lines = split_text(" ".join(message), font, 1000 - 2 * 50)
+        #words = message.split(', ')
+        for word in lines:
+            for letter in word:
+                if letter == ">":
+                    y_position += font.get_height() + 10
+                    x_position = 50
+                text_surface = font.render(letter, True, white)
+                screen.blit(text_surface, (x_position, y_position))
+                x_position += 12
 
-        # Update the lines based on displayed_text
-        lines = split_text(displayed_text, font, 1000 - 2 * 50)
+                pygame.display.update()
+                pygame.time.wait(80)
 
-        # Display wrapped text
-        y_position = 50
-        for line in lines:
-            text_surface = font.render(line, True, white)
-            screen.blit(text_surface, (50, y_position))
-            y_position += font.get_height()  # Move to the next line
-
-        pygame.display.update()
-        time.sleep(0.08)  # Adjust the delay time as needed
     return displayed_text
-
 
 def get_player_input():
     player_input = '> '
