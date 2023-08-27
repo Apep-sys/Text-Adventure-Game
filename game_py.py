@@ -49,23 +49,22 @@ def display_message(value, message):
             time.sleep(0.08)  # Adjust the delay time as needed
 
     elif value == 2:
-        index += 1
         y_position = 70
         x_position = 50
-        lines = split_text(" ".join(message), font, 1000 - 2 * 50)
-        #words = message.split(', ')
-        for word in lines:
+        #lines = split_text(" ".join(message), font, 1000 - 2 * 50)
+        for word in "".join(message):          # Lines are actually not lines, but a full string.
             for letter in word:
-                if letter == ">":
+                if letter == ">":       # If the letter is >, then the y position is increased and the word goes on the next line.
                     y_position += font.get_height() + 10
                     x_position = 50
                 text_surface = font.render(letter, True, white)
                 screen.blit(text_surface, (x_position, y_position))
-                x_position += 12
+                size = pygame.font.Font.size(font, "".join(message))
+                x_position += text_surface.get_width()   # To avoid adding the letters on the same coordinate of x, we increase it.
 
                 pygame.display.update()
                 pygame.time.wait(80)
-
+    #TODO Could add customizable positions for (x,y) depending on the length of the message, as they are standard right now.
     return displayed_text
 
 def get_player_input():
