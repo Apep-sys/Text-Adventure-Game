@@ -140,7 +140,7 @@ if __name__ == '__main__':
         text = 'Test message'
         position = (50, 50)
         #lines = split_text(text, font, 1000 - 2 * 50)
-        message_displayed = display_message(text)
+        message_displayed = display_message(1, text)
         user_answer = get_player_input()
 
         screen.fill(black)

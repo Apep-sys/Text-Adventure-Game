@@ -43,7 +43,7 @@ def room1():
     while player.check1 == False:
         if len(player.items1) > 0:
             game_file.display_message(1, 'What is your next move?\n\n')
-            choices = ['>Go to Rooms', '>Pick up Ixttems']
+            choices = ['>Go to rooms', '>Pick up items']
             game_file.display_message(2, choices)
             player.action = game_file.get_player_input()
             game_file.screen.fill(game_file.black)
@@ -66,10 +66,10 @@ def room1():
             game_file.screen.fill(game_file.black)
 
             if player.action.lower() == 'magnifying glass':
-                message = ('You pick up a magnifying glass. Hopefully, it will be useful in the way you think.\n')
+                message = ('You pick up a magnifying glass. Hopefully, it will be useful in the way that you think.\n')
                 game_file.display_message(1, message)
-                player.inventory.append('Magnifying glass')
-                player.items1.remove('Magnifying glass')
+                player.inventory.append('Magnifying Glass')
+                player.items1.remove('Magnifying Glass')
                 game_file.screen.fill(game_file.black)
 
                 continue
