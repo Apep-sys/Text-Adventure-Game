@@ -22,15 +22,24 @@ def split_text(text, font, max_width):
     return lines
 
 
-def display_message(value, message):
+def display_message(value, message, coordinates=(50, 50)):
     displayed_text = ''
     index = 0
     lines = []
+    time_delayed = 0.08
 
     if value == 1:
         while index < len(message):
             for event in pygame.event.get():
-                if event.type == pygame.QUIT:
+                if event.type == pygame.KEYDOWN:
+                    start = time.time()
+                    if event.key == pygame.K_SPACE:
+                        time_delayed -= 0.05
+                        '''if start >= 5000:
+                            time_delayed -= 0.07'''
+                elif event.type == pygame.KEYUP:
+                    time_delayed = 0.08
+                elif event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
 
@@ -46,11 +55,21 @@ def display_message(value, message):
                 screen.blit(text_surface, (50, y_position))
                 y_position += font.get_height() # Move to the next line
             pygame.display.update()
-            time.sleep(0.08)  # Adjust the delay time as needed
+            time.sleep(time_delayed)  # Adjust the delay time as needed
 
     elif value == 2:
-        y_position = 70
-        x_position = 50
+        time_delayed = 0.08
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    time_delayed -= 0.05
+            elif event.type == pygame.KEYUP:
+                time_delayed = 0.08
+            elif event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+        x_position, y_position = coordinates
         #lines = split_text(" ".join(message), font, 1000 - 2 * 50)
         for word in "".join(message):          # Lines are actually not lines, but a full string.
             for letter in word:
@@ -63,7 +82,7 @@ def display_message(value, message):
                 x_position += text_surface.get_width()   # To avoid adding the letters on the same coordinate of x, we increase it.
 
                 pygame.display.update()
-                pygame.time.wait(80)
+                time.sleep(time_delayed)        #pygame.wait
     #TODO Could add customizable positions for (x,y) depending on the length of the message, as they are standard right now.
     return displayed_text
 
