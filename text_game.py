@@ -26,7 +26,7 @@ def start():
     game_file.screen.fill(game_file.black)
 
     player.creation(player.place_choice)
-    game_file.display_message(1, player.intro)
+    #game_file.display_message(1, player.intro)
 
 
 def room1():
@@ -170,10 +170,12 @@ def room2():
 
         while player.check2 == False:
             if progression_check == -1:
-                choices = ['Where do you go to choose?']
+                message = ('Where do you choose to go?')
+                game_file.display_message(1, message)
+                choices = []
                 for i in player.rooms2:
                     choices.append('>Go to ' + i.lower())
-                    game_file.display_message(2, choices)
+                game_file.display_message(2, choices)
             else:
                 player.rooms2.remove(progression_check)
                 player.rooms2.sort()
@@ -182,7 +184,7 @@ def room2():
                 choices = []
                 for i in player.rooms2:
                     choices.append('>Go to ' + i.lower())
-                    game_file.display_message(2, choices)
+                game_file.display_message(2, choices)
             player.action = game_file.get_player_input()
             game_file.screen.fill(game_file.black)
 
@@ -560,18 +562,29 @@ def room2():
                     'It beckons you to approach, offering cryptic insights into the future and a glimpse into the veiled realms of destiny.\n'
                     'Tarot cards spread in a precise pattern whisper untold possibilities, while ancient tomes of arcane knowledge hold the wisdom of ages past.\n'
                     'Five intriguing objects line a nearby table, each veiled in mystery, awaiting your firm hand.\n'
-                    'The air tingles with anticipation. What will it be first?\n\n')
+                    'The air tingles with anticipation.')
                 player.temp_check = False
                 choices = ['Crystal ball', 'Tarot cards', 'Table of objects', 'Go outside the room']
-                #TODO The choices are displayed in an overlap and have a slight timing issue? Need to check further.
                 game_file.display_message(1, message)
-                game_file.display_message(2, choices)
 
                 while player.temp_check == False:
-                    for i in choices:
-                        game_file.display_message(2, i)
-                    player.action = game_file.get_player_input()
-                    game_file.screen.fill(game_file.black)
+                    game_file.display_message(1, 'What will it be first?', (50, 280))
+
+                    if len(choices) == 4:
+                        y_position = 300
+                        for i in choices:
+                            game_file.display_message(2, '> ' + i, (50, y_position))
+                            y_position += 20
+                        player.action = game_file.get_player_input()
+                        game_file.screen.fill(game_file.black)
+
+                    else:
+                        y_position = 70
+                        for i in choices:
+                            game_file.display_message(2, '> ' + i, (50, y_position))
+                            y_position += 20
+                        player.action = game_file.get_player_input()
+                        game_file.screen.fill(game_file.black)
 
                     if player.action == 'crystal ball':
                         if 'Cursed Mark' in player.inventory:
@@ -695,16 +708,15 @@ def room2():
                             'A perfumed satchel, adorned with beautiful symbols.\n'
                             'A rosary, of the simplest design.\n'
                             'Something tells you you can only pick one. And that it is somewhat...relevant. Vital, rather.\n'
-                            'Which one will it be?\n\n')
-                        temp_choices = ['>Silver ring\n',
-                            '>Black mirror\n',
-                            '>Ancient tome\n',
-                            '>Perfumed satchel\n',
-                            '>Rosary\n']
+                            'Which one will it be?')
+                        temp_choices = ['>Silver ring',
+                            '>Black mirror',
+                            '>Ancient tome',
+                            '>Perfumed satchel',
+                            '>Rosary']
                         game_file.display_message(1, message)
-                        game_file.display_message(2, temp_choices)
+                        game_file.display_message(2, temp_choices, (50, 250))
                         player.action = game_file.get_player_input()
-                        time.sleep(1)
                         game_file.screen.fill(game_file.black)
                         choices.remove('Table of objects')
                         choices.sort()

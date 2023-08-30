@@ -27,18 +27,26 @@ def display_message(value, message, coordinates=(50, 50)):
     index = 0
     lines = []
     time_delayed = 0.08
+    start = time.time()
 
     if value == 1:
+        x_position, y_position = coordinates
+
         while index < len(message):
             for event in pygame.event.get():
+
                 if event.type == pygame.KEYDOWN:
-                    start = time.time()
+                    end = time.time()
+
                     if event.key == pygame.K_SPACE:
-                        time_delayed -= 0.05
-                        '''if start >= 5000:
-                            time_delayed -= 0.07'''
+                        time_delayed = 0.04
+
+                        if end - start >= 2:
+                            time_delayed = 0.02
+
                 elif event.type == pygame.KEYUP:
                     time_delayed = 0.08
+
                 elif event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
@@ -52,25 +60,32 @@ def display_message(value, message, coordinates=(50, 50)):
             y_position = 50
             for line in lines:
                 text_surface = font.render(line, True, white)
-                screen.blit(text_surface, (50, y_position))
+                screen.blit(text_surface, (x_position, y_position))
                 y_position += font.get_height() # Move to the next line
             pygame.display.update()
             time.sleep(time_delayed)  # Adjust the delay time as needed
 
     elif value == 2:
         time_delayed = 0.08
+
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
+                end = time.time()
+
                 if event.key == pygame.K_SPACE:
-                    time_delayed -= 0.05
+                    time_delayed = 0.035
+
+                    if end - start >= 2:
+                        time_delayed = 0.02
+
             elif event.type == pygame.KEYUP:
                 time_delayed = 0.08
+
             elif event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
 
         x_position, y_position = coordinates
-        #lines = split_text(" ".join(message), font, 1000 - 2 * 50)
         for word in "".join(message):          # Lines are actually not lines, but a full string.
             for letter in word:
                 if letter == ">":       # If the letter is >, then the y position is increased and the word goes on the next line.
@@ -83,7 +98,6 @@ def display_message(value, message, coordinates=(50, 50)):
 
                 pygame.display.update()
                 time.sleep(time_delayed)        #pygame.wait
-    #TODO Could add customizable positions for (x,y) depending on the length of the message, as they are standard right now.
     return displayed_text
 
 def get_player_input():
