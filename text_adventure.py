@@ -6,23 +6,35 @@ class Player:
     def __init__(self):
         self.name = None
         self.place = None
-        self.detail1 = None
-        self.level1 = None
-        self.level2 = None
-        self.pclass = None
         self.intro = None
-        self.choice = None
-        self.state = None # State of the player - Dead/Alive
-        self.inventory = []
-        self.items = None
-        self.rooms1 = None
-        self.rooms2 = None
-        self.action = None
-        self.check1 = False
-        self.check2 = False
+        self.pclass = None
+        
         self.temp_check = False
         self.place_choice = None
         self.game_end = False
+        
+        self.choice = None
+        self.action = None
+        self.state = None  # State of the player - Dead/Alive
+        
+        self.inventory = []
+        
+        self.detail1 = None
+        self.level1 = None
+        self.rooms1 = None
+        self.items1 = None
+        self.check1 = False
+
+        self.level2 = None
+        self.rooms2 = None
+        self.check2 = False
+        self.items2 = None
+        
+        self.level3 = None
+        self.rooms3 = None
+        self.check3 = None
+        
+        
     def make_choice(self):
         self.choice = input("\n>").lower()
         return self.choice
@@ -60,7 +72,7 @@ class Player:
             self.place = 'Hotel Margot'
             self.detail1 = ['fashion gala', 'interview for your paper',
                             'guests\'s appetite']
-            self.level1 = 'Hallway\n\n'
+            self.level1 = 'Hallway'
             self.rooms1 = ['Closet', 'Elevator', 'Balcony']
             self.items1 = ['Magnifying Glass', 'Fuse']
             self.intro = (f"Oh, dear! If it isn't {self.name}! We were expecting you, and we are pleased to have you.\n" 
@@ -70,12 +82,19 @@ class Player:
                          f"deciding how to best approach this event!\nIt won't be long until the MAIN event will begin...\n" 
                          f"Consider yourself lucky for the heads up. The other guests aren't so lucky. \nOne, in particular...\n" 
                          f"But enough talk! Go on! Have a wonderful evening!\nMaybe your last one.\n\n")
+            
             if self.pclass == 'room 09':
                 self.level2 = 'Basement\n'
             elif self.pclass == 'room 13' or self.pclass == 'room 256':
-                self.level2 = 'The Lower Floor\n\n'
+                self.level2 = 'The Lower Floor'
+                
             self.rooms2 = ['The Green Door', 'The Black Door', 'The Red Door']
             self.items2 = ['Bloody Letter', 'VIP Ticket', 'Cursed Mark']
+
+            self.level3 = 'Hall to the Lounge'
+            self.items3 = []
+            
+            
 
     def room_intro1(self, message):
         if self.place_choice.title() == 'Murder Mystery':

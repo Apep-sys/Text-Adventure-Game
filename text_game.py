@@ -287,8 +287,6 @@ def room2():
                                     if 'Magnifying Glass' in player.inventory:
                                         choices = ['>Introduce the magnifying glass in the carving representing it',
                                                    '>Push the blocks of rock']
-                                        # TODO Bug where these options don't show up, but going to the black door does
-                                        # Order was Red Door and Green Door.
                                         game_file.display_message(2, choices, (50, 260))
 
                                     else:
@@ -713,7 +711,7 @@ def room2():
                             '>Perfumed satchel',
                             '>Rosary']
                         game_file.display_message(1, message)
-                        game_file.display_message(2, temp_choices, (50, 240))
+                        game_file.display_message(2, temp_choices, (50, 230))
                         player.action = game_file.get_player_input()
                         game_file.screen.fill(game_file.black)
                         choices.remove('Table of objects')
@@ -776,8 +774,7 @@ def room2():
 
 start()
 game_file.screen.fill(game_file.black)
-player.inventory.append('Magnifying Glass')
-room2()
+room1()
 game_file.screen.fill(game_file.black)
 
 game_file.pygame.display.update()

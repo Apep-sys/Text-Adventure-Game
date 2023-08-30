@@ -53,7 +53,7 @@ def display_message(value, message, coordinates=(50, 70)):
 
             y_position = 50
             for line in lines:
-                text_surface = font.render(line, True, color)
+                text_surface = font.render(line, True, color_text)
                 screen.blit(text_surface, (x_position, y_position))
                 y_position += font.get_height() # Move to the next line
 
@@ -80,13 +80,14 @@ def display_message(value, message, coordinates=(50, 70)):
                 if letter == ">":       # If the letter is >, then the y position is increased and the word goes on the next line.
                     y_position += font.get_height() + 10
                     x_position = 50
-                text_surface = font.render(letter, True, color)
+                text_surface = font.render(letter, True, color_choices)
                 screen.blit(text_surface, (x_position, y_position))
                 size = pygame.font.Font.size(font, "".join(message))
                 x_position += text_surface.get_width()   # To avoid adding the letters on the same coordinate of x, we increase it.
 
                 pygame.display.update()
-                time.sleep(time_delayed)        #pygame.wait
+                time.sleep(time_delayed)    #pygame.wait
+
     return displayed_text
 
 def get_player_input():
@@ -129,7 +130,8 @@ font = pygame.font.Font("freesansbold.ttf", 22)
 clock = pygame.time.Clock()
 black = (0, 0, 0)
 white = (255, 255, 255)
-color = (204, 119, 34)
+color_text = (204, 119, 34)
+color_choices = (255, 191, 0)
 
 
 
