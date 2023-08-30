@@ -196,8 +196,7 @@ def room2():
                            'Do you go to the bathroom?')
                 game_file.display_message(1, message)
                 choices = ['>Yes', '>No']
-                game_file.display_message(2, choices, (50, 110))
-                time.sleep(2)
+                game_file.display_message(2, choices, (50, 100))
                 progression_check = 'The Green Door'
                 player.action = game_file.get_player_input()
                 game_file.screen.fill(game_file.black)
@@ -225,8 +224,7 @@ def room2():
                                'Do you take it?')
                     game_file.display_message(1, message)
                     choices = ['>Yes', '>No']
-                    game_file.display_message(2, choices, (50, 120))
-                    time.sleep(2)
+                    game_file.display_message(2, choices, (50, 150))
                     player.action = game_file.get_player_input()
                     game_file.screen.fill(game_file.black)
 
@@ -249,7 +247,7 @@ def room2():
                             'with the black door.\nDo you pursue the gunshot?')
                         choices = ['>Yes', '>No']
                         game_file.display_message(1, message)
-                        game_file.display_message(2, choices)
+                        game_file.display_message(2, choices, (50, 95))
                         player.action = game_file.get_player_input()
                         time.sleep(1)
                         game_file.screen.fill(game_file.black)
@@ -266,7 +264,7 @@ def room2():
                                 'Do you pursue further?')
                             choices = ['>Yes', '>No']
                             game_file.display_message(1, message)
-                            game_file.display_message(2, choices)
+                            game_file.display_message(2, choices, (50, 215))
                             time.sleep(1)
                             player.action = game_file.get_player_input()
                             game_file.screen.fill(game_file.black)
@@ -280,21 +278,22 @@ def room2():
                                            'You come to a dead end. A rock wall proudly defies you, by simply existing '
                                            'in your way.\nFive blocks of rock are protruding out of it, each with a different '
                                            'symbol carved on it.\nA door, a circle, a candle, a magnifying glass and a wand.\n'
-                                           'How do you proceed?\n\n')
+                                           'How do you proceed?')
                                 game_file.display_message(1, message)
                                 step = 0  # Steps for completing the puzzle
                                 death_counter = 0  # Counter for the amount of times you can try pushing the blocks, 2 is max
                                 while player.temp_check == False:
+
                                     if 'Magnifying Glass' in player.inventory:
                                         choices = ['>Introduce the magnifying glass in the carving representing it',
                                                    '>Push the blocks of rock']
                                         # TODO Bug where these options don't show up, but going to the black door does
                                         # Order was Red Door and Green Door.
-                                        game_file.display_message(2, choices)
-                                        time.sleep(2)
+                                        game_file.display_message(2, choices, (50, 260))
+
                                     else:
                                         choices = ['>Push the blocks of rock']
-                                        game_file.display_message(2, choices)
+                                        game_file.display_message(2, choices, (50, 260))
                                     player.action = game_file.get_player_input()
                                     game_file.screen.fill(game_file.black)
 
@@ -317,7 +316,7 @@ def room2():
                                             '>Wand, door, candle, magnifying glass, triangle',
                                             '>Door, candle, magnifying glass, circle, wand']
                                         game_file.display_message(1, message)
-                                        game_file.display_message(2, choices)
+                                        game_file.display_message(2, choices, (50, 80))
                                         player.action = game_file.get_player_input()
                                         time.sleep(2)
                                         game_file.screen.fill(game_file.black)
@@ -405,7 +404,7 @@ def room2():
                                 choices = ['>Yes',
                                            '>No']
                                 game_file.display_message(1, message)
-                                game_file.display_message(2, choices)
+                                game_file.display_message(2, choices, (50, 220))
                                 player.action = game_file.get_player_input()
                                 time.sleep(1)
                                 game_file.screen.fill(game_file.black)
@@ -435,9 +434,15 @@ def room2():
 
                         elif player.action == 'no':
                             message = (
-                                'Was that really a gunshot you just heard? You would rather not find out. Not the time, not the place to go investigating by yourself.\n'
-                                'You wonder if you should call the police, but decide not to. You hope this was not against your best interests.\n'
-                                'And so, after giving the room one last look, you ponder which door to explore next.\n')
+                                'Was that really a gunshot you just heard? You would rather not find out. Not the time, not the place to go investigating by yourself.'
+                                'You wonder if you should call the police, but decide not to. You hope this was not against your best interests.'
+                                'For a brief second, you feel a hand on your shoulder. Its grip is firm and violent.\n'
+                                'You turn around and survey the room. The shivers down your spine don\'t fail to appear.\n'
+                                'You feel light headed. Your steps are uncertain and heavy.\n'
+                                'You hold onto the wall on your way out and take a short break.\n'
+                                'This place is physically hurting you. You need to get to the end of it.\n'
+                                'As. Soon. As. Possible.'
+                                'And so, after giving the room one last look, you ponder which door to explore next.')
                             game_file.display_message(1, message)
                             time.sleep(2)
                             game_file.screen.fill(game_file.black)
@@ -445,18 +450,6 @@ def room2():
                         if len(player.rooms2) == 2:
                             message = ('Now, time to see what is behind the final door.\n'
                                        'Nothing good, you think to yourself. Hopefully, that won\'t be the case. Just bad thoughts...\n')
-                            game_file.display_message(1, message)
-                            time.sleep(2)
-                            game_file.screen.fill(game_file.black)
-
-                        else:
-                            message = ('Now, time to see what is behind the other doors.\n'
-                                       'For a brief second, you feel a hand on your shoulder. Its grip is firm and violent.\n'
-                                       'You turn around and survey the room. The shivers down your spine don\'t fail to appear.\n'
-                                       'You feel light headed. Your steps are uncertain and heavy.\n'
-                                       'You hold onto the wall on your way out and take a short break.\n'
-                                       'This place is physically hurting you. You need to get to the end of it.\n'
-                                       'As. Soon. As. Possible.\n')
                             game_file.display_message(1, message)
                             time.sleep(2)
                             game_file.screen.fill(game_file.black)
@@ -485,7 +478,7 @@ def room2():
                     choices = ['>Yes',
                         '>No']
                     game_file.display_message(1, message)
-                    game_file.display_message(2, choices)
+                    game_file.display_message(2, choices, (50, 405))
                     player.action = game_file.get_player_input()
                     time.sleep(1)
                     game_file.screen.fill(game_file.black)
@@ -525,7 +518,7 @@ def room2():
                         choices = ['>Yes',
                             '>No']
                         game_file.display_message(1, message)
-                        game_file.display_message(2, choices)
+                        game_file.display_message(2, choices, (110, 460))
                         game_file.get_player_input()
                         time.sleep(1)
                         game_file.screen.fill(game_file.black)
@@ -564,11 +557,16 @@ def room2():
                     'Five intriguing objects line a nearby table, each veiled in mystery, awaiting your firm hand.\n'
                     'The air tingles with anticipation.')
                 player.temp_check = False
-                choices = ['Crystal ball', 'Tarot cards', 'Table of objects', 'Go outside the room']
+                choices = ['Crystal ball', 'Tarot cards', 'Table of objects', 'Go outside of the room']
                 game_file.display_message(1, message)
-
+                display_check = False
                 while player.temp_check == False:
-                    game_file.display_message(1, 'What will it be first?', (50, 280))
+
+                    if display_check == False:
+                        game_file.display_message(2, 'So then, what path do you choose?', (50, 290))
+                        display_check = True
+                    else:
+                        game_file.display_message(2, 'So then, what path do you choose?', (50, 50))
 
                     if len(choices) == 4:
                         y_position = 300
@@ -596,7 +594,7 @@ def room2():
                                 'It looks like he is guarding the entrance. The crystall ball goes blank again and cracks.\n\n')
                             game_file.display_message(1, message)
                             time.sleep(2)
-                            game_file.screen(game_file.black)
+                            game_file.screen.fill(game_file.black)
                             choices.remove('Crystal ball')
                             choices.sort()
 
@@ -715,7 +713,7 @@ def room2():
                             '>Perfumed satchel',
                             '>Rosary']
                         game_file.display_message(1, message)
-                        game_file.display_message(2, temp_choices, (50, 250))
+                        game_file.display_message(2, temp_choices, (50, 240))
                         player.action = game_file.get_player_input()
                         game_file.screen.fill(game_file.black)
                         choices.remove('Table of objects')
@@ -765,19 +763,20 @@ def room2():
                             game_file.screen.fill(game_file.black)
                             player.inventory.append('Rosary')
 
-                    elif player.action == 'go outside the room':
+                    elif player.action == 'go outside of the room':
                         message = ('Now, having seen enough of the room, you better leave it for now.\n'
                                    'Hopefully for you, you explored it thoroughly. You have a feeling it was crucial.\n\n')
                         game_file.display_message(1, message)
                         time.sleep(2)
                         game_file.screen.fill(game_file.black)
-                        choices.remove('Go outside the room')
+                        choices.remove('Go outside of the room')
                         choices.sort()
                         player.temp_check = True
 
 
 start()
 game_file.screen.fill(game_file.black)
+player.inventory.append('Magnifying Glass')
 room2()
 game_file.screen.fill(game_file.black)
 

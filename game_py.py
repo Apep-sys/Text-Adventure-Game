@@ -22,12 +22,11 @@ def split_text(text, font, max_width):
     return lines
 
 
-def display_message(value, message, coordinates=(50, 50)):
+def display_message(value, message, coordinates=(50, 70)):
     displayed_text = ''
     index = 0
     lines = []
     time_delayed = 0.08
-    start = time.time()
 
     if value == 1:
         x_position, y_position = coordinates
@@ -36,13 +35,9 @@ def display_message(value, message, coordinates=(50, 50)):
             for event in pygame.event.get():
 
                 if event.type == pygame.KEYDOWN:
-                    end = time.time()
 
                     if event.key == pygame.K_SPACE:
-                        time_delayed = 0.04
-
-                        if end - start >= 2:
-                            time_delayed = 0.02
+                        time_delayed = 0.02
 
                 elif event.type == pygame.KEYUP:
                     time_delayed = 0.08
@@ -53,30 +48,24 @@ def display_message(value, message, coordinates=(50, 50)):
 
             displayed_text += message[index]
             index += 1
-
             # Update the lines based on displayed_text
             lines = split_text(displayed_text, font, 1000 - 2 * 50)
 
             y_position = 50
             for line in lines:
-                text_surface = font.render(line, True, white)
+                text_surface = font.render(line, True, color)
                 screen.blit(text_surface, (x_position, y_position))
                 y_position += font.get_height() # Move to the next line
+
             pygame.display.update()
             time.sleep(time_delayed)  # Adjust the delay time as needed
 
     elif value == 2:
-        time_delayed = 0.08
-
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
-                end = time.time()
 
                 if event.key == pygame.K_SPACE:
-                    time_delayed = 0.035
-
-                    if end - start >= 2:
-                        time_delayed = 0.02
+                    time_delayed = 0.2
 
             elif event.type == pygame.KEYUP:
                 time_delayed = 0.08
@@ -91,7 +80,7 @@ def display_message(value, message, coordinates=(50, 50)):
                 if letter == ">":       # If the letter is >, then the y position is increased and the word goes on the next line.
                     y_position += font.get_height() + 10
                     x_position = 50
-                text_surface = font.render(letter, True, white)
+                text_surface = font.render(letter, True, color)
                 screen.blit(text_surface, (x_position, y_position))
                 size = pygame.font.Font.size(font, "".join(message))
                 x_position += text_surface.get_width()   # To avoid adding the letters on the same coordinate of x, we increase it.
@@ -140,6 +129,9 @@ font = pygame.font.Font("freesansbold.ttf", 22)
 clock = pygame.time.Clock()
 black = (0, 0, 0)
 white = (255, 255, 255)
+color = (204, 119, 34)
+
+
 
 '''user_text = '>'
 input_rect = pygame.Rect(50, 500, 140, 32)
