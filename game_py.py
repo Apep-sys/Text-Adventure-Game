@@ -75,7 +75,7 @@ def display_message(value, message, coordinates=(50, 70)):
                 sys.exit()
 
         x_position, y_position = coordinates
-        for word in "".join(message):          # Lines are actually not lines, but a full string.
+        for word in "".join(message):
             for letter in word:
                 if letter == ">":       # If the letter is >, then the y position is increased and the word goes on the next line.
                     y_position += font.get_height() + 10
@@ -132,6 +132,7 @@ black = (0, 0, 0)
 white = (255, 255, 255)
 color_text = (204, 119, 34)
 color_choices = (255, 191, 0)
+color_danger = (255, 87, 51)
 
 
 

@@ -32,7 +32,7 @@ class Player:
         
         self.level3 = None
         self.rooms3 = None
-        self.check3 = None
+        self.check3 = False
         
         
     def make_choice(self):
@@ -84,14 +84,14 @@ class Player:
                          f"But enough talk! Go on! Have a wonderful evening!\nMaybe your last one.\n\n")
             
             if self.pclass == 'room 09':
-                self.level2 = 'Basement\n'
+                self.level2 = 'The Upper Floor'
             elif self.pclass == 'room 13' or self.pclass == 'room 256':
                 self.level2 = 'The Lower Floor'
                 
             self.rooms2 = ['The Green Door', 'The Black Door', 'The Red Door']
             self.items2 = ['Bloody Letter', 'VIP Ticket', 'Cursed Mark']
 
-            self.level3 = 'Hall to the Lounge'
+            self.level3 = 'Lounge'
             self.items3 = []
             
             

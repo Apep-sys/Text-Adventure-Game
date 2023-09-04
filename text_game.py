@@ -771,6 +771,32 @@ def room2():
                         choices.sort()
                         player.temp_check = True
 
+def room3():
+    message = ('The three doors opened up ways to different worlds, that\'s for sure, you think... '
+               'And those worlds left a mark on you. You are now convinced this hotel is by no means a regular hotel. '
+               'It\'s a place of evil and ill intent. Besides, you can\'t shake the feeling that this is about you. '
+               'Somehow, it\'s connected to you. But despite everything going on, you\'re not sure that\'s a bad thing. '
+               'There is a slight simmer of hope in this whole situation. And it\'s waiting somewhere close. Closer than you might think.')
+    game_file.display_message(1, message)
+    time.sleep(2)
+    game_file.screen.fill(game_file.black)
+
+    message = ('Level 3: Lounge')
+    game_file.display_message(1, message)
+    time.sleep(2)
+    game_file.screen.fill(game_file.black)
+
+    while player.check3 == False:
+        message = ('Having arrived to Hotel Margot\'s Lounge area, you decide it would be best for you to rest some. '
+                   'Continuing in your current state would not be smart. Besides, you need to understand what is going on. '
+                   'And to do that, you must think through the events and try to find a logic, a pattern, a connection. '
+                   'You spot a large fireplace in the middle of the lounge. With unsure steps, you approach it. '
+                   'A red couch is there to support the heavy thoughts that will go through your head and match the flames of the fireplace. '
+                   'You sit down on it. The red couch is made of leather, that squeaks when you sit on it. The sound is unpleasant. ')
+
+
+
+
 
 start()
 game_file.screen.fill(game_file.black)
