@@ -791,15 +791,46 @@ def room3():
                    'Continuing in your current state would not be smart. Besides, you need to understand what is going on. '
                    'And to do that, you must think through the events and try to find a logic, a pattern, a connection. '
                    'You spot a large fireplace in the middle of the lounge. With unsure steps, you approach it. '
-                   'A red couch is there to support the heavy thoughts that will go through your head and match the flames of the fireplace. '
-                   'You sit down on it. The red couch is made of leather, that squeaks when you sit on it. The sound is unpleasant. ')
+                   'A red couch is there, to support the heavy thoughts that will go through your mind. It matches the flames of the fireplace. '
+                   'You sit down on it. The red couch is made of leather, that squeaks when you sit on it. The sound is unpleasant. '
+                   'Yet another thing in this hotel that manages to break your mood and spirit. Just great. '
+                   'You need to pull yourself together and get to the bottom of everything that is going on. Now. ')
+        game_file.display_message(1, message)
+        time.sleep(2)
+        game_file.screen.fill(game_file.black)
+
+        if 'Bloody Letter' in player.inventory:
+            message = ('You notice a red spot on your jacket. Blood, definitely. At this point, it\'s something rather regular. '
+                       'And then you remember where it came from. '
+                       'You took the bloody letter that was on the desk and stuffed it into the inner pocket. Perhaps this '
+                       'letter will offer some context to the rooms that you went through. Or the hotel itself. '
+                       'So then, will you open it? Or will you let the information fly away?')
+            choices = ['Yes', 'No']
+            game_file.display_message(1, message)
+            game_file.display_message(2, choices, (50, 140))
+            player.action = game_file.get_player_input()
+
+            if player.action == 'yes':
+                message = ('No, you won\'t. Taking this decision makes you feel empowered. As if you\'re finally starting to fight back. '
+                           'You will get out of this hotel, alive. You are hellbent on it. Now, for the letter. ')
+                game_file.display_message(1, message)
+                time.sleep(2)
+                game_file.screen.fill(game_file.black)
+
+                message = ('The crimson seal of the letter is the only thing between you and its contents. You could rip it off. '
+                           'Perhaps it\'s better to carefully slice it open, though. ')
+
+
 
 
 
 start()
 game_file.screen.fill(game_file.black)
-room1()
+#room1()
 game_file.screen.fill(game_file.black)
+room2()
+game_file.screen.fill(game_file.black)
+room3()
 
 game_file.pygame.display.update()
 game_file.clock.tick(60)

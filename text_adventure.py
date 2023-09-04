@@ -71,7 +71,7 @@ class Player:
         if self.place_choice.title() == 'Murder Mystery':
             self.place = 'Hotel Margot'
             self.detail1 = ['fashion gala', 'interview for your paper',
-                            'guests\'s appetite']
+                            'business meeting']
             self.level1 = 'Hallway'
             self.rooms1 = ['Closet', 'Elevator', 'Balcony']
             self.items1 = ['Magnifying Glass', 'Fuse']
@@ -92,7 +92,8 @@ class Player:
             self.items2 = ['Bloody Letter', 'VIP Ticket', 'Cursed Mark']
 
             self.level3 = 'Lounge'
-            self.items3 = []
+            self.items3 = []    # Ideas: something with fire that could burn ur mark off, hidden objects behind paintings
+                                # or hidden objects behind mirrors/fakem mirrors
             
             
 
