@@ -796,8 +796,6 @@ def room3():
 
 
 
-
-
 start()
 game_file.screen.fill(game_file.black)
 room1()
