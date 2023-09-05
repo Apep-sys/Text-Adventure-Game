@@ -805,10 +805,11 @@ def room3():
                        'You took the bloody letter that was on the desk and stuffed it into the inner pocket. Perhaps this '
                        'letter will offer some context to the rooms that you went through. Or the hotel itself. '
                        'So then, will you open it? Or will you let the information fly away?')
-            choices = ['Yes', 'No']
+            choices = ['>Open the letter', '>Don\'t open the letter']
             game_file.display_message(1, message)
             game_file.display_message(2, choices, (50, 140))
             player.action = game_file.get_player_input()
+            game_file.screen.fill(game_file.black)
 
             if player.action == 'yes':
                 message = ('No, you won\'t. Taking this decision makes you feel empowered. As if you\'re finally starting to fight back. '
@@ -819,6 +820,37 @@ def room3():
 
                 message = ('The crimson seal of the letter is the only thing between you and its contents. You could rip it off. '
                            'Perhaps it\'s better to carefully slice it open, though. ')
+                choices = ['>Rip it off', 'Slice it open']
+                game_file.display_message(1, message)
+                game_file.display_message(2, choices, (50, 100))
+                player.action = game_file.get_player_input()
+                game_file.screen.fill(game_file.black)
+
+                if player.action == 'rip it off':
+                    message = ('You choose to brute force your way through a delicate letter. Your choice, not mine... '
+                               'The crimson seal is strong enough to oppose your first attempt at ripping it off. '
+                               'But, since you are very stubborn, you try again, and you rip half of the letter along with the seal. '
+                               'Succces.')
+                    game_file.display_message(1, message)
+                    time.sleep(2)
+                    game_file.screen.fill(game_file.black)
+
+                    message = ('However, the damage done to the letter isn\'t too bad, and you can still read it. '
+                               'The two halves can be put together. The paper is stained with a dried black sludge. The handwriting is frantic, as if penned by a soul trapped in eternal torment. '
+                               'It unveils the grim history of this place, a sanctuary turned into a house of horrors. You read the following...')
+                    game_file.display_message(1, message)
+                    time.sleep(2)
+                    game_file.screen.fill(game_file.black)
+
+                message = (f'Dear {player.name}, ')
+                game_file.display_message(1, message)
+                message = ('Be not surprised, as these events were bound to happen. All of us knew. Except for, well, you. ')
+                game_file.display_message(1, message, (50, 90))
+                message = ('The reason you are reading this is because I wanted you to. That is correct. Me. And my choice. ')
+                game_file.display_message(1, message, (50, 110))       # The hotel owner is a vampire.
+                message = ('The choice to break free of the Great Plan. Of...him. The shadow. The pursuer. The reason for my torment. ')
+                game_file.display_message(1, message, (50, 130))
+                message = ('My punishment is eternal, now I know this. But I will try to ensure the salvation of my hotel. To rid it of its curse. ')
 
 
 
