@@ -782,7 +782,7 @@ def room3():
     game_file.screen.fill(game_file.black)
 
     message = ('Level 3: Lounge')
-    game_file.display_message(1, message)
+    game_file.display_message(1, message, (420, 70))
     time.sleep(2)
     game_file.screen.fill(game_file.black)
 
@@ -807,12 +807,12 @@ def room3():
                        'So then, will you open it? Or will you let the information fly away?')
             choices = ['>Open the letter', '>Don\'t open the letter']
             game_file.display_message(1, message)
-            game_file.display_message(2, choices, (50, 140))
+            game_file.display_message(2, choices, (50, 180))
             player.action = game_file.get_player_input()
             game_file.screen.fill(game_file.black)
 
-            if player.action == 'yes':
-                message = ('No, you won\'t. Taking this decision makes you feel empowered. As if you\'re finally starting to fight back. '
+            '''if player.action == 'open the letter':
+                message = ('No, you won\'t let it fly away. Taking this decision makes you feel empowered. As if you\'re finally starting to fight back. '
                            'You will get out of this hotel, alive. You are hellbent on it. Now, for the letter. ')
                 game_file.display_message(1, message)
                 time.sleep(2)
@@ -820,7 +820,7 @@ def room3():
 
                 message = ('The crimson seal of the letter is the only thing between you and its contents. You could rip it off. '
                            'Perhaps it\'s better to carefully slice it open, though. ')
-                choices = ['>Rip it off', 'Slice it open']
+                choices = ['>Rip it off', '>Slice it open']
                 game_file.display_message(1, message)
                 game_file.display_message(2, choices, (50, 100))
                 player.action = game_file.get_player_input()
@@ -840,18 +840,27 @@ def room3():
                                'It unveils the grim history of this place, a sanctuary turned into a house of horrors. You read the following...')
                     game_file.display_message(1, message)
                     time.sleep(2)
-                    game_file.screen.fill(game_file.black)
+                    game_file.screen.fill(game_file.black)'''
 
-                message = (f'Dear {player.name}, ')
-                game_file.display_message(1, message)
-                message = ('Be not surprised, as these events were bound to happen. All of us knew. Except for, well, you. ')
-                game_file.display_message(1, message, (50, 90))
-                message = ('The reason you are reading this is because I wanted you to. That is correct. Me. And my choice. ')
-                game_file.display_message(1, message, (50, 110))       # The hotel owner is a vampire.
-                message = ('The choice to break free of the Great Plan. Of...him. The shadow. The pursuer. The reason for my torment. ')
-                game_file.display_message(1, message, (50, 130))
-                message = ('My punishment is eternal, now I know this. But I will try to ensure the salvation of my hotel. To rid it of its curse. ')
-
+            message = (f'Dear {player.name}, ')
+            game_file.display_message(1, message)
+            message = ('Be not surprised, as these events were bound to happen. All of us knew. Except for, well, you. ')
+            game_file.display_message(1, message, (50, 110))
+            message = ('The reason you are reading this is because I wanted you to. That is correct. Me. And my choice. ')
+            game_file.display_message(1, message, (50, 160))       # The hotel owner is a vampire.
+            message = ('The choice to break free of the Great Plan. Of...him. The shadow. The pursuer. The reason for my torment. ')
+            game_file.display_message(1, message, (50, 220))
+            message = ('My punishment is eternal, now I know this. But I will try to ensure the salvation of my hotel. To rid it of its curse. ')
+            game_file.display_message(1, message, (50, 280))
+            message = ('This, that you hold in your hands, is a chronicle of unspeakable events that have happened between these very walls. ')
+            game_file.display_message(1, message, (50, 340))
+            message = ('The hotel is as old as 300 years old. It was supposed to be a beacon in the night for weary travelers. ')
+            game_file.display_message(1, message, (50, 400))
+            message = ('A refuge for those in need. A place where people could be safe in the night. Somewhere where there would be no harm. ')
+            game_file.display_message(1, message, (50, 460))
+            message = ('And it was, for quite some time. In those old days, Hotel Margot was one of a kind. A sanctuary through and through. ')
+            game_file.display_message(1, message, (50, 520))
+            message = ('There was not a soul that had anything ill to say about my hotel. These grounds were marked by kindness and safety. ')
 
 
 
@@ -860,8 +869,9 @@ start()
 game_file.screen.fill(game_file.black)
 #room1()
 game_file.screen.fill(game_file.black)
-room2()
+#room2()
 game_file.screen.fill(game_file.black)
+player.inventory.append('Bloody Letter')
 room3()
 
 game_file.pygame.display.update()

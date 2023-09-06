@@ -51,7 +51,10 @@ def display_message(value, message, coordinates=(50, 70)):
             # Update the lines based on displayed_text
             lines = split_text(displayed_text, font, 1000 - 2 * 50)
 
-            y_position = 50
+            if y_position != 50:
+                y_position = coordinates[1]
+            else:
+                y_position = 50
             for line in lines:
                 text_surface = font.render(line, True, color_text)
                 screen.blit(text_surface, (x_position, y_position))
