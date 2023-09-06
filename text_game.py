@@ -911,6 +911,18 @@ def room3():
                 time.sleep(3)
                 game_file.screen.fill(game_file.black)
 
+                message = ('Having read these words, you take a second to ponder everything. It almost all makes sense. '
+                           'How you felt that everything is tied to you... Made, and placed for you. It isn\'t some egotistical thought.'
+                           'It is a reality. And this reality is very scary. You don\'t feel like you are up to the task Count Elrah has given you. '
+                           'Your head starts hurting, and it feels like it will only get worse. You do not understand how exactly to destroy the shadow. '
+                           'Or where. You remember what the reception told you. The main lobby is the end point for all of it. It\'s where you need to be. '
+                           'A few hours ago, you wouldn\'t have thought any of this would be possible. That it\'s pure fantasy to think of these things. '
+                           'That\'s changed. You\'re changed. You take a few more minutes to rest before standing up. Scared, for sure, but also faithful, and, '
+                           'with a bit of luck, confident. This letter has given you the direction that you needed. It brought to you a larger perspective. '
+                           'And a purpose. You feel like you owe Count Elrah your life. He sacrificed himself for this knowledge to get to you. '
+                           'If it weren\'t for him, you would have been clueless, and you would have fallen right into the cult\'s death trap. '
+                           'You will destroy them before any of that happens. ')
+
 
 
 

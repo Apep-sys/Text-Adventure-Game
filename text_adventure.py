@@ -77,7 +77,7 @@ class Player:
             self.items1 = ['Magnifying Glass', 'Fuse']
             self.intro = (f"Oh, dear! If it isn't {self.name}! We were expecting you, and we are pleased to have you.\n" 
                          f"Please, make yourself at home in our dear {self.place}. Your room is {self.pclass.title()}.\n" 
-                         f"For tonight, the {self.detail1[murder_options.index(self.pclass)]}, in the main hall, " 
+                         f"For tonight, the {self.detail1[murder_options.index(self.pclass)]}, in the main lobby, " 
                          f"awaits you. Do consider taking your time when " 
                          f"deciding how to best approach this event!\nIt won't be long until the MAIN event will begin...\n" 
                          f"Consider yourself lucky for the heads up. The other guests aren't so lucky. \nOne, in particular...\n" 
