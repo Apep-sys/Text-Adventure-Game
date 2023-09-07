@@ -782,7 +782,7 @@ def room3():
     game_file.screen.fill(game_file.black)
 
     message = ('Level 3: Lounge')
-    game_file.display_message(1, message, (380, 70))
+    game_file.display_message(1, message, (395, 70))
     time.sleep(2)
     game_file.screen.fill(game_file.black)
 
@@ -843,6 +843,15 @@ def room3():
                     time.sleep(2)
                     game_file.screen.fill(game_file.black)
 
+                elif player.action == 'slice it open':
+                    message = ('Gentle does it. Be the scalpel, not the hammer.')
+                    game_file.display_message(1, message)
+                    time.sleep(2)
+                    game_file.screen.fill(game_file.black)
+
+                    if player.pclass == 'room 09':
+                        pass
+
                 message = (f'Dear {player.name}, ')
                 game_file.display_message(1, message)
                 message = ('Be not surprised, as these events were bound to happen. All of us knew. Except for, well, you. ')
@@ -871,25 +880,25 @@ def room3():
                 message = ('A group of people dressed in red gowns, like the moon itself. A single black, vertical stripe marked each of their foreheads.')
                 game_file.display_message(1, message)
                 message = ('They came and promised things we could only dream of. A life that would never end, devoid of any kind of pain. Youth, eternal. ')
-                game_file.display_message(1, message, (50, 120))
+                game_file.display_message(1, message, (50, 110))
                 message = ('All in exchange for our loyalty. Loyalty signed in blood. And, the Hotel Margot. Relinquish the claim over its grounds, for it to be forever cursed. ')
-                game_file.display_message(1, message, (50, 180))
+                game_file.display_message(1, message, (50, 160))
                 message = ('We did just that. Unknowingly selling our souls and lives to darkness and evil. The Hotel Margot became a place tainted by blood and death. ')
-                game_file.display_message(1, message, (50, 230))
+                game_file.display_message(1, message, (50, 210))
                 message = ('Many of us died. And many more, that came to seek shelter between its walls. Sacrifices to a god beyond our time and existence. ')
-                game_file.display_message(1, message, (50, 280))
+                game_file.display_message(1, message, (50, 260))
                 message = ('A god that would require endless rivers of blood and pain. A god of death. Or rather, of undeath. ')
-                game_file.display_message(1, message, (50, 330))
+                game_file.display_message(1, message, (50, 310))
                 message = ('And so, the rest of us that remained, for partaking in these blasphemies and perversions of life, were given what we bargained for. ')
-                game_file.display_message(1, message, (50, 380))
+                game_file.display_message(1, message, (50, 360))
                 message = ('A curse. Along with an eternal guest of the Hotel. Forever bound in servitude to him. That was, until I broke free. ')
-                game_file.display_message(1, message, (50, 430))
+                game_file.display_message(1, message, (50, 410))
                 message = ('The Great Plan had been laid out to us from the very beginning. You were prophesied to arrive to Hotel Margot, along with your blood. ')
-                game_file.display_message(1, message, (50, 480))
+                game_file.display_message(1, message, (50, 460))
                 message = ('Your blood is that of an ancient family, known for being close to the Saints. A blood so pure and innocent, evil shakes at the thought of it.')
-                game_file.display_message(1, message, (50, 530))
+                game_file.display_message(1, message, (50, 510))
                 message = ('And so, your sacrifice would ensure darkness would hold the grasp in this world for a very long time. Hence, I thwarted as much as I could of the Plan.')
-                game_file.display_message(1, message, (50, 580))
+                game_file.display_message(1, message, (50, 560))
                 time.sleep(3)
                 game_file.screen.fill(game_file.black)
 
@@ -913,7 +922,7 @@ def room3():
                 game_file.screen.fill(game_file.black)
 
                 message = ('Having read these words, you take a second to ponder everything. It almost all makes sense. '
-                           'How you felt that everything is tied to you... Made, and placed for you. It isn\'t some egotistical thought.'
+                           'How you felt that everything is tied to you... Made, and placed for you. It isn\'t some egotistical thought. '
                            'It is a reality. And this reality is very scary. You don\'t feel like you are up to the task Count Elrah has given you. '
                            'Your head starts hurting, and it feels like it will only get worse. You do not understand how exactly to destroy the shadow. '
                            'Or where. You remember what the reception told you. The main lobby is the end point for all of it. It\'s where you need to be. '
@@ -946,17 +955,54 @@ def room3():
                     game_file.screen.fill(game_file.black)
 
 
-        message = ('You stand up shortly after your internal monologue and take a look around. The Lounge is decorated by paintings on the walls. '
-                    'A bar is present in the middle of it. The bartender seems absent, cleaning away at a glass.'
+        message = ('You stand up shortly after your internal monologue and take a look around. The Lounge is a room with turquoise, dirty walls, supported by '
+                   'gold tinted-columns. A grand chandelier hangs from the middle of its ceiling. The chandelier seems to have been unused for a long time. '
+                   'The red candles have melted away and covered the chandelier in a web of wax. A parfumed scent can be still felt from it. '
+                   'The room itself is decorated by paintings on the walls. Large and small paintings, with frames of golden or brown colour, are spread all over. '
+                   'Almost as if they didn\'t know what to fill the space with. As you step closer to one of them, you spot a reddish, nearly washed away, spot, '
+                   'behind one of the paintings. Then you see another, at the next painting. This one is larger and less washed away. The sudden realization hits you: '
+                   'These paintings are all hiding these spots, which, with no doubt now, are blood. How could this hotel still have actual clients book rooms with the state that it is in? '
+                   'A bar is present in the middle of the lounge. The bartender seems absent, cleaning away at a glass. '
                    'The chair and couches laying around are empty. The entire Lounge is devoid of any life and movement, except you and the bartender. '
                    'Given how there is no visible clue at hand, you decide to ask him a few things. '
-                   'While walking towards the bar, you pass a painting of a man dressed in black, elegantly watching you.'
-                   'The painting reads: Count Elrah, 1773.')
-        #TODO To add interaction if the player has seen the man in the black room or opened the letter
+                   'While walking towards the bar, you pass a painting of a man dressed in a black, purple-striped vest, with a ruffled shirt underneath. '
+                   'Blood red buttons are adorning the vest. A single golden button holds the sleeve tight. His shirt\'s collar is also red, with golden edges.'
+                   'The painting surprised him in a nonchalant posture, mischievously, but elegantly, watching you. A faint smile can be traced on his young face. '
+                   'The man seems in his early 30\'s. His black eyes let off such a feeling of sadness, that it forces you to obediently look downwards, as to avoid it. '
+                   'Brown-tinted letters read, in the left corner: Count Elrah Margot, 1773.')
+        game_file.display_message(1, message)
+        time.sleep(3)
+        game_file.screen.fill(game_file.black)
 
+        if 'Opened Letter' in player.inventory:
+            message = ('So this is him. The one that wrote and left you the letter. The man that, in a strange way, tried saving your life. '
+                       'And gave his in doing so. You notice a detail that eluded your sight before: a silver, shining ring, on his ring finger. '
+                       'In fact, that\'s what he is actually holding. A silver...bullet? Why would anyone be immortalized while holding something as peculiar as a silver bullet?')
+            game_file.display_message(1, message)
+            time.sleep(2)
+            game_file.screen.fill(game_file.black)
 
+        if 'Cursed Mark' in player.inventory:
+            message = ('This is the same man from the black room. How do you just now think of it? He was there. You saw him get dragged away into the closet. '
+                       'But he didn\'t even look at you when you entered. It was as if you weren\'t really there. So then, was he? '
+                       'It must be real. The gunshot was, for sure. If he is holding a bullet in this painting, and he shot the gun, then he must be a gun '
+                       'enthusiast. Could there be a connection? Did he shoot a silver bullet? Was it supposed to hurt the shadow? '
+                       'Now this, just gave you more questions than answers. Or maybe... ')
+            game_file.display_message(1, message)
+            time.sleep(2)
+            game_file.screen.fill(game_file.black)
 
+        message = ('As you pass the eerie painting and approach the bar, you feel an inexplicable chill run down your spine. Ignoring the unsettling atmosphere, you pull a stool closer and take a seat. '
+                   'The bartender, a gaunt figure with sunken eyes, continues methodically cleaning a glass with an almost robotic precision. '
+                   'His pallid complexion is striking, as if drained of life itself, and his gaze never seems to meet yours. '
+                   'It\'s as if he exists in a world of his own, detached from the dimly lit surroundings. '
+                   'As you open your mouth to ask your question, he drops the towel and the glass, and, with the same expression, turns aside and points with his arm and hand '
+                   'toward the hall leading out of the lounge. It is the hall that leads to the Main Lobby. ')
+        game_file.display_message(1, message)
+        time.sleep(3)
+        game_file.screen.fill(game_file.black)
 
+        player.check3 = True
 
 
 
