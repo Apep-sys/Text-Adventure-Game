@@ -92,7 +92,7 @@ class Player:
             self.items2 = ['Bloody Letter', 'VIP Ticket', 'Cursed Mark']
 
             self.level3 = 'Lounge'
-            self.items3 = []    # Ideas: something with fire that could burn ur mark off, hidden objects behind paintings
+            self.items3 = ['Opened Letter', 'Unopened Letter']    # Ideas: something with fire that could burn ur mark off, hidden objects behind paintings
                                 # or hidden objects behind mirrors/fakem mirrors
             
             

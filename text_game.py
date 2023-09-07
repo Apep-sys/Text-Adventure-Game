@@ -815,6 +815,7 @@ def room3():
                 message = ('No, you won\'t let it fly away. Taking this decision makes you feel empowered. As if you\'re finally starting to fight back. '
                            'You will get out of this hotel, alive. You are hellbent on it. Now, for the letter. ')
                 game_file.display_message(1, message)
+                player.inventory.append('Opened Letter')
                 time.sleep(2)
                 game_file.screen.fill(game_file.black)
 
@@ -922,6 +923,36 @@ def room3():
                            'And a purpose. You feel like you owe Count Elrah your life. He sacrificed himself for this knowledge to get to you. '
                            'If it weren\'t for him, you would have been clueless, and you would have fallen right into the cult\'s death trap. '
                            'You will destroy them before any of that happens. ')
+                game_file.display_message(1, message)
+                time.sleep(3)
+                game_file.screen.fill(game_file.black)
+
+            elif player.action == 'don\'t open the letter':
+                player.inventory.append('Unopened Letter')
+
+                if 'Cursed Mark' in player.inventory:
+                    message = ('Perhaps whatever is written on this letter is not meant for prying eyes. You think this while clutching your mark on the arm. '
+                               'Even though, it might have helped getting rid of...your affliction. Or perhaps, it could have made it worse. '
+                               'Anyway, you need to continue searching for the slightest clue as to what\'s going on. ')
+                    game_file.display_message(1, message)
+                    time.sleep(2)
+                    game_file.screen.fill(game_file.black)
+
+                else:
+                    message = ('Perhaps whatever is written on this letter is not meant for prying eyes. There is a slim chance it could hide a clue... '
+                               'But it is a chance nonetheless. Anyway, best to search other things for it. ')
+                    game_file.display_message(1, message)
+                    time.sleep(2)
+                    game_file.screen.fill(game_file.black)
+
+
+        message = ('You stand up shortly after your internal monologue and take a look around. The Lounge is decorated by paintings on the walls. '
+                    'A bar is present in the middle of it. The bartender seems absent, cleaning away at a glass.'
+                   'The chair and couches laying around are empty. The entire Lounge is devoid of any life and movement, except you and the bartender. '
+                   'Given how there is no visible clue at hand, you decide to ask him a few things. '
+                   'While walking towards the bar, you pass a painting of a man dressed in black, elegantly watching you.'
+                   'The painting reads: Count Elrah, 1773.')
+        #TODO To add interaction if the player has seen the man in the black room or opened the letter
 
 
 
