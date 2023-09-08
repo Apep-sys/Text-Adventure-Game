@@ -36,7 +36,7 @@ class Player:
 
         self.level4 = None
         self.items4 = None
-        self.check4 = None
+        self.check4 = False
 
         
         

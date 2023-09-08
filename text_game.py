@@ -1041,23 +1041,69 @@ def room3():
 
 
 def room4():
+    print('check')
     message = ('Level 4: Main Lobby')
-    game_file.display_message(1, message, (395, 70))
+    game_file.display_message(1, message, (385, 70))
     time.sleep(2)
     game_file.screen.fill(game_file.black)
 
     while player.check4 == False:
-        message = ('Walking down the hall towards the Main Lobby, you arrive at its entrance. A large, tall man is standing there. '
-               'His mask is made of bone, with ornate symbols etched into it. As you get closer, you realize he is towering over you. '
-               'He says not a word. He is wearing a black and red elegant costume, made out of pants and a vest. '
-               'His hand reaches forward, expecting to be given something. His black eyes can be seen through the mask. '
-               'He is not patient. You must give him what ne needs. But what is it?')
+        message = (
+            'Walking down the hall towards the Main Lobby, you arrive at its entrance. A large, tall man is standing there. '
+            'His mask is made of bone, with ornate symbols etched into it. As you get closer, you realize he is towering over you. '
+            'He says not a word. He is wearing a black and red elegant costume, made out of pants and a vest. '
+            'His hand reaches forward, expecting to be given something. His black eyes can be seen through the mask. '
+            'He is not patient. You must give him what ne needs. But what is it?')
         game_file.display_message(1, message)
         time.sleep(2)
         game_file.screen.fill(game_file.black)
 
-        if 'VIP Ticket' in player.inventory:
-            pass
+        if len(player.inventory > 0):
+            message = ('He requires an item, you think. Must be something that will grant you access.')
+            choices = []
+
+            for i in player.inventory:
+                choices.append('>Hand over the ' + i)
+
+            game_file.display_message(1, message)
+            game_file.display_message(2, choices, (50, 90))
+            player.action = game_file.get_player_input()
+            game_file.screen.fill(game_file.black)
+
+            if player.action == 'VIP Ticket':
+                message = ('You slowly remove your VIP ticket out of your pocket and hand it over. For a second, you believe '
+                           'this was the wrong choice. The large man holds the ticket in the air, as if it was an offering. The ticket is simply '
+                           'set ablaze at once and it visibly turns to dust. The man repeats the same movement like the bartender: '
+                           'he moves to the side and extends his arm towards the entrance. \'You\'re expected\', he says with a deep voice. ')
+                game_file.display_message(1, message)
+                time.sleep(3)
+                game_file.screen.fill(game_file.black)
+
+            else:
+                message = (f'You hand him the {player.action.lower()}. He holds it in his hand for a second, then proceeds to crush it. '
+                           f'His black eyes settle upon you. A piercing gaze, quite literally. You feel your heart being strangled. '
+                           f'As if an unseen force has grasped it and is now squeezing it, almost ripping out of you. He walks slowly towards you. '
+                           f'By the time he reaches you, you are on the floor, frantically gasping for air. His hand reaching for you is the last thing you see, '
+                           f'as you pass out. This is the end.')
+                game_file.display_message(1, message)
+                time.sleep(3)
+                game_file.screen.fill(game_file.black)
+
+                player.change_state()
+                player.check4 = True
+
+        else:
+            message = ('After giving you a short look, he lowers his hand and stays still for a good minute. His gaze is fixed upon you all this time. '
+                       'Shivers running down your spine tell you this is not the optimal scenario. You try turning away, but as soon as your body moves, '
+                       'his is before you. He grabs you by your chest. You feel your heart being strangled. '
+                       'As if an unseen force has grasped it and is now squeezing it, almost ripping out of you. The last thing you see is his bone mask, '
+                       'and his void black eyes. You pass out. This is the end. ')
+            game_file.display_message(1, message)
+            time.sleep(3)
+            game_file.screen.fill(game_file.black)
+
+            player.change_state()
+            player.check4 = True
 
 
 
@@ -1068,8 +1114,10 @@ game_file.screen.fill(game_file.black)
 game_file.screen.fill(game_file.black)
 #room2()
 game_file.screen.fill(game_file.black)
-room3()
+#room3()
 game_file.screen.fill(game_file.black)
+player.inventory.append('VIP Ticket')
+player.inventory.append('Magnifying Glass')
 room4()
 
 game_file.pygame.display.update()
