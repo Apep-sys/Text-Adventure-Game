@@ -31,8 +31,13 @@ class Player:
         self.items2 = None
         
         self.level3 = None
-        self.rooms3 = None
+        self.items3 = None
         self.check3 = False
+
+        self.level4 = None
+        self.items4 = None
+        self.check4 = None
+
         
         
     def make_choice(self):
@@ -94,6 +99,9 @@ class Player:
             self.level3 = 'Lounge'
             self.items3 = ['Opened Letter', 'Unopened Letter']    # Ideas: something with fire that could burn ur mark off, hidden objects behind paintings
                                 # or hidden objects behind mirrors/fakem mirrors
+
+            self.level4 = 'Main Lobby'
+            self.items4 = []
             
             
 

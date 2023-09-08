@@ -30,7 +30,11 @@ def start():
 
 
 def room1():
-    #message = 'uwu'
+    message = ('Level 1: Hallway')
+    game_file.display_message(1, message, (395, 70))
+    time.sleep(2)
+    game_file.screen.fill(game_file.black)
+
     message = ('You enter the dimly lit hallway, caught between the safety of your room and the mysteries ahead.\n'
                 'The air is still, carrying a hint of aged wood. The faded wallpaper peels, revealing the passage of time.\n'
                 'To your left, a closed door leads to a balcony, teasing glimpses of the outside world. \n'
@@ -150,626 +154,637 @@ def room1():
 
 def room2():
     if player.pclass == 'room 09':
-        pass  # You arrive at the basement
-    elif player.pclass == 'room 13' or player.pclass == 'room 256':
-        message = (
-            'The elevator descends smoothly, carrying you to the lower level. As the doors open, a cool atmosphere greets you.\n'
-            'Three distinct doors stand before you, each with its own allure.\n'
-            'To your left, a partially opened door with a tint of green reveals a glimpse of light streaming from within. The soft glow suggests the bathroom light may still be on, hinting at recent activity.\n'
-            'Straight ahead, a closed door painted in a bold shade of red captures your attention. Its vibrant color holds an air of intrigue, hiding the secrets that lie beyond its surface.\n'
-            'To your right, a sleek black door commands your curiosity. Its smooth exterior reflects the ambient light, promising a realm of mysteries waiting to be explored.\n'
-            'You stand at a pivotal moment, faced with choices that will shape your investigation.\n'
-            'The room with the green-tinged door may hold immediate interest, but the red and black doors hold their own enigmas.\n'
-            'It is time to make your move and uncover the truth that awaits behind one of these doors.\n\n')
-        game_file.display_message(1, message)
+        message = ('Level 2: The Upper Level')
+        level = 'the upper level'
+        game_file.display_message(1, message, (395, 70))
         time.sleep(2)
         game_file.screen.fill(game_file.black)
-        progression_check = -1
-        first_door = None
-        gunshot = False
 
-        while player.check2 == False:
-            if progression_check == -1:
-                message = ('Where do you choose to go?')
-                game_file.display_message(1, message)
-                choices = []
-                for i in player.rooms2:
-                    choices.append('>Go to ' + i.lower())
-                game_file.display_message(2, choices)
-            else:
-                player.rooms2.remove(progression_check)
-                player.rooms2.sort()
-                if len(player.rooms2) == 0:
-                    break
-                choices = []
-                for i in player.rooms2:
-                    choices.append('>Go to ' + i.lower())
-                game_file.display_message(2, choices)
+    elif player.pclass == 'room 13' or player.pclass == 'room 256':
+        message = ('Level 2: The Lower Level')
+        level = 'the lower level'
+        game_file.display_message(1, message, (395, 70))
+        time.sleep(2)
+        game_file.screen.fill(game_file.black)
+
+    message = (
+        f'The elevator descends smoothly, carrying you to {level}. As the doors open, a cool atmosphere greets you.\n'
+        'Three distinct doors stand before you, each with its own allure.\n'
+        'To your left, a partially opened door with a tint of green reveals a glimpse of light streaming from within. The soft glow suggests the bathroom light may still be on, hinting at recent activity.\n'
+        'Straight ahead, a closed door painted in a bold shade of red captures your attention. Its vibrant color holds an air of intrigue, hiding the secrets that lie beyond its surface.\n'
+        'To your right, a sleek black door commands your curiosity. Its smooth exterior reflects the ambient light, promising a realm of mysteries waiting to be explored.\n'
+        'You stand at a pivotal moment, faced with choices that will shape your investigation.\n'
+        'The room with the green-tinged door may hold immediate interest, but the red and black doors hold their own enigmas.\n'
+        'It is time to make your move and uncover the truth that awaits behind one of these doors.\n\n')
+    game_file.display_message(1, message)
+    time.sleep(2)
+    game_file.screen.fill(game_file.black)
+    progression_check = -1
+    first_door = None
+    gunshot = False
+
+    while player.check2 == False:
+        if progression_check == -1:
+            message = ('Where do you choose to go?')
+            game_file.display_message(1, message)
+            choices = []
+            for i in player.rooms2:
+                choices.append('>Go to ' + i.lower())
+            game_file.display_message(2, choices)
+        else:
+            player.rooms2.remove(progression_check)
+            player.rooms2.sort()
+            if len(player.rooms2) == 0:
+                break
+            choices = []
+            for i in player.rooms2:
+                choices.append('>Go to ' + i.lower())
+            game_file.display_message(2, choices)
+        player.action = game_file.get_player_input()
+        game_file.screen.fill(game_file.black)
+
+        if player.action.lower() == 'go to the green door':
+            if first_door == None:
+                first_door = 'Green'
+            message = ('You slowly open the dirty, stained green door and enter the room.\n'
+                       'The first thing that draws your attention is the light in the bathroom.\n'
+                       'Do you go to the bathroom?')
+            game_file.display_message(1, message)
+            choices = ['>Yes', '>No']
+            game_file.display_message(2, choices, (50, 100))
+            progression_check = 'The Green Door'
             player.action = game_file.get_player_input()
             game_file.screen.fill(game_file.black)
 
-            if player.action.lower() == 'go to the green door':
-                if first_door == None:
-                    first_door = 'Green'
-                message = ('You slowly open the dirty, stained green door and enter the room.\n'
-                           'The first thing that draws your attention is the light in the bathroom.\n'
-                           'Do you go to the bathroom?')
+            if player.action.lower() == 'yes':
+                message = ('You enter the bathroom with careful steps. The door creaks as you open it.\n'
+                           '...\n'
+                           '...\n'
+                           '...\n'
+                           'You\'re shocked by the sight before you. A man has committed suicide in the bathtub.\n'
+                           'The water has been running continuously and has overflowed, drenching your shoes.\n'
+                           'As you try to quickly leave the room, in your panic, you slip on the wet floor, and hit your'
+                           'head on the sink.\n'
+                           'You are dead.\n')
+                game_file.display_message(1, message)
+                time.sleep(2)
+                player.change_state()
+                player.check2 = True
+
+            elif player.action == 'no':
+                message = ('Deciding the bathroom is of no interest to you, you look around the room.\n'
+                           'Your gaze dances around, on the pictures on the walls, on the messy clothes thrown around,\n'
+                           'on the ugly furniture and wall paint. It is almost as someone intended this room to be '
+                           'the ugliest. Lastly, your gaze settles upon a ticket on the bed.\nIt seems to be a VIP ticket.\n'
+                           'Do you take it?')
                 game_file.display_message(1, message)
                 choices = ['>Yes', '>No']
-                game_file.display_message(2, choices, (50, 100))
-                progression_check = 'The Green Door'
+                game_file.display_message(2, choices, (50, 150))
                 player.action = game_file.get_player_input()
                 game_file.screen.fill(game_file.black)
 
-                if player.action.lower() == 'yes':
-                    message = ('You enter the bathroom with careful steps. The door creaks as you open it.\n'
-                               '...\n'
-                               '...\n'
-                               '...\n'
-                               'You\'re shocked by the sight before you. A man has committed suicide in the bathtub.\n'
-                               'The water has been running continuously and has overflowed, drenching your shoes.\n'
-                               'As you try to quickly leave the room, in your panic, you slip on the wet floor, and hit your'
-                               'head on the sink.\n'
-                               'You are dead.\n')
+                if player.action == 'yes':
+                    message = ('You carefully put the ticket in your jacket\'s inner pocket.\n')
                     game_file.display_message(1, message)
-                    time.sleep(2)
-                    player.change_state()
-                    player.check2 = True
-
-                elif player.action == 'no':
-                    message = ('Deciding the bathroom is of no interest to you, you look around the room.\n'
-                               'Your gaze dances around, on the pictures on the walls, on the messy clothes thrown around,\n'
-                               'on the ugly furniture and wall paint. It is almost as someone intended this room to be '
-                               'the ugliest. Lastly, your gaze settles upon a ticket on the bed.\nIt seems to be a VIP ticket.\n'
-                               'Do you take it?')
-                    game_file.display_message(1, message)
-                    choices = ['>Yes', '>No']
-                    game_file.display_message(2, choices, (50, 150))
-                    player.action = game_file.get_player_input()
+                    player.inventory.append('VIP Ticket')
+                    player.items2.remove('VIP Ticket')
                     game_file.screen.fill(game_file.black)
 
-                    if player.action == 'yes':
-                        message = ('You carefully put the ticket in your jacket\'s inner pocket.\n')
-                        game_file.display_message(1, message)
-                        player.inventory.append('VIP Ticket')
-                        player.items2.remove('VIP Ticket')
-                        game_file.screen.fill(game_file.black)
-
-                    elif player.action == 'no':
-                        message = (
-                            'You let the VIP ticket remain where it is. It is probably for the best, you think.\n')
-                        game_file.display_message(1, message)
-                        game_file.screen.fill(game_file.black)
-
-                    if first_door == 'Green':
-                        message = (
-                            'Before leaving the room, a gunshot draws your attention. It seems like it came from the room '
-                            'with the black door.\nDo you pursue the gunshot?')
-                        choices = ['>Yes', '>No']
-                        game_file.display_message(1, message)
-                        game_file.display_message(2, choices, (50, 95))
-                        player.action = game_file.get_player_input()
-                        time.sleep(1)
-                        game_file.screen.fill(game_file.black)
-
-                        if player.action == 'yes':
-                            gunshot = True
-                            message = (
-                                'You rush towards the black door, propelled by the piercing sound of the gunshot.\n'
-                                'As the door swings open, a surge of unease washes over you.\n'
-                                'The room is shrouded in an eerie atmosphere, adorned with sinister cult objects.\n'
-                                'Their unsettling presence creates a sense of foreboding, casting long, menacing shadows along the walls.\n'
-                                'The air is heavy with an otherworldly energy, as if the room itself holds a dark secret.\n'
-                                'Amidst this macabre scene, a chilling path of blood stains the floor, beckoning you deeper into the heart of the ominous mystery.\n'
-                                'Do you pursue further?')
-                            choices = ['>Yes', '>No']
-                            game_file.display_message(1, message)
-                            game_file.display_message(2, choices, (50, 215))
-                            time.sleep(1)
-                            player.action = game_file.get_player_input()
-                            game_file.screen.fill(game_file.black)
-
-                            if player.action == 'yes':
-                                message = ('The trail of blood leads you through the hidden door of a wardrobe.\n'
-                                           'You enter something akin to a tunnel. The walls are carved and made of stone.\n'
-                                           'The air becomes denser as you walk through the never-ending tunnel.\n'
-                                           'You wonder how could such a structure exist in this place.\n'
-                                           'The blood trail has somehow kept the same shape and consistence throughout the tunnel.\n'
-                                           'You come to a dead end. A rock wall proudly defies you, by simply existing '
-                                           'in your way.\nFive blocks of rock are protruding out of it, each with a different '
-                                           'symbol carved on it.\nA door, a circle, a candle, a magnifying glass and a wand.\n'
-                                           'How do you proceed?')
-                                game_file.display_message(1, message)
-                                step = 0  # Steps for completing the puzzle
-                                death_counter = 0  # Counter for the amount of times you can try pushing the blocks, 2 is max
-                                while player.temp_check == False:
-
-                                    if 'Magnifying Glass' in player.inventory:
-                                        choices = ['>Introduce the magnifying glass in the carving representing it',
-                                                   '>Push the blocks of rock']
-                                        game_file.display_message(2, choices, (50, 260))
-
-                                    else:
-                                        choices = ['>Push the blocks of rock']
-                                        game_file.display_message(2, choices, (50, 260))
-                                    player.action = game_file.get_player_input()
-                                    game_file.screen.fill(game_file.black)
-
-                                    if player.action == 'introduce the magnifying glass in the carving representing it':
-                                        message = (
-                                            'You take out your magnifying glass and fit it into the block\'s carving.\n'
-                                            'You are surprised it worked, as it seemed to be an odd choice.\n\n')
-                                        player.inventory.remove('Magnifying Glass')
-                                        step += 1
-                                        game_file.display_message(1, message)
-                                        game_file.screen.fill(game_file.black)
-                                        time.sleep(2)
-                                        continue
-
-                                    elif player.action == 'push the blocks of rock':
-                                        message = (
-                                            'As the blocks of rock are protruding, you decide they could also be made '
-                                            'to fit in.\nBut, there\'s a catch: in what order should you push them back in?')
-                                        choices = ['>Circle, door, wand, magnifying glass, candle',
-                                            '>Wand, door, candle, magnifying glass, triangle',
-                                            '>Door, candle, magnifying glass, circle, wand']
-                                        game_file.display_message(1, message)
-                                        game_file.display_message(2, choices, (50, 80))
-                                        player.action = game_file.get_player_input()
-                                        time.sleep(2)
-                                        game_file.screen.fill(game_file.black)
-
-                                        if player.action== 'door, candle, magnifying glass, circle, wand':
-                                            step += 1
-                                            death_counter += 1
-                                            if step < 2 and 'Magnifying Glass' not in player.items1:
-                                                message = ('The decision you made seems to have been inspired.\n'
-                                                           'Something clicks inside the wall. The stone itself sends out a ripple throughout.\n'
-                                                           'The stone that seemed solid is now liquid in nature and you can see it pulsating in waves.\n'
-                                                           'Better than nothing, you think.\n')
-                                                game_file.display_message(1, message)
-                                                time.sleep(2)
-                                                game_file.screen.fill(game_file.black)
-                                                continue
-
-                                            elif step < 2 and 'Magnifying Glass' in player.items1:
-                                                message = (
-                                                    'The decision you made seems to have been inspired.\n'
-                                                    'Something clicks inside the wall. The stone itself sends out a ripple throughout.\n'
-                                                    'But something is off. The solid stone now turns into a volatile, liquid substance.\n'
-                                                    'Spikes of it are rising and sinking back everywhere. One reaches out so far that it grazes you.\n'
-                                                    'The liquid substance reacts to your blood. Tne entire wall starts buzzing and turning waves of shades of crimson.\n\n')
-                                                game_file.display_message(1, message)
-                                                time.sleep(2)
-                                                game_file.screen.fill(game_file.black)
-                                                continue
-
-                                            else:
-                                                message = (
-                                                    'As you push the blocks back into place, stairs are starting to form below the rock wall.\n'
-                                                    'They seem to be leading towards a bright, white light.\n'
-                                                    'You descend the stairs. A gentle breeze can be felt, in a peculiar combination with feeling warm.\n'
-                                                    'The emotions of hope and safety, that accompanied you during your descent, now evaporate.\n'
-                                                    'A sentiment of dread like no other embraces you, holding you tightly, squeezing out your breath.\n'
-                                                    'The hotel\'s walls emanate this feeling all around you. It must be something about the hotel, you think.\n'
-                                                    'But you\'re gonna get through it. You have so little left to do. And so much, at the same time.\n\n')
-                                                player.temp_check = True
-                                                player.check2 = True
-                                                game_file.display_message(1, message)
-                                                time.sleep(2)
-                                                game_file.screen.fill(game_file.black)
-
-                                        else:
-                                            if death_counter < 2:
-                                                message = (
-                                                    'You decide on a sequence and...nothing.\nA sinister hum is heard emanating'
-                                                    ' from the wall.\n\n')
-                                                death_counter += 1
-                                                game_file.display_message(1, message)
-                                                time.sleep(2)
-                                                game_file.screen.fill(game_file.black)
-                                                continue
-
-                                            elif death_counter == 2:
-                                                message = (
-                                                    'The hum turns into a loud buzz that makes you cover up your ears...\n'
-                                                    'And then, nothing. The wall then starts crumbling from the middle to the sides.\n'
-                                                    'You see nothing but pitch black darkness before you. Then, you feel something on the back of your neck.\n'
-                                                    'It\'s like a sting. It feels warm on your skin at first, but then its cold runs through your entire body.\n'
-                                                    'You feel numb from the cold. Your head feels detached from your body, like it\'s floating...\n'
-                                                    'The sequence of events that follows isn\'t very clear. You remember dropping on the ground.\n'
-                                                    'A sensation that could be described as being engulfed, swallowed, by darkness that has teeth, is then felt.\n'
-                                                    'In reality, your body is discovered in the room you heard the gunshot from.\n'
-                                                    'It marks the beginning of the blood trail. You are found sitting on your knees, mouth wide open and eyes staring in awe at the ceiling.\n'
-                                                    'Your pupils are fully dilated. Your bodily liquids have found their way out...\n'
-                                                    'An unfortunate end.\n'
-                                                    'You are dead.\n')
-                                                player.temp_check = True
-                                                player.check2 = True
-                                                player.change_state()
-                                                game_file.display_message(1, message)
-                                                time.sleep(2)
-
-                            elif player.action == 'no':
-                                message = ('This hotel has definitely got something wrong going on, you think.\n'
-                                           'You carefully walk around the room, analyzing everything and deciding if this would be the time\n'
-                                           'to call the police. You notice a bloody letter on the desk facing the window.\n'
-                                           'It seems to be the only item on that desk. It is sealed with a crimson seal, also reminiscent of blood.\n'
-                                           'You step closer to it, curious of its contents. But first, you think, you should search the desk\'s drawers.\n'
-                                           'Nothing comes out of your search, except for old, irrelevant papers, a broken cable and the hotel\'s assistance book.\n'
-                                           'In this case, all that\'s left is taking the letter for yourself.\n'
-                                           'Do you take it?')
-                                choices = ['>Yes',
-                                           '>No']
-                                game_file.display_message(1, message)
-                                game_file.display_message(2, choices, (50, 220))
-                                player.action = game_file.get_player_input()
-                                time.sleep(1)
-                                game_file.screen.fill(game_file.black)
-
-                                if player.action == 'yes':
-                                    message = (
-                                        'Your curiosity got the better of you. You quickly take the letter and stuff it well.\n'
-                                        'Now, nobody will know what you\'ve been up to.')
-                                    game_file.display_message(1, message)
-                                    time.sleep(2)
-                                    game_file.screen.fill(game_file.black)
-
-                                elif player.action == 'no':
-                                    message = (
-                                        'Perhaps it is wiser to let it where it is. Or so your confused senses tell you.\n')
-                                    game_file.display_message(1, message)
-                                    time.sleep(2)
-                                    game_file.screen.fill(game_file.black)
-
-                                message = (
-                                    'You can\'t help but wonder where the gunshot came from. It was clearly from this room.\n'
-                                    'You could\'ve misheard. There is certainly no gun laying around.\n'
-                                    'And there is certainly no way you will go after the blood trail. Perhaps in another life.\n\n')
-                                game_file.display_message(1, message)
-                                time.sleep(2)
-                                game_file.screen.fill(game_file.black)
-
-                        elif player.action == 'no':
-                            message = (
-                                'Was that really a gunshot you just heard? You would rather not find out. Not the time, not the place to go investigating by yourself.'
-                                'You wonder if you should call the police, but decide not to. You hope this was not against your best interests.'
-                                'For a brief second, you feel a hand on your shoulder. Its grip is firm and violent.\n'
-                                'You turn around and survey the room. The shivers down your spine don\'t fail to appear.\n'
-                                'You feel light headed. Your steps are uncertain and heavy.\n'
-                                'You hold onto the wall on your way out and take a short break.\n'
-                                'This place is physically hurting you. You need to get to the end of it.\n'
-                                'As. Soon. As. Possible.'
-                                'And so, after giving the room one last look, you ponder which door to explore next.')
-                            game_file.display_message(1, message)
-                            time.sleep(2)
-                            game_file.screen.fill(game_file.black)
-                    else:
-                        if len(player.rooms2) == 2:
-                            message = ('Now, time to see what is behind the final door.\n'
-                                       'Nothing good, you think to yourself. Hopefully, that won\'t be the case. Just bad thoughts...\n')
-                            game_file.display_message(1, message)
-                            time.sleep(2)
-                            game_file.screen.fill(game_file.black)
-
-            elif player.action.lower() == 'go to the black door':
-                first_door = 'Black'
-                progression_check = 'The Black Door'
-
-                if gunshot == False:
+                elif player.action == 'no':
                     message = (
-                        'You feel an irresistible urge to explore the black door, driven by an inexplicable force.\n'
-                        'As the door creaks open, a wave of cold dread washes over you.\n'
-                        'The room before you is a nightmarish tableau of eerie cult objects, their malevolent presence seeming to watch your every move.\n'
-                        'Sinister shadows writhe along the walls, as if alive and hungry for company.\n'
-                        'The air is thick with an oppressive sense of malevolence, sending shivers down your spine.\n'
-                        'Amidst this macabre display, a black, tall silhouette of a man can be seen standing in the middle of the room.\n'
-                        'It\'s smokey and fully physical, at the same time. An evil apparition.\n'
-                        'But it is not paying attention to you. To your right, another man can be seen. This one, flesh and bone.\n'
-                        'His clothes are torn and bloody, his face, a grin of exhaustion and desperation.\n'
-                        'A plethora of cult items can be seen around him, all broken and smashed.\n'
-                        'With desperation, he loads his gun and tries shooting the black figure. It does nothing.\n'
-                        'The figure dashes across the room, to the man, grabbing his head and quickly dragging it on the floor.\n'
-                        'The black figure seemingly disappears into a darkness in the back of the room, with the man\'s blood forming a trail to it.\n'
-                        'The trail seems to be leading deeper into the heart of the chilling mystery, filling you with a gnawing sense of impending doom.\n'
-                        'You are presented with a choice: follow the blood trail?\n\n')
-                    choices = ['>Yes',
-                        '>No']
+                        'You let the VIP ticket remain where it is. It is probably for the best, you think.\n')
                     game_file.display_message(1, message)
-                    game_file.display_message(2, choices, (50, 405))
+                    game_file.screen.fill(game_file.black)
+
+                if first_door == 'Green':
+                    message = (
+                        'Before leaving the room, a gunshot draws your attention. It seems like it came from the room '
+                        'with the black door.\nDo you pursue the gunshot?')
+                    choices = ['>Yes', '>No']
+                    game_file.display_message(1, message)
+                    game_file.display_message(2, choices, (50, 95))
                     player.action = game_file.get_player_input()
                     time.sleep(1)
                     game_file.screen.fill(game_file.black)
 
                     if player.action == 'yes':
-                        message = ('You follow the blood trail through a secret door in the wardrobe.\n'
-                                   'But, as soon as you step through, a darkness quickly engulfs you and throws you out of the room with force.\n'
-                                   'The door immediately slams shut. You feel shivers everywhere in your body. You\'re too fearful to get off the ground and look around.\n'
-                                   'A burning sensation can be felt on your arm. Gasping, you clutch your arm, and to your horror, you find a cursed mark etched upon your skin.\n'
-                                   'The mark appears as a sinister, intricate glyph that seems to writhe with a life of its own.\n'
-                                   'The dark ink spreads across your flesh like a malevolent stain, and you feel an unsettling, pulsating sensation emanating from the mark.\n'
-                                   'The mark glows with an eerie, crimson light, casting an ominous shadow over your surroundings. It throbs with an unseen power, as if the malevolence from the black room has now bonded with your very being.\n'
-                                   'Fear and confusion grip you as you realize you are now marked by an otherworldly force, and the sense of foreboding intensifies with each passing second.\n')
+                        gunshot = True
+                        message = (
+                            'You rush towards the black door, propelled by the piercing sound of the gunshot.\n'
+                            'As the door swings open, a surge of unease washes over you.\n'
+                            'The room is shrouded in an eerie atmosphere, adorned with sinister cult objects.\n'
+                            'Their unsettling presence creates a sense of foreboding, casting long, menacing shadows along the walls.\n'
+                            'The air is heavy with an otherworldly energy, as if the room itself holds a dark secret.\n'
+                            'Amidst this macabre scene, a chilling path of blood stains the floor, beckoning you deeper into the heart of the ominous mystery.\n'
+                            'Do you pursue further?')
+                        choices = ['>Yes', '>No']
+                        game_file.display_message(1, message)
+                        game_file.display_message(2, choices, (50, 215))
+                        time.sleep(1)
+                        player.action = game_file.get_player_input()
+                        game_file.screen.fill(game_file.black)
+
+                        if player.action == 'yes':
+                            message = ('The trail of blood leads you through the hidden door of a wardrobe.\n'
+                                       'You enter something akin to a tunnel. The walls are carved and made of stone.\n'
+                                       'The air becomes denser as you walk through the never-ending tunnel.\n'
+                                       'You wonder how could such a structure exist in this place.\n'
+                                       'The blood trail has somehow kept the same shape and consistence throughout the tunnel.\n'
+                                       'You come to a dead end. A rock wall proudly defies you, by simply existing '
+                                       'in your way.\nFive blocks of rock are protruding out of it, each with a different '
+                                       'symbol carved on it.\nA door, a circle, a candle, a magnifying glass and a wand.\n'
+                                       'How do you proceed?')
+                            game_file.display_message(1, message)
+                            step = 0  # Steps for completing the puzzle
+                            death_counter = 0  # Counter for the amount of times you can try pushing the blocks, 2 is max
+                            while player.temp_check == False:
+
+                                if 'Magnifying Glass' in player.inventory:
+                                    choices = ['>Introduce the magnifying glass in the carving representing it',
+                                               '>Push the blocks of rock']
+                                    game_file.display_message(2, choices, (50, 260))
+
+                                else:
+                                    choices = ['>Push the blocks of rock']
+                                    game_file.display_message(2, choices, (50, 260))
+                                player.action = game_file.get_player_input()
+                                game_file.screen.fill(game_file.black)
+
+                                if player.action == 'introduce the magnifying glass in the carving representing it':
+                                    message = (
+                                        'You take out your magnifying glass and fit it into the block\'s carving.\n'
+                                        'You are surprised it worked, as it seemed to be an odd choice.\n\n')
+                                    player.inventory.remove('Magnifying Glass')
+                                    step += 1
+                                    game_file.display_message(1, message)
+                                    game_file.screen.fill(game_file.black)
+                                    time.sleep(2)
+                                    continue
+
+                                elif player.action == 'push the blocks of rock':
+                                    message = (
+                                        'As the blocks of rock are protruding, you decide they could also be made '
+                                        'to fit in.\nBut, there\'s a catch: in what order should you push them back in?')
+                                    choices = ['>Circle, door, wand, magnifying glass, candle',
+                                        '>Wand, door, candle, magnifying glass, triangle',
+                                        '>Door, candle, magnifying glass, circle, wand']
+                                    game_file.display_message(1, message)
+                                    game_file.display_message(2, choices, (50, 80))
+                                    player.action = game_file.get_player_input()
+                                    time.sleep(2)
+                                    game_file.screen.fill(game_file.black)
+
+                                    if player.action== 'door, candle, magnifying glass, circle, wand':
+                                        step += 1
+                                        death_counter += 1
+                                        if step < 2 and 'Magnifying Glass' not in player.items1:
+                                            message = ('The decision you made seems to have been inspired.\n'
+                                                       'Something clicks inside the wall. The stone itself sends out a ripple throughout.\n'
+                                                       'The stone that seemed solid is now liquid in nature and you can see it pulsating in waves.\n'
+                                                       'Better than nothing, you think.\n')
+                                            game_file.display_message(1, message)
+                                            time.sleep(2)
+                                            game_file.screen.fill(game_file.black)
+                                            continue
+
+                                        elif step < 2 and 'Magnifying Glass' in player.items1:
+                                            message = (
+                                                'The decision you made seems to have been inspired.\n'
+                                                'Something clicks inside the wall. The stone itself sends out a ripple throughout.\n'
+                                                'But something is off. The solid stone now turns into a volatile, liquid substance.\n'
+                                                'Spikes of it are rising and sinking back everywhere. One reaches out so far that it grazes you.\n'
+                                                'The liquid substance reacts to your blood. Tne entire wall starts buzzing and turning waves of shades of crimson.\n\n')
+                                            game_file.display_message(1, message)
+                                            time.sleep(2)
+                                            game_file.screen.fill(game_file.black)
+                                            continue
+
+                                        else:
+                                            message = (
+                                                'As you push the blocks back into place, stairs are starting to form below the rock wall.\n'
+                                                'They seem to be leading towards a bright, white light.\n'
+                                                'You descend the stairs. A gentle breeze can be felt, in a peculiar combination with feeling warm.\n'
+                                                'The emotions of hope and safety, that accompanied you during your descent, now evaporate.\n'
+                                                'A sentiment of dread like no other embraces you, holding you tightly, squeezing out your breath.\n'
+                                                'The hotel\'s walls emanate this feeling all around you. It must be something about the hotel, you think.\n'
+                                                'But you\'re gonna get through it. You have so little left to do. And so much, at the same time.\n\n')
+                                            player.temp_check = True
+                                            player.check2 = True
+                                            game_file.display_message(1, message)
+                                            time.sleep(2)
+                                            game_file.screen.fill(game_file.black)
+
+                                    else:
+                                        if death_counter < 2:
+                                            message = (
+                                                'You decide on a sequence and...nothing.\nA sinister hum is heard emanating'
+                                                ' from the wall.\n\n')
+                                            death_counter += 1
+                                            game_file.display_message(1, message)
+                                            time.sleep(2)
+                                            game_file.screen.fill(game_file.black)
+                                            continue
+
+                                        elif death_counter == 2:
+                                            message = (
+                                                'The hum turns into a loud buzz that makes you cover up your ears...\n'
+                                                'And then, nothing. The wall then starts crumbling from the middle to the sides.\n'
+                                                'You see nothing but pitch black darkness before you. Then, you feel something on the back of your neck.\n'
+                                                'It\'s like a sting. It feels warm on your skin at first, but then its cold runs through your entire body.\n'
+                                                'You feel numb from the cold. Your head feels detached from your body, like it\'s floating...\n'
+                                                'The sequence of events that follows isn\'t very clear. You remember dropping on the ground.\n'
+                                                'A sensation that could be described as being engulfed, swallowed, by darkness that has teeth, is then felt.\n'
+                                                'In reality, your body is discovered in the room you heard the gunshot from.\n'
+                                                'It marks the beginning of the blood trail. You are found sitting on your knees, mouth wide open and eyes staring in awe at the ceiling.\n'
+                                                'Your pupils are fully dilated. Your bodily liquids have found their way out...\n'
+                                                'An unfortunate end.\n'
+                                                'You are dead.\n')
+                                            player.temp_check = True
+                                            player.check2 = True
+                                            player.change_state()
+                                            game_file.display_message(1, message)
+                                            time.sleep(2)
+
+                        elif player.action == 'no':
+                            message = ('This hotel has definitely got something wrong going on, you think.\n'
+                                       'You carefully walk around the room, analyzing everything and deciding if this would be the time\n'
+                                       'to call the police. You notice a bloody letter on the desk facing the window.\n'
+                                       'It seems to be the only item on that desk. It is sealed with a crimson seal, also reminiscent of blood.\n'
+                                       'You step closer to it, curious of its contents. But first, you think, you should search the desk\'s drawers.\n'
+                                       'Nothing comes out of your search, except for old, irrelevant papers, a broken cable and the hotel\'s assistance book.\n'
+                                       'In this case, all that\'s left is taking the letter for yourself.\n'
+                                       'Do you take it?')
+                            choices = ['>Yes',
+                                       '>No']
+                            game_file.display_message(1, message)
+                            game_file.display_message(2, choices, (50, 220))
+                            player.action = game_file.get_player_input()
+                            time.sleep(1)
+                            game_file.screen.fill(game_file.black)
+
+                            if player.action == 'yes':
+                                message = (
+                                    'Your curiosity got the better of you. You quickly take the letter and stuff it well.\n'
+                                    'Now, nobody will know what you\'ve been up to.')
+                                game_file.display_message(1, message)
+                                time.sleep(2)
+                                game_file.screen.fill(game_file.black)
+
+                            elif player.action == 'no':
+                                message = (
+                                    'Perhaps it is wiser to let it where it is. Or so your confused senses tell you.\n')
+                                game_file.display_message(1, message)
+                                time.sleep(2)
+                                game_file.screen.fill(game_file.black)
+
+                            message = (
+                                'You can\'t help but wonder where the gunshot came from. It was clearly from this room.\n'
+                                'You could\'ve misheard. There is certainly no gun laying around.\n'
+                                'And there is certainly no way you will go after the blood trail. Perhaps in another life.\n\n')
+                            game_file.display_message(1, message)
+                            time.sleep(2)
+                            game_file.screen.fill(game_file.black)
+
+                    elif player.action == 'no':
+                        message = (
+                            'Was that really a gunshot you just heard? You would rather not find out. Not the time, not the place to go investigating by yourself.'
+                            'You wonder if you should call the police, but decide not to. You hope this was not against your best interests.'
+                            'For a brief second, you feel a hand on your shoulder. Its grip is firm and violent.\n'
+                            'You turn around and survey the room. The shivers down your spine don\'t fail to appear.\n'
+                            'You feel light headed. Your steps are uncertain and heavy.\n'
+                            'You hold onto the wall on your way out and take a short break.\n'
+                            'This place is physically hurting you. You need to get to the end of it.\n'
+                            'As. Soon. As. Possible.'
+                            'And so, after giving the room one last look, you ponder which door to explore next.')
                         game_file.display_message(1, message)
                         time.sleep(2)
-                        player.inventory.append('Cursed Mark')
+                        game_file.screen.fill(game_file.black)
+                else:
+                    if len(player.rooms2) == 2:
+                        message = ('Now, time to see what is behind the final door.\n'
+                                   'Nothing good, you think to yourself. Hopefully, that won\'t be the case. Just bad thoughts...\n')
+                        game_file.display_message(1, message)
+                        time.sleep(2)
+                        game_file.screen.fill(game_file.black)
+
+        elif player.action.lower() == 'go to the black door':
+            first_door = 'Black'
+            progression_check = 'The Black Door'
+
+            if gunshot == False:
+                message = (
+                    'You feel an irresistible urge to explore the black door, driven by an inexplicable force.\n'
+                    'As the door creaks open, a wave of cold dread washes over you.\n'
+                    'The room before you is a nightmarish tableau of eerie cult objects, their malevolent presence seeming to watch your every move.\n'
+                    'Sinister shadows writhe along the walls, as if alive and hungry for company.\n'
+                    'The air is thick with an oppressive sense of malevolence, sending shivers down your spine.\n'
+                    'Amidst this macabre display, a black, tall silhouette of a man can be seen standing in the middle of the room.\n'
+                    'It\'s smokey and fully physical, at the same time. An evil apparition.\n'
+                    'But it is not paying attention to you. To your right, another man can be seen. This one, flesh and bone.\n'
+                    'His clothes are torn and bloody, his face, a grin of exhaustion and desperation.\n'
+                    'A plethora of cult items can be seen around him, all broken and smashed.\n'
+                    'With desperation, he loads his gun and tries shooting the black figure. It does nothing.\n'
+                    'The figure dashes across the room, to the man, grabbing his head and quickly dragging it on the floor.\n'
+                    'The black figure seemingly disappears into a darkness in the back of the room, with the man\'s blood forming a trail to it.\n'
+                    'The trail seems to be leading deeper into the heart of the chilling mystery, filling you with a gnawing sense of impending doom.\n'
+                    'You are presented with a choice: follow the blood trail?\n\n')
+                choices = ['>Yes',
+                    '>No']
+                game_file.display_message(1, message)
+                game_file.display_message(2, choices, (50, 405))
+                player.action = game_file.get_player_input()
+                time.sleep(1)
+                game_file.screen.fill(game_file.black)
+
+                if player.action == 'yes':
+                    message = ('You follow the blood trail through a secret door in the wardrobe.\n'
+                               'But, as soon as you step through, a darkness quickly engulfs you and throws you out of the room with force.\n'
+                               'The door immediately slams shut. You feel shivers everywhere in your body. You\'re too fearful to get off the ground and look around.\n'
+                               'A burning sensation can be felt on your arm. Gasping, you clutch your arm, and to your horror, you find a cursed mark etched upon your skin.\n'
+                               'The mark appears as a sinister, intricate glyph that seems to writhe with a life of its own.\n'
+                               'The dark ink spreads across your flesh like a malevolent stain, and you feel an unsettling, pulsating sensation emanating from the mark.\n'
+                               'The mark glows with an eerie, crimson light, casting an ominous shadow over your surroundings. It throbs with an unseen power, as if the malevolence from the black room has now bonded with your very being.\n'
+                               'Fear and confusion grip you as you realize you are now marked by an otherworldly force, and the sense of foreboding intensifies with each passing second.\n')
+                    game_file.display_message(1, message)
+                    time.sleep(2)
+                    player.inventory.append('Cursed Mark')
+                    game_file.screen.fill(game_file.black)
+
+                elif player.action == 'no':
+                    message = (
+                        'The chilling scene unfolds, overwhelming fear grips your heart. An eerie foreboding takes hold as you witness the nightmarish tableau.\n'
+                        'The wardrobe\'s door creaks open, cold dread washes over you, freezing you in place.\n'
+                        'Fear leaves you torn between curiosity and self-preservation. Maybe you should see where the trail is leading to, after all...\n'
+                        'Then, the image of the apparition comes back to you. The harrowing scene that unfolded before your eyes haunts you.\n'
+                        'You are unsure of where to find safe haven. It seems as it the malevolent entity is only toying with you, saving you for the last.\n'
+                        'You don\'t think it\'s really gone...The dread and evil are all around. You feel almost physically squeezed by it.\n'
+                        'You almost run out of breath a couple of times. You slowly get up, arms and legs trembling. No, you will not give in to the deadly curiosity.\n'
+                        'This is no place to die. You didn\'t come here for this.\n'
+                        'The ordeal leaves you scared and uncertain, unsure of the horrors that await and the choices you must make to survive.\n'
+                        'You carefully walk around the room, analyzing everything and deciding if this would be the time\n'
+                        'to call the police. You notice a bloody letter on the desk facing the window.\n'
+                        'It seems to be the only item on that desk. It is sealed with a crimson seal, also reminiscent of blood.\n'
+                        'You step closer to it, curious of its contents. But first, you think, you should search the desk\'s drawers.\n'
+                        'Nothing comes out of your search, except for old, irrelevant papers, a broken cable and the hotel\'s assistance book.\n'
+                        'In this case, all that\'s left is taking the letter for yourself.\n'
+                        'Do you take it?')
+                    choices = ['>Yes',
+                        '>No']
+                    game_file.display_message(1, message)
+                    game_file.display_message(2, choices, (110, 460))
+                    game_file.get_player_input()
+                    time.sleep(1)
+                    game_file.screen.fill(game_file.black)
+
+                    if player.action == 'yes':
+                        message = (
+                            'If anything will serve you as proof of what happened here, it\'s this. You quickly took the letter and stuffed it well.\n'
+                            'Now, maybe you will live to show the world what is truly happening here.\n\n')
+                        game_file.display_message(1, message)
+                        time.sleep(2)
                         game_file.screen.fill(game_file.black)
 
                     elif player.action == 'no':
                         message = (
-                            'The chilling scene unfolds, overwhelming fear grips your heart. An eerie foreboding takes hold as you witness the nightmarish tableau.\n'
-                            'The wardrobe\'s door creaks open, cold dread washes over you, freezing you in place.\n'
-                            'Fear leaves you torn between curiosity and self-preservation. Maybe you should see where the trail is leading to, after all...\n'
-                            'Then, the image of the apparition comes back to you. The harrowing scene that unfolded before your eyes haunts you.\n'
-                            'You are unsure of where to find safe haven. It seems as it the malevolent entity is only toying with you, saving you for the last.\n'
-                            'You don\'t think it\'s really gone...The dread and evil are all around. You feel almost physically squeezed by it.\n'
-                            'You almost run out of breath a couple of times. You slowly get up, arms and legs trembling. No, you will not give in to the deadly curiosity.\n'
-                            'This is no place to die. You didn\'t come here for this.\n'
-                            'The ordeal leaves you scared and uncertain, unsure of the horrors that await and the choices you must make to survive.\n'
-                            'You carefully walk around the room, analyzing everything and deciding if this would be the time\n'
-                            'to call the police. You notice a bloody letter on the desk facing the window.\n'
-                            'It seems to be the only item on that desk. It is sealed with a crimson seal, also reminiscent of blood.\n'
-                            'You step closer to it, curious of its contents. But first, you think, you should search the desk\'s drawers.\n'
-                            'Nothing comes out of your search, except for old, irrelevant papers, a broken cable and the hotel\'s assistance book.\n'
-                            'In this case, all that\'s left is taking the letter for yourself.\n'
-                            'Do you take it?')
-                        choices = ['>Yes',
-                            '>No']
+                            'Perhaps it is wiser to let it where it is. Or so your confused senses tell you.\n')
                         game_file.display_message(1, message)
-                        game_file.display_message(2, choices, (110, 460))
-                        game_file.get_player_input()
-                        time.sleep(1)
+                        time.sleep(2)
                         game_file.screen.fill(game_file.black)
 
-                        if player.action == 'yes':
-                            message = (
-                                'If anything will serve you as proof of what happened here, it\'s this. You quickly took the letter and stuffed it well.\n'
-                                'Now, maybe you will live to show the world what is truly happening here.\n\n')
+            elif gunshot == True:
+                message = ('The door won\'t even budge. It now refuses to let you in.\n'
+                           'Should have been thorough with the room the first time.\n'
+                           'It is as if the door became a part of the wall itself. Curious indeed.\n\n')
+                game_file.display_message(1, message)
+                time.sleep(2)
+                game_file.screen.fill(game_file.black)
+
+        elif player.action.lower() == 'go to the red door':
+            progression_check = 'The Red Door'
+            message = (
+                'As you step into the red room, a mysterious ambiance envelops you, carrying an aura of ancient secrets and mystical energies.\n'
+                'The air is tinged with an intoxicating blend of incense and a faint scent of old parchment, with flickering candles cast dancing shadows upon the walls, creating an almost hypnotic effect.\n'
+                'In the center of the room lies a crystal ball, perched atop an ornate stand, its surface glimmering with an otherworldly sheen.\n'
+                'It beckons you to approach, offering cryptic insights into the future and a glimpse into the veiled realms of destiny.\n'
+                'Tarot cards spread in a precise pattern whisper untold possibilities, while ancient tomes of arcane knowledge hold the wisdom of ages past.\n'
+                'Five intriguing objects line a nearby table, each veiled in mystery, awaiting your firm hand.\n'
+                'The air tingles with anticipation.')
+            player.temp_check = False
+            choices = ['Crystal ball', 'Tarot cards', 'Table of objects', 'Go outside of the room']
+            game_file.display_message(1, message)
+            display_check = False
+            while player.temp_check == False:
+
+                if display_check == False:
+                    game_file.display_message(2, 'So then, what path do you choose?', (50, 290))
+                    display_check = True
+                else:
+                    game_file.display_message(2, 'So then, what path do you choose?', (50, 50))
+
+                if len(choices) == 4:
+                    y_position = 300
+                    for i in choices:
+                        game_file.display_message(2, '> ' + i, (50, y_position))
+                        y_position += 20
+                    player.action = game_file.get_player_input()
+                    game_file.screen.fill(game_file.black)
+
+                else:
+                    y_position = 70
+                    for i in choices:
+                        game_file.display_message(2, '> ' + i, (50, y_position))
+                        y_position += 20
+                    player.action = game_file.get_player_input()
+                    game_file.screen.fill(game_file.black)
+
+                if player.action == 'crystal ball':
+                    if 'Cursed Mark' in player.inventory:
+                        message = (
+                            'Carefully walking closer to the ornate stand, you instinctively reach out to the crystal ball.\n'
+                            'As you do that, your mark burns. The crystal ball reacts to your mark and begins forming a swirling black smoke.\n'
+                            'From it, you can distinguish the same room you\'re in. You see yourself, and behind you...a dark face with sharp teeth, orange, mad eyes, sitting right on your shoulder.\n'
+                            'Then, the image shifts into a walk. It goes down some stairs, and ends up in the main area of the hotel. A large masked person towers over.\n'
+                            'It looks like he is guarding the entrance. The crystall ball goes blank again and cracks.\n\n')
+                        game_file.display_message(1, message)
+                        time.sleep(2)
+                        game_file.screen.fill(game_file.black)
+                        choices.remove('Crystal ball')
+                        choices.sort()
+
+                    else:
+                        message = (
+                            'Carefully walking closer to the ornate stand, you instinctively reach out to the crystal ball.\n'
+                            'As you do that, the crystal ball begins forming a swirling white smoke.\n'
+                            'In it, you distinguish the room you\'re in. The image pans over to the table with the five objects.\n')
+                        game_file.display_message(1, message)
+                        time.sleep(2)
+                        game_file.screen.fill(game_file.black)
+
+                        if 'Bloody Letter' in player.inventory:
+                            message = ('A particular item seems to be glowing. It\'s the ancient tome.\n')
                             game_file.display_message(1, message)
                             time.sleep(2)
                             game_file.screen.fill(game_file.black)
 
-                        elif player.action == 'no':
-                            message = (
-                                'Perhaps it is wiser to let it where it is. Or so your confused senses tell you.\n')
+                        elif 'Magnifying Glass' in player.inventory:
+                            message = ('A particular item seems to be glowing. It\'s the black mirror.\n')
                             game_file.display_message(1, message)
                             time.sleep(2)
                             game_file.screen.fill(game_file.black)
 
-                elif gunshot == True:
-                    message = ('The door won\'t even budge. It now refuses to let you in.\n'
-                               'Should have been thorough with the room the first time.\n'
-                               'It is as if the door became a part of the wall itself. Curious indeed.\n\n')
+                        else:
+                            message = ('A particular item seems to be glowing. It\'s the silver ring.\n')
+                            game_file.display_message(1, message)
+                            time.sleep(2)
+                            game_file.screen.fill(game_file.black)
+
+                        message = (
+                            'Then, the image shifts into a walk. It goes down some stairs, and ends up in the main area of the hotel. A large masked person towers over.\n'
+                            'It looks like he is guarding the entrance. The crystall ball goes blank again and cracks.\n\n')
+                        game_file.display_message(1, message)
+                        time.sleep(2)
+                        game_file.screen.fill(game_file.black)
+                        choices.remove('Crystal ball')
+                        choices.sort()
+
+                elif player.action == 'tarot cards':
+                    message = (
+                        'As you gingerly reach out to touch the deck, a sense of trepidation and excitement intertwines within you.\n'
+                        'The cards seem to respond to your presence, almost as if they were awaiting your arrival.\n'
+                        'As your fingers make contact with the smooth, worn edges, a surge of energy courses through your being.\n'
+                        'The deck feels warm, alive, and responsive in your hands. It is as though a subtle connection has been established between you and the ancient wisdom contained within.\n'
+                        'With every shuffle and cut, the cards seem to whisper secrets, each one a potential window into the vast tapestry of fate.\n'
+                        'You can\'t help but notice the way they shine in the light. Their golden tint gives a sense of comfort and safety.\n'
+                        'You instinctively draw and spread five cards out of the tarot deck on the table. Your hands move on their own.\n'
+                        'A light breeze flickers the candles, seemingly coming out of nowhere. The intensity of their flames now grows.\n'
+                        'After a brief pause, you turn one of the cards. Your hand trembles in doing so.\n')
                     game_file.display_message(1, message)
                     time.sleep(2)
                     game_file.screen.fill(game_file.black)
 
-            elif player.action.lower() == 'go to the red door':
-                progression_check = 'The Red Door'
-                message = (
-                    'As you step into the red room, a mysterious ambiance envelops you, carrying an aura of ancient secrets and mystical energies.\n'
-                    'The air is tinged with an intoxicating blend of incense and a faint scent of old parchment, with flickering candles cast dancing shadows upon the walls, creating an almost hypnotic effect.\n'
-                    'In the center of the room lies a crystal ball, perched atop an ornate stand, its surface glimmering with an otherworldly sheen.\n'
-                    'It beckons you to approach, offering cryptic insights into the future and a glimpse into the veiled realms of destiny.\n'
-                    'Tarot cards spread in a precise pattern whisper untold possibilities, while ancient tomes of arcane knowledge hold the wisdom of ages past.\n'
-                    'Five intriguing objects line a nearby table, each veiled in mystery, awaiting your firm hand.\n'
-                    'The air tingles with anticipation.')
-                player.temp_check = False
-                choices = ['Crystal ball', 'Tarot cards', 'Table of objects', 'Go outside of the room']
-                game_file.display_message(1, message)
-                display_check = False
-                while player.temp_check == False:
-
-                    if display_check == False:
-                        game_file.display_message(2, 'So then, what path do you choose?', (50, 290))
-                        display_check = True
-                    else:
-                        game_file.display_message(2, 'So then, what path do you choose?', (50, 50))
-
-                    if len(choices) == 4:
-                        y_position = 300
-                        for i in choices:
-                            game_file.display_message(2, '> ' + i, (50, y_position))
-                            y_position += 20
-                        player.action = game_file.get_player_input()
-                        game_file.screen.fill(game_file.black)
-
-                    else:
-                        y_position = 70
-                        for i in choices:
-                            game_file.display_message(2, '> ' + i, (50, y_position))
-                            y_position += 20
-                        player.action = game_file.get_player_input()
-                        game_file.screen.fill(game_file.black)
-
-                    if player.action == 'crystal ball':
-                        if 'Cursed Mark' in player.inventory:
-                            message = (
-                                'Carefully walking closer to the ornate stand, you instinctively reach out to the crystal ball.\n'
-                                'As you do that, your mark burns. The crystal ball reacts to your mark and begins forming a swirling black smoke.\n'
-                                'From it, you can distinguish the same room you\'re in. You see yourself, and behind you...a dark face with sharp teeth, orange, mad eyes, sitting right on your shoulder.\n'
-                                'Then, the image shifts into a walk. It goes down some stairs, and ends up in the main area of the hotel. A large masked person towers over.\n'
-                                'It looks like he is guarding the entrance. The crystall ball goes blank again and cracks.\n\n')
-                            game_file.display_message(1, message)
-                            time.sleep(2)
-                            game_file.screen.fill(game_file.black)
-                            choices.remove('Crystal ball')
-                            choices.sort()
-
-                        else:
-                            message = (
-                                'Carefully walking closer to the ornate stand, you instinctively reach out to the crystal ball.\n'
-                                'As you do that, the crystal ball begins forming a swirling white smoke.\n'
-                                'In it, you distinguish the room you\'re in. The image pans over to the table with the five objects.\n')
-                            game_file.display_message(1, message)
-                            time.sleep(2)
-                            game_file.screen.fill(game_file.black)
-
-                            if 'Bloody Letter' in player.inventory:
-                                message = ('A particular item seems to be glowing. It\'s the ancient tome.\n')
-                                game_file.display_message(1, message)
-                                time.sleep(2)
-                                game_file.screen.fill(game_file.black)
-
-                            elif 'Magnifying Glass' in player.inventory:
-                                message = ('A particular item seems to be glowing. It\'s the black mirror.\n')
-                                game_file.display_message(1, message)
-                                time.sleep(2)
-                                game_file.screen.fill(game_file.black)
-
-                            else:
-                                message = ('A particular item seems to be glowing. It\'s the silver ring.\n')
-                                game_file.display_message(1, message)
-                                time.sleep(2)
-                                game_file.screen.fill(game_file.black)
-
-                            message = (
-                                'Then, the image shifts into a walk. It goes down some stairs, and ends up in the main area of the hotel. A large masked person towers over.\n'
-                                'It looks like he is guarding the entrance. The crystall ball goes blank again and cracks.\n\n')
-                            game_file.display_message(1, message)
-                            time.sleep(2)
-                            game_file.screen.fill(game_file.black)
-                            choices.remove('Crystal ball')
-                            choices.sort()
-
-                    elif player.action == 'tarot cards':
+                    if 'Cursed Mark' in player.inventory and 'Bloody Letter' not in player.inventory:
                         message = (
-                            'As you gingerly reach out to touch the deck, a sense of trepidation and excitement intertwines within you.\n'
-                            'The cards seem to respond to your presence, almost as if they were awaiting your arrival.\n'
-                            'As your fingers make contact with the smooth, worn edges, a surge of energy courses through your being.\n'
-                            'The deck feels warm, alive, and responsive in your hands. It is as though a subtle connection has been established between you and the ancient wisdom contained within.\n'
-                            'With every shuffle and cut, the cards seem to whisper secrets, each one a potential window into the vast tapestry of fate.\n'
-                            'You can\'t help but notice the way they shine in the light. Their golden tint gives a sense of comfort and safety.\n'
-                            'You instinctively draw and spread five cards out of the tarot deck on the table. Your hands move on their own.\n'
-                            'A light breeze flickers the candles, seemingly coming out of nowhere. The intensity of their flames now grows.\n'
-                            'After a brief pause, you turn one of the cards. Your hand trembles in doing so.\n')
+                            'The first card is The Tower. It is followed by The Hanged Man, The Two of Swords, The Devil and The Wheel of Fortune.\n'
+                            'You do not know their meaning, but you don\'t need to. Your intuition and senses know what the sequence means.\n'
+                            'Your mark burns. You must get rid of it. You must be even more careful with your choices, as your life depends on them.\n'
+                            'And you must get rid of it as soon as possible. Maybe one of the items will help in that regard.\n\n')
                         game_file.display_message(1, message)
                         time.sleep(2)
                         game_file.screen.fill(game_file.black)
-
-                        if 'Cursed Mark' in player.inventory and 'Bloody Letter' not in player.inventory:
-                            message = (
-                                'The first card is The Tower. It is followed by The Hanged Man, The Two of Swords, The Devil and The Wheel of Fortune.\n'
-                                'You do not know their meaning, but you don\'t need to. Your intuition and senses know what the sequence means.\n'
-                                'Your mark burns. You must get rid of it. You must be even more careful with your choices, as your life depends on them.\n'
-                                'And you must get rid of it as soon as possible. Maybe one of the items will help in that regard.\n\n')
-                            game_file.display_message(1, message)
-                            time.sleep(2)
-                            game_file.screen.fill(game_file.black)
-                            choices.remove('Tarot cards')
-                            choices.sort()
-
-                        elif 'Bloody Letter' in player.inventory and 'Cursed Mark' not in player.inventory:
-                            message = (
-                                'The first card is The Hermit. It is followed by The High Priestess, The Page of Swords, The Justice and The Wheel of Fortune.\n'
-                                'Even though you never dealt with tarot cards before, you sense the meaning of the sequence. Their golden tint tells you all you need to know.\n'
-                                'The answers are right under your nose. You must look deeper, in what you know, in what you have. Your intuition is your salvation.\n\n')
-                            game_file.display_message(1, message)
-                            time.sleep(2)
-                            game_file.screen.fill(game_file.black)
-                            choices.remove('Tarot cards')
-                            choices.sort()
-
-                        elif 'Bloody Letter' in player.inventory and 'Cursed Mark' in player.inventory:
-                            message = (
-                                'The first card is The Hermit. It is followed by The High Priestess, The Page of Swords, The Justice and The Wheel of Fortune.\n'
-                                'Even though you never dealt with tarot cards before, you sense the meaning of the sequence. Their golden tint tells you all you need to know.\n'
-                                'The answers are right under your nose. You must look deeper, in what you know, in what you have. Your intuition is your salvation.\n'
-                                'The key to removing your mark is hidden in the bloody letter and in this room. Perhaps in one of the objects, as well.\n\n')
-                            game_file.display_message(1, message)
-                            time.sleep(2)
-                            game_file.screen.fill(game_file.black)
-                            choices.remove('Tarot cards')
-                            choices.sort()
-
-                        else:
-                            message = (
-                                'The first card is The World. It is followed by The Eight of Cups, The Three of Wands, The Ace of Pentacles and The Chariot.\n'
-                                'Despite never dealing with tarot cards before, you know what all of this means. You are close. It\'s almost over.\n'
-                                'Now, for the last part of this weird day, you must not let your guard down.\n\n')
-                            game_file.display_message(1, message)
-                            time.sleep(2)
-                            game_file.screen.fill(game_file.black)
-                            choices.remove('Tarot cards')
-                            choices.sort()
-
-                    elif player.action == 'table of objects':
-                        message = (
-                            'From the second you laid eyes on it, you knew it was there for you. All of this, was for you, somehow.\n'
-                            'You feel an unexplainable connection to everything that is happening. You must see this through.\n'
-                            'Five objects are carefully laid on the gold-edged cloth, made out of red silk, that covers the table.\n'
-                            'A ring, made out of silver.\n'
-                            'A black mirror, made out of obsidian.\n'
-                            'An ancient tome, made out of leather.\n'
-                            'A perfumed satchel, adorned with beautiful symbols.\n'
-                            'A rosary, of the simplest design.\n'
-                            'Something tells you you can only pick one. And that it is somewhat...relevant. Vital, rather.\n'
-                            'Which one will it be?')
-                        temp_choices = ['>Silver ring',
-                            '>Black mirror',
-                            '>Ancient tome',
-                            '>Perfumed satchel',
-                            '>Rosary']
-                        game_file.display_message(1, message)
-                        game_file.display_message(2, temp_choices, (50, 230))
-                        player.action = game_file.get_player_input()
-                        game_file.screen.fill(game_file.black)
-                        choices.remove('Table of objects')
+                        choices.remove('Tarot cards')
                         choices.sort()
 
-                        if player.action == 'silver ring':
-                            message = (
-                                'You believe the ring will prove useful. How could it, though? It\'s just a ring.\n'
-                                'But, if it\'s one thing you learnt in this hotel, is that nothing is random.\n\n')
-                            game_file.display_message(1, message)
-                            time.sleep(2)
-                            game_file.screen.fill(game_file.black)
-                            player.inventory.append('Silver ring')
-
-                        elif player.action == 'black mirror':
-                            message = ('The obsidian, heavy, black mirror seems the obvious choice for you.\n'
-                                       'Perhaps there is something to its blackness that will reveal a secret.\n\n')
-                            game_file.display_message(1, message)
-                            time.sleep(2)
-                            game_file.screen.fill(game_file.black)
-                            player.inventory.append('Black mirror')
-
-                        elif player.action == 'ancient tome':
-                            message = (
-                                'The ancient tome definitely holds the information and secrets that will get you out of this place.\n'
-                                'Safely.\n\n')
-                            game_file.display_message(1, message)
-                            time.sleep(2)
-                            game_file.screen.fill(game_file.black)
-                            player.inventory.append('Ancient tome')
-
-                        elif player.action == 'perfumed satchel':
-                            message = (
-                                'The perfumed satchel has a certain charm to it. Perhaps it is the perfume itself...\n'
-                                'And maybe that\'s a good thing. Could be exactly what you needed.\n'
-                                'Nevertheless, such a beautiful and charming object is better suited to your pocket, than this table.\n\n')
-                            game_file.display_message(1, message)
-                            time.sleep(2)
-                            game_file.screen.fill(game_file.black)
-                            player.inventory.append('Perfumed satchel')
-
-                        elif player.action == 'rosary':
-                            message = ('Simplicity seems to be the best answer here. And besides, you need God.\n'
-                                       'Faith will get you through this. You can feel it. Divinity is your salvation.\n\n')
-                            game_file.display_message(1, message)
-                            time.sleep(2)
-                            game_file.screen.fill(game_file.black)
-                            player.inventory.append('Rosary')
-
-                    elif player.action == 'go outside of the room':
-                        message = ('Now, having seen enough of the room, you better leave it for now.\n'
-                                   'Hopefully for you, you explored it thoroughly. You have a feeling it was crucial.\n\n')
+                    elif 'Bloody Letter' in player.inventory and 'Cursed Mark' not in player.inventory:
+                        message = (
+                            'The first card is The Hermit. It is followed by The High Priestess, The Page of Swords, The Justice and The Wheel of Fortune.\n'
+                            'Even though you never dealt with tarot cards before, you sense the meaning of the sequence. Their golden tint tells you all you need to know.\n'
+                            'The answers are right under your nose. You must look deeper, in what you know, in what you have. Your intuition is your salvation.\n\n')
                         game_file.display_message(1, message)
                         time.sleep(2)
                         game_file.screen.fill(game_file.black)
-                        choices.remove('Go outside of the room')
+                        choices.remove('Tarot cards')
                         choices.sort()
-                        player.temp_check = True
+
+                    elif 'Bloody Letter' in player.inventory and 'Cursed Mark' in player.inventory:
+                        message = (
+                            'The first card is The Hermit. It is followed by The High Priestess, The Page of Swords, The Justice and The Wheel of Fortune.\n'
+                            'Even though you never dealt with tarot cards before, you sense the meaning of the sequence. Their golden tint tells you all you need to know.\n'
+                            'The answers are right under your nose. You must look deeper, in what you know, in what you have. Your intuition is your salvation.\n'
+                            'The key to removing your mark is hidden in the bloody letter and in this room. Perhaps in one of the objects, as well.\n\n')
+                        game_file.display_message(1, message)
+                        time.sleep(2)
+                        game_file.screen.fill(game_file.black)
+                        choices.remove('Tarot cards')
+                        choices.sort()
+
+                    else:
+                        message = (
+                            'The first card is The World. It is followed by The Eight of Cups, The Three of Wands, The Ace of Pentacles and The Chariot.\n'
+                            'Despite never dealing with tarot cards before, you know what all of this means. You are close. It\'s almost over.\n'
+                            'Now, for the last part of this weird day, you must not let your guard down.\n\n')
+                        game_file.display_message(1, message)
+                        time.sleep(2)
+                        game_file.screen.fill(game_file.black)
+                        choices.remove('Tarot cards')
+                        choices.sort()
+
+                elif player.action == 'table of objects':
+                    message = (
+                        'From the second you laid eyes on it, you knew it was there for you. All of this, was for you, somehow.\n'
+                        'You feel an unexplainable connection to everything that is happening. You must see this through.\n'
+                        'Five objects are carefully laid on the gold-edged cloth, made out of red silk, that covers the table.\n'
+                        'A ring, made out of silver.\n'
+                        'A black mirror, made out of obsidian.\n'
+                        'An ancient tome, made out of leather.\n'
+                        'A perfumed satchel, adorned with beautiful symbols.\n'
+                        'A rosary, of the simplest design.\n'
+                        'Something tells you you can only pick one. And that it is somewhat...relevant. Vital, rather.\n'
+                        'Which one will it be?')
+                    temp_choices = ['>Silver ring',
+                        '>Black mirror',
+                        '>Ancient tome',
+                        '>Perfumed satchel',
+                        '>Rosary']
+                    game_file.display_message(1, message)
+                    game_file.display_message(2, temp_choices, (50, 230))
+                    player.action = game_file.get_player_input()
+                    game_file.screen.fill(game_file.black)
+                    choices.remove('Table of objects')
+                    choices.sort()
+
+                    if player.action == 'silver ring':
+                        message = (
+                            'You believe the ring will prove useful. How could it, though? It\'s just a ring.\n'
+                            'But, if it\'s one thing you learnt in this hotel, is that nothing is random.\n\n')
+                        game_file.display_message(1, message)
+                        time.sleep(2)
+                        game_file.screen.fill(game_file.black)
+                        player.inventory.append('Silver ring')
+
+                    elif player.action == 'black mirror':
+                        message = ('The obsidian, heavy, black mirror seems the obvious choice for you.\n'
+                                   'Perhaps there is something to its blackness that will reveal a secret.\n\n')
+                        game_file.display_message(1, message)
+                        time.sleep(2)
+                        game_file.screen.fill(game_file.black)
+                        player.inventory.append('Black mirror')
+
+                    elif player.action == 'ancient tome':
+                        message = (
+                            'The ancient tome definitely holds the information and secrets that will get you out of this place.\n'
+                            'Safely.\n\n')
+                        game_file.display_message(1, message)
+                        time.sleep(2)
+                        game_file.screen.fill(game_file.black)
+                        player.inventory.append('Ancient tome')
+
+                    elif player.action == 'perfumed satchel':
+                        message = (
+                            'The perfumed satchel has a certain charm to it. Perhaps it is the perfume itself...\n'
+                            'And maybe that\'s a good thing. Could be exactly what you needed.\n'
+                            'Nevertheless, such a beautiful and charming object is better suited to your pocket, than this table.\n\n')
+                        game_file.display_message(1, message)
+                        time.sleep(2)
+                        game_file.screen.fill(game_file.black)
+                        player.inventory.append('Perfumed satchel')
+
+                    elif player.action == 'rosary':
+                        message = ('Simplicity seems to be the best answer here. And besides, you need God.\n'
+                                   'Faith will get you through this. You can feel it. Divinity is your salvation.\n\n')
+                        game_file.display_message(1, message)
+                        time.sleep(2)
+                        game_file.screen.fill(game_file.black)
+                        player.inventory.append('Rosary')
+
+                elif player.action == 'go outside of the room':
+                    message = ('Now, having seen enough of the room, you better leave it for now.\n'
+                               'Hopefully for you, you explored it thoroughly. You have a feeling it was crucial.\n\n')
+                    game_file.display_message(1, message)
+                    time.sleep(2)
+                    game_file.screen.fill(game_file.black)
+                    choices.remove('Go outside of the room')
+                    choices.sort()
+                    player.temp_check = True
 
 def room3():
     message = ('The three doors opened up ways to different worlds, that\'s for sure, you think... '
@@ -850,7 +865,27 @@ def room3():
                     game_file.screen.fill(game_file.black)
 
                     if player.pclass == 'room 09':
-                        pass
+                        message = ('You reach for one of your hairpins and try to use its sharp point to open the letter.'
+                                   'The seal is tougher than you expected. After a bit of struggle, you succeed. ')
+                        game_file.display_message(1, message)
+                        time.sleep(2)
+                        game_file.screen.fill(game_file.black)
+
+                    elif player.pclass == 'room 13':
+                        message = ('There was not a time when your pen didn\'t come in handy. It always serves you right, no matter the job. '
+                                   'You take out your pen with the grace of a swordsman and carefully remove the crimson seal from the letter '
+                                   'Another success. ')
+                        game_file.display_message(1, message)
+                        time.sleep(2)
+                        game_file.screen.fill(game_file.black)
+
+                    elif player.pclass == 'room 256':
+                        message = ('It looks likey were right to gift you a pocket knife. A businessman\'s surprise tool, they said. '
+                                   'So then, time to put it to work. A smooth quick slash later, the letter stands opened before you. '
+                                   'Good job, knife. And good job, you.')
+                        game_file.display_message(1, message)
+                        time.sleep(2)
+                        game_file.screen.fill(game_file.black)
 
                 message = (f'Dear {player.name}, ')
                 game_file.display_message(1, message)
@@ -959,14 +994,14 @@ def room3():
                    'gold tinted-columns. A grand chandelier hangs from the middle of its ceiling. The chandelier seems to have been unused for a long time. '
                    'The red candles have melted away and covered the chandelier in a web of wax. A parfumed scent can be still felt from it. '
                    'The room itself is decorated by paintings on the walls. Large and small paintings, with frames of golden or brown colour, are spread all over. '
-                   'Almost as if they didn\'t know what to fill the space with. As you step closer to one of them, you spot a reddish, nearly washed away, spot, '
+                   'Almost as if they didn\'t know what to fill the space with. As you step closer to one of them, you spot a reddish, nearly washed away, stain, '
                    'behind one of the paintings. Then you see another, at the next painting. This one is larger and less washed away. The sudden realization hits you: '
-                   'These paintings are all hiding these spots, which, with no doubt now, are blood. How could this hotel still have actual clients book rooms with the state that it is in? '
+                   'These paintings are all hiding these stains, which, with no doubt now, are blood. How could this hotel still have actual clients book rooms with the state that it is in? '
                    'A bar is present in the middle of the lounge. The bartender seems absent, cleaning away at a glass. '
                    'The chair and couches laying around are empty. The entire Lounge is devoid of any life and movement, except you and the bartender. '
                    'Given how there is no visible clue at hand, you decide to ask him a few things. '
                    'While walking towards the bar, you pass a painting of a man dressed in a black, purple-striped vest, with a ruffled shirt underneath. '
-                   'Blood red buttons are adorning the vest. A single golden button holds the sleeve tight. His shirt\'s collar is also red, with golden edges.'
+                   'Blood red buttons are adorning the vest. A single golden button holds the sleeve tight. His shirt\'s collar is also red, with golden edges. '
                    'The painting surprised him in a nonchalant posture, mischievously, but elegantly, watching you. A faint smile can be traced on his young face. '
                    'The man seems in his early 30\'s. His black eyes let off such a feeling of sadness, that it forces you to obediently look downwards, as to avoid it. '
                    'Brown-tinted letters read, in the left corner: Count Elrah Margot, 1773.')
@@ -997,12 +1032,33 @@ def room3():
                    'His pallid complexion is striking, as if drained of life itself, and his gaze never seems to meet yours. '
                    'It\'s as if he exists in a world of his own, detached from the dimly lit surroundings. '
                    'As you open your mouth to ask your question, he drops the towel and the glass, and, with the same expression, turns aside and points with his arm and hand '
-                   'toward the hall leading out of the lounge. It is the hall that leads to the Main Lobby. ')
+                   'toward the hall leading out of the lounge. It is the hall that leads to the Main Lobby. You stand up and set on towards it. ')
         game_file.display_message(1, message)
         time.sleep(3)
         game_file.screen.fill(game_file.black)
 
         player.check3 = True
+
+
+def room4():
+    message = ('Level 4: Main Lobby')
+    game_file.display_message(1, message, (395, 70))
+    time.sleep(2)
+    game_file.screen.fill(game_file.black)
+
+    while player.check4 == False:
+        message = ('Walking down the hall towards the Main Lobby, you arrive at its entrance. A large, tall man is standing there. '
+               'His mask is made of bone, with ornate symbols etched into it. As you get closer, you realize he is towering over you. '
+               'He says not a word. He is wearing a black and red elegant costume, made out of pants and a vest. '
+               'His hand reaches forward, expecting to be given something. His black eyes can be seen through the mask. '
+               'He is not patient. You must give him what ne needs. But what is it?')
+        game_file.display_message(1, message)
+        time.sleep(2)
+        game_file.screen.fill(game_file.black)
+
+        if 'VIP Ticket' in player.inventory:
+            pass
+
 
 
 
@@ -1012,8 +1068,9 @@ game_file.screen.fill(game_file.black)
 game_file.screen.fill(game_file.black)
 #room2()
 game_file.screen.fill(game_file.black)
-player.inventory.append('Bloody Letter')
 room3()
+game_file.screen.fill(game_file.black)
+room4()
 
 game_file.pygame.display.update()
 game_file.clock.tick(60)
