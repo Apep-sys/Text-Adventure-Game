@@ -604,7 +604,7 @@ def room2():
                             'As you do that, your mark burns. The crystal ball reacts to your mark and begins forming a swirling black smoke.\n'
                             'From it, you can distinguish the same room you\'re in. You see yourself, and behind you...a dark face with sharp teeth, orange, mad eyes, sitting right on your shoulder.\n'
                             'Then, the image shifts into a walk. It goes down some stairs, and ends up in the main area of the hotel. A large masked person towers over.\n'
-                            'It looks like he is guarding the entrance. The crystall ball goes blank again and cracks.\n\n')
+                            'It looks like he is guarding the entrance. A fiery image of a large book snaps before your eyes. The crystall ball goes blank again and cracks.\n\n')
                         game_file.display_message(1, message)
                         time.sleep(2)
                         game_file.screen.fill(game_file.black)
@@ -621,7 +621,7 @@ def room2():
                         game_file.screen.fill(game_file.black)
 
                         if 'Bloody Letter' in player.inventory:
-                            message = ('A particular item seems to be glowing. It\'s the ancient tome.\n')
+                            message = ('A particular item seems to be glowing. It\'s the silver ring.\n')
                             game_file.display_message(1, message)
                             time.sleep(2)
                             game_file.screen.fill(game_file.black)
@@ -633,7 +633,7 @@ def room2():
                             game_file.screen.fill(game_file.black)
 
                         else:
-                            message = ('A particular item seems to be glowing. It\'s the silver ring.\n')
+                            message = ('A particular item seems to be glowing. It\'s the ancient tome.\n')
                             game_file.display_message(1, message)
                             time.sleep(2)
                             game_file.screen.fill(game_file.black)
@@ -1118,6 +1118,62 @@ def room4():
 
                 player.change_state()
                 player.check4 = True
+
+        message = ('You walk carefully, but hastily, to the entrance. You are careful not to touch or interact with the man in any way. '
+                   'Upon entering the Main Lobby, you set your sight on the people before you. Their red masks shine in the eerie, dim, orange light of the Lobby. '
+                   'They all wear black suits and different red masks. There are multiple groups of them. Some wear masks depicting animals, some wear masks '
+                   'depicting human faces surprised in various emotions, while a few, wear masks of otherwordly, monstrous creatures. '
+                   'None of them seems to have noticed your presence. They carry along with their weird masked ball. They chat among themselves and drink cocktails. '
+                   'Not a great variety in cocktails, you think, as most of them match the colour of the masks. What a themed party. '
+                   'They are sitting around on couches, chairs, forming small groups around the place. One thing that seems out of place is the lack of music. '
+                   'What kind of ball has no music? Only their incessant discussions in the form of whispers can be heard. Hisses, almost. '
+                   'The bartender here seems just as lively as the other one. He doesn\'t even mix the drink, just pours it from the tap. '
+                   'Isn\'t the tap meant for beer, though? Must be a strong punch. The guard said they were expecting me. They don\'t seem very fond of my presence, so far. ')
+        game_file.display_message(1, message)
+        time.sleep(3)
+        game_file.screen.fill(game_file.black)
+
+        if 'Cursed Mark' in player.inventory:
+            message = ('You grasp the mark on your arm. It is unbelievably hot, and it is pulsing, as if it\'s alive. You must snuff out this semblance of life. '
+                       'As you do this, a few of the people before you slowly turn their heads towards you. It is a behavior that is picked up by more and more of them. '
+                       'You realize the whispers and hissing is mostly gone now. You have their attention. A light akin to a twilight with purple undertones is now basking everyone in the lobby. '
+                       'The atmosphere has got much heavier. You get the feeling they are eagerly waiting for every breath you draw. It anticipates the moment of the last. ')
+            game_file.display_message(1, message)
+            time.sleep(2)
+            game_file.screen.fill(game_file.black)
+
+        elif 'Opened Letter' in player.inventory:
+            message = ('The dim light is one thing you have had enough of in this hotel. Makes everything feel so uncomfortable and...agitated. '
+                    'As soon as you think that, the light dims even more. The whole lobby is now basked in a twilight with purple undertones. '
+                    'Party is getting weirder. Too bad you are here to break it. This must be the cult the Count has spoken of. You don\'t wait for shivers to run down your spine, this time. '
+                    'You know what you have to do. Question is...how? How does one go about facing a shadow and an entire cult? The objects in the red room should lend you a metaphorical hand here. ')
+            game_file.display_message(1, message)
+            time.sleep(2)
+            game_file.screen.fill(game_file.black)
+
+        elif 'Unopened Letter' in player.inventory:
+            message = ('So then, whatever is going down will go down nevertheless here. With these people. Or whatever they are. If anything I have will come in handy, now is the time '
+                       'to look for it.')
+            game_file.display_message(1, message)
+            time.sleep(2)
+            game_file.screen.fill(game_file.black)
+
+        message = (
+            'As these thoughts go through your mind, the air quickly becomes denser. It gets hard to breathe. The people in the lobby stop any form of activity and stand up to watch you dead in the eye. '
+            'A few groups start surrounding you. They are all coordinated, as if controlled by a hive mind. They close in on you, forcing you to advance towards the others. '
+            'The monstrous masks seem to be the bosses, as they simply wait the prey to be delivered to them. The human masks start chanting in a foreign language. '
+            'The animal masks are their grunts. As the human masks chant, the air loses density, but you can now see this density gain a shape: a corporeal shadow, towering over everyone in the lobby. '
+            'It reaches as high as the ceiling. The monstrous masks take their masks off and reveal the palid faces beneath. Their facial features are sharp and bone-like, reminiscent of the tall man with the '
+            'bone mask. They have an almost skeletal appearance. Their eyes are of a deep red, small and fixated on you. With the same coordination, each of them takes a dagger and stabs themselves in the gut. '
+            'They drop to their knees and accompany the chanting with their screams. These continous screams are a reverence to the shadow. ')
+        game_file.display_message(1, message)
+        time.sleep(3)
+        game_file.screen.fill(game_file.black)
+
+        while player.check4 == False:
+            if 'Opened Letter' in player.inventory:
+                message = ('Without fumbling around, you are determined to win. The information you have received and collected so far will make the difference. What will you do now? ')
+                choices = ['Stand and fight', 'Run towards the second exit', 'Accept your dire fate']
 
 
 
