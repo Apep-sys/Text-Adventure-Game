@@ -1216,8 +1216,8 @@ def room4():
                                 if 'Opened Letter' in player.inventory and 'Silver Ring' in player.inventory:
                                     choices.append('>Combine the opened letter and the silver ring')
 
-                                if 'Opened Letter' in player.inventory and 'Rosary' in player.inventory:
-                                    choices.append('>Combine the opened letter and the rosary')
+                                if 'Magnifying Glass' in player.inventory and 'Ancient Tome' in player.inventory:
+                                    choices.append('>Combine the magnifying glass and the ancient tome')
 
                                 game_file.display_message(1, message)
                                 game_file.display_message(2, choices, (50, 90))
@@ -1245,8 +1245,38 @@ def room4():
                                         time.sleep(2)
                                         game_file.screen.fill(game_file.black)
 
+                                        message = ('As the dust settles, you find yourself standing in a transformed Main Lobby. '
+                                                   'The curse is lifted, and the once malevolent shadows have given way to warm, inviting light. '
+                                                   'The hotel is free from the darkness that plagued it for centuries. '
+                                                   'Several of the creatures are laying around, their masks shattered and their humanity returned to them. '
+                                                   'They are weak and frail, and will need help to fully restore. The calmness of the Main Lobby brings '
+                                                   'tranquility to your heart. Your journey comes to an end, leaving you with a sense of fulfillment and accomplishment. '
+                                                   'As you walk out of the hotel, your Cursed Mark, no longer glowing, remains etched onto your skin. An evil chill is felt as you lay eyes on it. '
+                                                   'No longer scared, you valiantly brush it off and have faith in what is to come. ')
+                                        game_file.display_message(1, message)
+                                        time.sleep(3)
+                                        game_file.screen.fill(game_file.black)
 
-                                    elif player.action.lower() == 'combine ':
+                                    elif player.action.lower() == 'combine the fuse and the silver ring':
+                                        message = ('Equipped with the Silver Ring, Count Elrah\'s symbol against evil, and the Magnifying Glass, you confront the shadow that engulfs the Main Lobby. '
+                                                   'The shadow grows more menacing as you approach, and the people, now emerging with vampiric features from under their masks, hiss and scowl, eager to draw your blood. '
+                                                   'You activate the Fuse, creating a blinding explosion of light. The Silver Ring catches the light onto itself and purifies it, enhancing it tenfold. '
+                                                   'You are now holding a shining halo in your hand, blinding everyone in the lobby. The shadow\'s power is visibly being diminished by the light. '
+                                                   'The vampiric creatures flee to hide from the light or get burnt from being too close. With a grave sound, the shadow rushes towards you. '
+                                                   'It is its last attempt at defeating you. A long, black arm extends towards you, as coming from an abyss, its claws almost reaching you. '
+                                                   'The light denies it from hurting you in any way. The shadow is being ripped apart by the light. It screams and wails with otherwordly sounds. '
+                                                   'Its orange, mad eyes are fixating you. You are looking true evil in the face. With mercy in your heart, you extend your arm to the shadow\'s. '
+                                                   'And grab it. As you grab it, the shadow is consumed by the light, filling all its evil with purity. It explodes and dissipates into thin air with a last scream. '
+                                                   'The remaining vampire creatures fall to the ground. The entire lobby goes dark for a few seconds, only to make place to the warm, inviting light, falling through its ceiling. '
+                                                   'The chandelier ignites gently, its flames now reminding of a peaceful hearth. ')
+                                        game_file.display_message(1, message)
+                                        time.sleep(2)
+                                        game_file.screen.fill(game_file.black)
+
+
+
+
+                                    elif player.action.lower() == 'combine the opened letter and the silver ring':
                                         pass
 
                                 except:
