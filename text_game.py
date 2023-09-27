@@ -739,7 +739,7 @@ def room2():
                         game_file.display_message(1, message)
                         time.sleep(2)
                         game_file.screen.fill(game_file.black)
-                        player.inventory.append('Silver ring')
+                        player.inventory.append('Silver Ring')
 
                     elif player.action == 'black mirror':
                         message = ('The obsidian, heavy, black mirror seems the obvious choice for you.\n'
@@ -747,7 +747,7 @@ def room2():
                         game_file.display_message(1, message)
                         time.sleep(2)
                         game_file.screen.fill(game_file.black)
-                        player.inventory.append('Black mirror')
+                        player.inventory.append('Black Mirror')
 
                     elif player.action == 'ancient tome':
                         message = (
@@ -756,7 +756,7 @@ def room2():
                         game_file.display_message(1, message)
                         time.sleep(2)
                         game_file.screen.fill(game_file.black)
-                        player.inventory.append('Ancient tome')
+                        player.inventory.append('Ancient Tome')
 
                     elif player.action == 'perfumed satchel':
                         message = (
@@ -766,7 +766,7 @@ def room2():
                         game_file.display_message(1, message)
                         time.sleep(2)
                         game_file.screen.fill(game_file.black)
-                        player.inventory.append('Perfumed satchel')
+                        player.inventory.append('Perfumed Satchel')
 
                     elif player.action == 'rosary':
                         message = ('Simplicity seems to be the best answer here. And besides, you need God.\n'
@@ -1174,30 +1174,112 @@ def room4():
         while player.check4 == False:
 
             if 'Opened Letter' in player.inventory:
-                message = ('Without fumbling around, you are determined to win. The information you have received and collected so far will make the difference. What will you do now? ')
+                message = ('You must reach deep into yourself and bring out your innermost trait. The information you have received and collected so far will make the difference. What will you do now? ')
                 choices = ['>Stand and fight', '>Run towards the second exit', '>Offer yourself to the shadow']
                 game_file.display_message(1, message)
                 game_file.display_message(2, choices, (50, 130))
                 player.action = game_file.get_player_input()
                 game_file.screen.fill(game_file.black)
 
-            try:
-                if player.action.lower() == 'stand and fight':
-                    message = ('You need to check your pockets. Whatever you have, you must use it. It\'s now or never. ')
-                    choices = []
-                    for i in player.inventory:
-                        choices.append('> ' + i)
+            while True:
+
+                try:
+
+                    if player.action.lower() == 'stand and fight':
+                        message = ('You need to check your pockets. Whatever you have, you must use it. It\'s now or never. ')
+                        choices = []
+                        for i in player.inventory:
+                            choices.append('>' + i)
+                        game_file.display_message(1, message)
+                        game_file.display_message(2, choices, (50, 110))
+                        message = ('What will you do with these items?')
+                        choices = ['>Combine the items', '>Use items separately']
+                        game_file.display_message(1, message, (50, 270))
+                        game_file.display_message(2, choices, (50, 280))
+                        player.action = game_file.get_player_input()
+                        game_file.screen.fill(game_file.black)
+
+                    while True:
+
+                        try:
+
+                            if player.action.lower() == 'combine the items':
+                                message = ('Which items will you combine?')
+                                choices = []
+
+                                if 'Magnifying Glass' in player.inventory and 'Black Mirror' in player.inventory:
+                                    choices.append('>Combine the magnifying glass and the black mirror')
+
+                                if 'Fuse' in player.inventory and 'Silver Ring' in player.inventory:
+                                    choices.append('>Combine the fuse and the silver ring')
+
+                                if 'Opened Letter' in player.inventory and 'Silver Ring' in player.inventory:
+                                    choices.append('>Combine the opened letter and the silver ring')
+
+                                if 'Opened Letter' in player.inventory and 'Rosary' in player.inventory:
+                                    choices.append('>Combine the opened letter and the rosary')
+
+                                game_file.display_message(1, message)
+                                game_file.display_message(2, choices, (50, 90))
+                                player.action = game_file.get_player_input()
+                                game_file.screen.fill(game_file.black)
+
+                            while True:
+
+                                try:
+
+                                    if player.action.lower() == 'combine the magnifying glass and the black mirror':
+                                        message = ('The light coming through the magnifying glass seems to clear itself and come out pure. '
+                                                   'By taking the magnifying glass to the black mirror, the purity of the light starts dispelling the blackness of the mirror. '
+                                                   'As you hold them aloft, their energies resonate and intertwine, creating a blinding vortex of light and shadow. '
+                                                   'The people of the lobby now rather resemble gaunt-faced creatures, with vampiric features. '
+                                                   'They wail as the light and shadow dance around you, seemingly forced to go after you. They vaporize at the touch of the vortex. '
+                                                   'The shadow grows larger, but it is now erratic, chaotic, spreading everywhere and trying to push as many creatures towards you. '
+                                                   'It is scared. The vortex becomes faster and faster, creating a sound akin to hearing a tornado through the creaks of a window. '
+                                                   'The vampiric creatures ignore the shadow and are now trying to escape the vortex. The entire Lobby is affected by it, as the '
+                                                   'walls are shaking and cracking, and the chandelier is swinging wildly. '
+                                                   'With a mighty burst of energy, a colossal portal emerges, bridging the gap between worlds. '
+                                                   'It draws the shadow into its depths, along with several vampiric creatures. The shadow is fighting, trying to escape, but the light binds it '
+                                                   'and the darkness pulls on it. The shadow is visibly being ripped apart. It screams in agony.')
+                                        game_file.display_message(1, message)
+                                        time.sleep(2)
+                                        game_file.screen.fill(game_file.black)
+
+
+                                    elif player.action.lower() == 'combine ':
+                                        pass
+
+                                except:
+
+                                    message = ('I did not understand that. Please repeat.')
+                                    game_file.display_message(1, message)
+                                    time.sleep(2)
+                                    game_file.screen.fill(game_file.black)
+                                    continue
+
+                                break
+
+
+                        except:
+
+                            message = 'I did not understand that. Please repeat.'
+                            game_file.display_message(1, message)
+                            time.sleep(2)
+                            game_file.screen.fill(game_file.black)
+                            continue
+
+                        break
+
+
+                except:
+
+                    message = 'I did not understand that. Please repeat.'
                     game_file.display_message(1, message)
-                    game_file.display_message(2, choices, (50, 110))
-                    player.action = game_file.get_player_input()
+                    time.sleep(2)
                     game_file.screen.fill(game_file.black)
+                    continue
 
-
-            except:
-                message = 'I did not understand that. Please repeat.'
-                game_file.display_message(1, message)
-                time.sleep(2)
-                game_file.screen.fill(game_file.black)
+                break
 
 
 
@@ -1213,6 +1295,7 @@ game_file.screen.fill(game_file.black)
 player.inventory.append('VIP Ticket')
 player.inventory.append('Magnifying Glass')
 player.inventory.append('Opened Letter')
+player.inventory.append('Silver Ring')
 room4()
 
 game_file.pygame.display.update()
