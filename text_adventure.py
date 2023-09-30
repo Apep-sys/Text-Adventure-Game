@@ -309,8 +309,6 @@ class Player:
                                             if 'Magnifying Glass' in self.inventory:
                                                 message = ('>Introduce the magnifying glass in the carving representing it\n'
                                                       '>Push the blocks of rock\n')
-                                                #TODO Bug where these options don't show up, but going to the black door does.
-                                                # Order was Red Door and Green Door.
                                                 self.print_message(message)
                                             else:
                                                 message = ('>Push the blocks of rock\n')
