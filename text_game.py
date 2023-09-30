@@ -1361,7 +1361,7 @@ def room4():
                                     choices = ['>Use the Ancient Tome by itself', '>Combine the Ancient Tome']
                                     game_file.display_message(1, message)
                                     game_file.display_message(2, choices, (50, 100))
-                                    game_file.get_player_input()
+                                    player.action = game_file.get_player_input()
                                     game_file.screen.fill(game_file.black)
 
                                     try:
@@ -1411,11 +1411,36 @@ def room4():
                                         elif player.action.lower() == 'combine the ancient tome':
                                             message = ('What will you combine it with?')
                                             choices = []
+                                            temp_choices = ['combine the ancient tome with the magnifying glass,'
+                                                            'combine the ancient tome with the silver ring',
+                                                            'combine the ancient tome with the black mirror']
 
+                                            if 'Magnifying Glass' in player.inventory:
+                                                choices.append('>Combine the ancient tome with the magnifying glass')
+                                            if 'Silver Ring' in player.inventory:
+                                                choices.append('>Combine the ancient tome with the silver ring')
+                                            if 'Black Mirror' in player.inventory:
+                                                choices.append('>Combine the ancient tome with the black mirror')
+                                            if 'Perfumed Satchel' in player.inventory:
+                                                choices.append('>Combine the ancient tome with the perfumed satchel')
+                                            if 'Rosary' in player.inventory:
+                                                choices.append('>Combine the ancient tome with the rosary')
+                                            else:
+                                                pass
 
                                             game_file.display_message(1, message)
-                                            game_file.get_player_input()
+                                            game_file.display_message(2, choices, (50, 90))
+                                            player.action = game_file.get_player_input()
                                             game_file.screen.fill(game_file.black)
+
+                                            if not choices:
+                                                message = ('You have nothing on you that could be combined with it. Your only option is to use it as it is. ')
+                                                game_file.display_message(1, message)
+                                                game_file.screen.fill(game_file.black)
+                                                continue
+
+                                            if player.action.lower() in temp_choices:
+                                                message = ('No matter what you\'re trying to do with your items, it just won\'t work. ')
 
                                     except:
                                         message = 'I did not understand that. Please repeat.'
