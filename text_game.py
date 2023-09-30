@@ -1328,7 +1328,7 @@ def room4():
                             break
 
                     elif player.action.lower() == 'run towards the second exit':
-                        message = ('You are surrounded here. You must gain better ground. Or, be somewhere close to the exit, in case things go awry.'
+                        message = ('You are surrounded here. You must gain better ground. Or, be somewhere close to the exit, in case things go awry. '
                                    'The main exit seems to be the answer here. ')
                         game_file.display_message(1, message)
                         time.sleep(2)
@@ -1390,30 +1390,18 @@ def room4():
                                             time.sleep(2)
                                             game_file.screen.fill(game_file.black)
 
-                                            message = ('A multitude of faint voices wake you up. Your eyes are greeted by the light that now fills the Main Lobby, and the Hotel Margot itself. A team of medics '
-                                                       'arrived to take care of everyone. You are being carried on a stretcher towards the ambulance. As you turn your head from left to right, you see that the vampiric '
-                                                       'creatures are now returned to being humans. They are all passed out, in a circle, around the spot you were taken from. The light flooding the lobby puts a smile on your face, '
-                                                       'as you now know the curse has been lifted. You defeated the shadow. You touch your arm, trying to find the Cursed Mark. All you find is a faint scar, that looks as if it\'s almost healed. '
-                                                       'You\'ve won. You survived. ')
-                                            game_file.display_message(1, message)
-                                            time.sleep(2)
-                                            game_file.screen.fill(game_file.black)
 
-                                            if 'Opened Letter' in player.inventory:
-                                                message = ('As you are taken outside the hotel, the painting of Count Elrah slowly starts fading away. In its stead, a beautiful scenery of a green meadow, covered in coloured flowers, '
-                                                           'under a golden, warm sun, remains. '
-                                                           'The patches of dried blood around it turn into beautiful floral patterns. The grime and dirt is slowly replaced by patches of green grass. '
-                                                           'A silver ring is picked up by one of the medics. Its shine is beautiful and hence, appraised. The medic leaves it where it was found, to find its way to its owner. ')
-                                                game_file.display_message(1, message)
-                                                time.sleep(2)
-                                                game_file.screen.fill(game_file.black)
 
                                         elif player.action.lower() == 'combine the ancient tome':
                                             message = ('What will you combine it with?')
                                             choices = []
-                                            temp_choices = ['combine the ancient tome with the magnifying glass,'
+                                            temp_choices_0 = ['Silver Ring', 'Magnifying Glass', 'Rosary', 'Perfumed Satchel',
+                                                       'Black Mirror']
+                                            temp_choices_1 = ['combine the ancient tome with the magnifying glass,'
                                                             'combine the ancient tome with the silver ring',
                                                             'combine the ancient tome with the black mirror']
+                                            temp_choices_2 = ['combine the ancient tome with the perfumed satchel',
+                                                              'combine the ancient tome with the rosary']
 
                                             if 'Magnifying Glass' in player.inventory:
                                                 choices.append('>Combine the ancient tome with the magnifying glass')
@@ -1433,14 +1421,108 @@ def room4():
                                             player.action = game_file.get_player_input()
                                             game_file.screen.fill(game_file.black)
 
-                                            if not choices:
-                                                message = ('You have nothing on you that could be combined with it. Your only option is to use it as it is. ')
-                                                game_file.display_message(1, message)
-                                                game_file.screen.fill(game_file.black)
-                                                continue
+                                            while True:
 
-                                            if player.action.lower() in temp_choices:
-                                                message = ('No matter what you\'re trying to do with your items, it just won\'t work. ')
+                                                try:
+
+                                                    item_check = 0
+                                                    for i in temp_choices_0:
+                                                        if i not in player.inventory:
+                                                            item_check += 1
+                                                    if item_check == 6:
+                                                        message = ('You have nothing on you that could be combined with it. Your only option is to use it as it is. ')
+                                                        game_file.display_message(1, message)
+                                                        game_file.screen.fill(game_file.black)
+                                                        continue
+
+                                                    if player.action.lower() in temp_choices_1:
+                                                        message = ('No matter what you\'re trying to do with your items, it just won\'t work. '
+                                                                   'The vampiric creatures are being pushed towards you by the shadow. It stays behind them, controlling each and every one. '
+                                                                   'The light of the room is slowly filled by the darkness of the shadow. Your cursed mark is the only one glowing with a crimson glow. '
+                                                                   'Your arm starts twitching uncontrollably, dragging you towards the mass of creatures. You try to fight it, but it easily overpowers you. '
+                                                                   'The arm is no longer listening to you. Slowly, but surely, it\'s spreading to the rest of your body. Your limbs and senses betray you in the most critical moment. '
+                                                                   'You drop to your knees, beaten. Hope is lost now. The shadow towers over you, with its orange mad eyes smiling. '
+                                                                   'A gaping mouth forms out of its darkness. And so ends your...journey. You died.')
+                                                        game_file.display_message(1, message)
+                                                        game_file.screen.fill(game_file.black)
+                                                        player.change_state()
+
+                                                        break
+
+                                                    elif player.action.lower() in temp_choices_2:
+                                                        if player.action.lower() == 'combine the ancient tome with the rosary':
+                                                            message = ('The vampiric creatures are being pushed towards you by the shadow. It stays behind them, controlling each and every one. '
+                                                                       'The light of the room is slowly filled by the darkness of the shadow.'
+                                                                       'In a daring act of bravery, you hold the Rosary, its beads glowing with a divine light, and the Ancient Tome, a sinister relic pulsating with dark power. '
+                                                                       'As you put the Rosary on the wide opened Ancient Tome, the symbols on the tome writhe and squirm, as if resisting the impending ritual. '
+                                                                       'The shadow seems to be directly tied to the tome, as you can hear its panicked whispers inside your head. '
+                                                                       'Drops of blood-stained history drip from its pages, forming a pool of crimson beneath you. '
+                                                                       'A blinding surge of energy envelops the Main Lobby. The Rosary\'s light clashes with the tome\'s darkness, creating a dazzling spectacle. '
+                                                                       'The very air crackles with intensity as the ritual unfolds, challenging the very fabric of the hotel\'s existence. '
+                                                                       'With a final push of faith, the bindings of the Shadow are shattered. The Ancient Tome, once a source of the hotel\'s curse, disintegrates into ash.'
+                                                                       'The Rosary\'s glow intensifies, banishing the last vestiges of darkness. '
+                                                                       'The Main Lobby transforms, its atmosphere cleansing into an aura of tranquility and hope. '
+                                                                       'You feel lightheaded, as if your energy was just drawn out. You pass out, soundly. ')
+                                                            game_file.display_message(1, message)
+                                                            time.sleep(2)
+                                                            game_file.screen.fill(game_file.black)
+
+                                                        if player.action.lower() == 'combine the ancient tome with the perfumed satchel':
+                                                            message = ('Gripping the Perfumed Satchel and the Ancient Tome tightly, you embark on the ritual. '
+                                                                       'The Ancient Tome, its pages stained with drops of blood, resists your touch, but you persist, guided by determination. '
+                                                                       'The shadow seems to be directly tied to the tome, as you can hear its panicked whispers inside your head. '
+                                                                       'A powerful surge of energy envelops the Main Lobby. '
+                                                                       'The Perfumed Satchel releases a soothing aroma, intertwining with the darkness emanating from the tome. '
+                                                                       'The air crackles with a blend of fragrant sweetness and ancient power. '
+                                                                       'In a decisive moment, the bindings of the Shadow snap. The Ancient Tome crumbles into ash, its malevolent essence neutralized. '
+                                                                       'The Main Lobby undergoes a profound transformation, its atmosphere cleansing into an aura of tranquility and hope. '
+                                                                       'You\'ve severed the sinister connection between the cult\'s rituals and the Shadow, saving not only the hotel but also countless souls trapped within. '
+                                                                       'The Perfumed Satchel, now infused with the essence of liberation, remains in your hands. '
+                                                                       'Your journey concludes with the hotel bathed in newfound light, a sanctuary of peace rising from the remnants of an ancient malevolence. '
+                                                                       'However, the battle was not without consequence, as you now feel tired and exhausted. As if your energy was just drawn out. '
+                                                                       'You try to stand, but you end up passing out. ')
+                                                            game_file.display_message(1, message)
+                                                            time.sleep(2)
+                                                            game_file.screen.fill(game_file.black)
+
+                                                        message = (
+                                                            'The vampiric creatures were thrown to the ground in the aftermath of the purification ritual. '
+                                                            'Some of them disintegrated along the shadow. However, it seems that their humanity was restored to them. '
+                                                            'The Hotel Margot was cleansed of its curse. You\'ve succeeded.')
+                                                        game_file.display_message(1, message)
+                                                        time.sleep(2)
+                                                        game_file.screen.fill(game_file.black)
+
+                                                        break
+
+                                                except:
+                                                    message = 'I did not understand that. Please repeat.'
+                                                    game_file.display_message(1, message)
+                                                    time.sleep(2)
+                                                    game_file.screen.fill(game_file.black)
+                                                    continue
+
+                                        message = (
+                                            'A multitude of faint voices wake you up. Your eyes are greeted by the light that now fills the Main Lobby, and the Hotel Margot itself. A team of medics '
+                                            'arrived to take care of everyone. You are being carried on a stretcher towards the ambulance. As you turn your head from left to right, you see that the vampiric '
+                                            'creatures have had their humanity returned to them. They are all passed out, in a circle, around the spot you were taken from. The light flooding the lobby puts a smile on your face, '
+                                            'as you now know the curse has been lifted. You defeated the shadow. You touch your arm, trying to find the Cursed Mark. All you find is a faint scar, that looks as if it\'s almost healed. '
+                                            'You\'ve won. You survived. ')
+                                        game_file.display_message(1, message)
+                                        time.sleep(2)
+                                        game_file.screen.fill(game_file.black)
+
+                                        if 'Opened Letter' in player.inventory:
+                                            message = (
+                                                'As you are taken outside the hotel, the painting of Count Elrah slowly starts fading away. In its stead, a beautiful scenery of a green meadow, covered in coloured flowers, '
+                                                'under a golden, warm sun, remains. '
+                                                'The patches of dried blood around it turn into beautiful floral patterns. The grime and dirt is slowly replaced by patches of green grass. '
+                                                'A silver ring is picked up by one of the medics. Its shine is beautiful and hence, appraised. The medic leaves it where it was found, to find its way to its owner. ')
+                                            game_file.display_message(1, message)
+                                            time.sleep(2)
+                                            game_file.screen.fill(game_file.black)
+
+                                        break
 
                                     except:
                                         message = 'I did not understand that. Please repeat.'
@@ -1448,6 +1530,8 @@ def room4():
                                         time.sleep(2)
                                         game_file.screen.fill(game_file.black)
                                         continue
+
+                                break
 
 
 
