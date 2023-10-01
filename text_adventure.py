@@ -29,6 +29,7 @@ class Player:
         self.rooms2 = None
         self.check2 = False
         self.items2 = None
+        self.passing = False
         
         self.level3 = None
         self.items3 = None
