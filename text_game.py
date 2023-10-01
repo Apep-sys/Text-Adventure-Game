@@ -8,7 +8,6 @@ game = adv_file.Game()
 
 def start():
     message = game.narrator1()
-    #message = 'uwu'
     game_file.display_message(1, message)
     adv_file.time.sleep(2)
     player.place_choice = 'Murder Mystery'
@@ -21,7 +20,6 @@ def start():
     game_file.display_message(1, 'And what room will it be?')
     choices = ['>Room 09', '>Room 13', '>Room 256']
     game_file.display_message(2, choices, (50, 80))
-
     player.pclass = game_file.get_player_input().lower()
     game_file.screen.fill(game_file.black)
 
@@ -1307,7 +1305,7 @@ def room4():
 
                                     break
 
-                                elif player.action.lower() == 'renounce these items':
+                                elif player.action.lower() == 'renounce the items':
                                     message = ('None of these items have any real value. They are all just...random objects. You do not see how any of them could stop an entire army of people. '
                                                'And the shadow. Best to let them be and see if there is anything else in the Main Lobby that could help you. ')
                                     game_file.display_message(1, message)
@@ -1317,8 +1315,8 @@ def room4():
                                     player.action = 'run towards the second exit'
                                     break
 
-                            except:
-
+                            except ValueError:
+                                print('1')
                                 message = 'I did not understand that. Please repeat.'
                                 game_file.display_message(1, message)
                                 time.sleep(2)
@@ -1551,6 +1549,10 @@ def room4():
 
                             break
 
+                    elif player.action.lower() == 'offer yourself to the shadow':
+                        pass
+
+
                 except:
 
                     message = 'I did not understand that. Please repeat.'
@@ -1560,8 +1562,6 @@ def room4():
                     continue
 
                 break
-
-
 
 
 start()

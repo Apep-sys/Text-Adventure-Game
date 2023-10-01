@@ -1,4 +1,5 @@
 import time
+import game_py as game_file
 
 
 class Player:
@@ -81,13 +82,32 @@ class Player:
             self.level1 = 'Hallway'
             self.rooms1 = ['Closet', 'Elevator', 'Balcony']
             self.items1 = ['Magnifying Glass', 'Fuse']
-            self.intro = (f"Oh, dear! If it isn't {self.name}! We were expecting you, and we are pleased to have you.\n" 
-                         f"Please, make yourself at home in our dear {self.place}. Your room is {self.pclass.title()}.\n" 
-                         f"For tonight, the {self.detail1[murder_options.index(self.pclass)]}, in the main lobby, " 
-                         f"awaits you. Do consider taking your time when " 
-                         f"deciding how to best approach this event!\nIt won't be long until the MAIN event will begin...\n" 
-                         f"Consider yourself lucky for the heads up. The other guests aren't so lucky. \nOne, in particular...\n" 
-                         f"But enough talk! Go on! Have a wonderful evening!\nMaybe your last one.\n\n")
+            while True:
+                try:
+
+                    self.intro = (f"Oh, dear! If it isn't {self.name}! We were expecting you, and we are pleased to have you.\n" 
+                             f"Please, make yourself at home in our dear {self.place}. Your room is {self.pclass.title()}.\n" 
+                             f"For tonight, the {self.detail1[murder_options.index(self.pclass)]}, in the main lobby, " 
+                             f"awaits you. Do consider taking your time when " 
+                             f"deciding how to best approach this event!\nIt won't be long until the MAIN event will begin...\n" 
+                             f"Consider yourself lucky for the heads up. The other guests aren't so lucky. \nOne, in particular...\n" 
+                             f"But enough talk! Go on! Have a wonderful evening!\nMaybe your last one.\n\n")
+
+                except:
+                    message = 'I did not understand that. Please repeat.'
+                    game_file.display_message(1, message)
+                    time.sleep(2)
+                    game_file.screen.fill(game_file.black)
+
+                    game_file.display_message(1, 'And what room will it be?')
+                    choices = ['>Room 09', '>Room 13', '>Room 256']
+                    game_file.display_message(2, choices, (50, 80))
+                    self.pclass = game_file.get_player_input().lower()
+                    game_file.screen.fill(game_file.black)
+
+                    continue
+
+                break
             
             if self.pclass == 'room 09':
                 self.level2 = 'The Upper Floor'
