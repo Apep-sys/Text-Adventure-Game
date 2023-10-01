@@ -1315,8 +1315,7 @@ def room4():
                                     player.action = 'run towards the second exit'
                                     break
 
-                            except ValueError:
-                                print('1')
+                            except:
                                 message = 'I did not understand that. Please repeat.'
                                 game_file.display_message(1, message)
                                 time.sleep(2)
@@ -1550,8 +1549,28 @@ def room4():
                             break
 
                     elif player.action.lower() == 'offer yourself to the shadow':
-                        pass
+                        message = ('In a moment of despair, you choose to surrender yourself to the encroaching shadow. '
+                                   'The Main Lobby grows darker as the malevolent presence envelops you entirely. '
+                                   'The room seems to sigh in relief as your essence merges with the darkness. ')
+                        game_file.display_message(1, message)
+                        time.sleep(2)
+                        game_file.screen.fill(game_file.black)
 
+                        if 'Cursed Mark' in player.inventory:
+                            message = ('The cursed mark on your arm pulses once, then fades, as if acknowledging the inevitable. '
+                                       'The ancient evil claims you, and your existence becomes one with the shadow that has haunted the hotel for centuries. ')
+                            game_file.display_message(1, message)
+                            time.sleep(2)
+                            game_file.screen.fill(game_file.black)
+
+                        message = ('Your sacrifice, though heartbreaking, serves a purpose. The hotel\'s curse deepens, but the shadow\'s hunger is momentarily sated.'
+                                   'The Main Lobby, once a battleground, falls into an eerie stillness. The Cult of the Shadow, sensing victory, withdraws, leaving the hotel in a state of eerie tranquility.' 
+                                   'The world outside continues, unaware of the sacrifice made within the hotel\'s walls. A choice that will affect the world, even if the world knows it not. ')
+                        game_file.display_message(1, message)
+                        time.sleep(2)
+                        game_file.screen.fill(game_file.black)
+                        player.change_state()
+                        player.check4 = True
 
                 except:
 
