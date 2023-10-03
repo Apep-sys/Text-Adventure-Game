@@ -96,7 +96,7 @@ def display_message(value, message, coordinates=(50, 70)):
 def get_player_input():
     player_input = '> '
     input_rect = pygame.Rect(50, 500, 140, 32)
-    color = pygame.Color('lightskyblue3')
+    color = color_danger#pygame.Color('lightskyblue3')
     waiting = True
 
     while waiting:
@@ -114,7 +114,7 @@ def get_player_input():
                     player_input += event.unicode
 
         pygame.draw.rect(screen, color, input_rect)
-        input_surface = font.render(player_input, True, white)
+        input_surface = font.render(player_input, True, black)
         input_rect_new = pygame.Surface((input_rect.width, input_rect.height))
         input_rect_new.fill(color)
         input_rect_new.blit(input_surface, (5, 5))

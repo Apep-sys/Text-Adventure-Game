@@ -7,8 +7,8 @@ import game_py as game_file
 mixer.init()
 
 mixer.music.load('song.mp3')
-mixer.music.play()
-mixer.music.set_pos(170)
+mixer.music.set_volume(0.2)
+mixer.music.play(loops=-1, fade_ms=5000)
 
 player = adv_file.Player()
 game = adv_file.Game()
@@ -34,6 +34,7 @@ def start():
     player.creation(player.place_choice)
     game_file.display_message(1, player.intro)
 
+    mixer.music.fadeout(2000)
 
 def room1():
     message = 'Level 1: Hallway'
@@ -103,6 +104,10 @@ def room1():
             game_file.screen.fill(game_file.black)
 
             if player.action.lower() == 'closet' and 'Fuse' not in player.inventory:
+
+                mixer.music.load('open_door.wav')
+                mixer.music.play(fade_ms=1000)
+
                 message = (
                     'You enter the cramped closet. The janitor\'s tools are lying about.\nThe stingy smell of cleaning '
                     'products bothers you, but due to the odor of the freshly washed sheets, it is a minor nuisance.\n'
@@ -116,6 +121,10 @@ def room1():
                 continue
 
             elif player.action.lower() == 'closet' and 'Fuse' in player.inventory:
+
+                mixer.music.load('open_door.wav')
+                mixer.music.play(fade_ms=1000)
+
                 message = (
                     'As you enter the cramped closet, you hear an ominous buzz, followed by a cable having a sudden jolt of electricity.\n'
                     'The entire hallway goes into lockdown and a red light turns on. The door slams shut behind you and it locks in place.\n'
@@ -156,6 +165,10 @@ def room1():
                 continue
 
             if player.action.lower() == 'elevator':
+
+                mixer.music.load('elevator.wav')
+                mixer.music.play(start=50, fade_ms=500)
+
                 player.check1 = True
 
 
