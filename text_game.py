@@ -170,15 +170,15 @@ def room1():
                 mixer.music.play(fade_ms=3000)
 
                 message = (
-                    'The wind lifts your hair...The fresh smell of the air makes you inhale with a sense of relief.\n'
+                    'The wind lifts your hair...The fresh smell of the air makes you inhale with a sense of relief. '
                     'You are invigorated.\nOutside, you notice numerous black limousines are arriving. '
-                    'The people coming out of them all wear red masks, along with black suits and dresses.\n'
+                    'The people coming out of them all wear red masks, along with black suits and dresses. '
                     'It looks like they were expected. A great portion of the hotel staff is waiting for them, '
-                    'quickly rushing to escort them once they reach the hotel\'s steps.\n'
-                    'An ominous aura surrounds these new guests...\n'
-                    'You notice something peculiar about the limousines. They each seem to carry a certain symbol.\n'
-                    'The symbols are beautifully blazoned on their hoods. A door, a candle and a circle.\n'
-                    'You ponder this peculiarity for a second and then return to the hallway.\n')
+                    'quickly rushing to escort them once they reach the hotel\'s steps. '
+                    'An ominous aura surrounds these new guests... '
+                    'You notice something peculiar about the limousines. They each seem to carry a certain symbol. '
+                    'The symbols are beautifully blazoned on their hoods. A door, a candle and a circle. '
+                    'You ponder this peculiarity for a second and then return to the hallway.  ')
                 game_file.display_message(1, message)
                 time.sleep(2)
                 game_file.screen.fill(game_file.black)
@@ -212,14 +212,14 @@ def room2():
         game_file.screen.fill(game_file.black)
 
     message = (
-        f'The elevator descends smoothly, carrying you to {level}. As the doors open, a cool atmosphere greets you.\n'
-        'Three distinct doors stand before you, each with its own allure.\n'
-        'To your left, a partially opened door with a tint of green reveals a glimpse of light streaming from within. The soft glow suggests the bathroom light may still be on, hinting at recent activity.\n'
-        'Straight ahead, a closed door painted in a bold shade of red captures your attention. Its vibrant color holds an air of intrigue, hiding the secrets that lie beyond its surface.\n'
-        'To your right, a sleek black door commands your curiosity. Its smooth exterior reflects the ambient light, promising a realm of mysteries waiting to be explored.\n'
-        'You stand at a pivotal moment, faced with choices that will shape your investigation.\n'
-        'The room with the green-tinged door may hold immediate interest, but the red and black doors hold their own enigmas.\n'
-        'It is time to make your move and uncover the truth that awaits behind one of these doors.\n\n')
+        f'The elevator descends smoothly, carrying you to {level}. As the doors open, a cool atmosphere greets you. '
+        'Three distinct doors stand before you, each with its own allure. '
+        'To your left, a partially opened door with a tint of green reveals a glimpse of light streaming from within. The soft glow suggests the bathroom light may still be on, hinting at recent activity. '
+        'Straight ahead, a closed door painted in a bold shade of red captures your attention. Its vibrant color holds an air of intrigue, hiding the secrets that lie beyond its surface. '
+        'To your right, a sleek black door commands your curiosity. Its smooth exterior reflects the ambient light, promising a realm of mysteries waiting to be explored. '
+        'You stand at a pivotal moment, faced with choices that will shape your investigation. '
+        'The room with the green-tinged door may hold immediate interest, but the red and black doors hold their own enigmas. '
+        'It is time to make your move and uncover the truth that awaits behind one of these doors.')
     game_file.display_message(1, message)
     time.sleep(2)
     game_file.screen.fill(game_file.black)
@@ -297,12 +297,12 @@ def room2():
                 game_file.screen.fill(game_file.black)
 
                 if player.action.lower() == 'yes':
-                    message = 'You carefully put the ticket in your jacket\'s inner pocket. '
-                    game_file.display_message(1, message)
 
                     mixer.music.load('pickup.mp3')
                     mixer.music.play()
 
+                    message = 'You carefully put the ticket in your jacket\'s inner pocket. '
+                    game_file.display_message(1, message)
                     player.inventory.append('VIP Ticket')
                     player.items2.remove('VIP Ticket')
                     game_file.screen.fill(game_file.black)
@@ -314,6 +314,10 @@ def room2():
                     game_file.screen.fill(game_file.black)
 
                 if first_door == 'Green':
+
+                    mixer.music.load('gunshot.mp3')
+                    mixer.music.play()
+
                     message = (
                         'Before leaving the room, a gunshot draws your attention. It seems like it came from the room '
                         'with the black door.\nDo you pursue the gunshot?')
@@ -524,6 +528,10 @@ def room2():
                         game_file.screen.fill(game_file.black)
 
         elif player.action.lower() == 'go to the black door':
+
+            mixer.music.load('slide_door.mp3')
+            mixer.music.play()
+
             first_door = 'Black'
             progression_check = 'The Black Door'
 
@@ -616,6 +624,10 @@ def room2():
                 game_file.screen.fill(game_file.black)
 
         elif player.action.lower() == 'go to the red door':
+
+            mixer.music.load('slide_door.mp3')
+            mixer.music.play()
+
             progression_check = 'The Red Door'
             message = (
                 'As you step into the red room, a mysterious ambiance envelops you, carrying an aura of ancient secrets and mystical energies.\n'
