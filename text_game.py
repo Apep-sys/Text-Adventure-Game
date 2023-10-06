@@ -21,7 +21,7 @@ def start():
     player.place_choice = 'Murder Mystery'
     game_file.screen.fill(game_file.black)
 
-    game_file.display_message(1, 'What is your name, endorsed guest?\n')
+    game_file.display_message(1, 'What is your name, endorsed guest? ')
     player.name = game_file.get_player_input().title()
     game_file.screen.fill(game_file.black)
 
@@ -42,24 +42,24 @@ def room1():
     time.sleep(2)
     game_file.screen.fill(game_file.black)
 
-    mixer.music.load('level2.mp3')
+    mixer.music.load('level1.mp3') # it was level2
     mixer.music.play(loops=-1, fade_ms=5000)
 
-    message = ('You enter the dimly lit hallway, caught between the safety of your room and the mysteries ahead.\n'
-               'The air is still, carrying a hint of aged wood. The faded wallpaper peels, revealing the passage of time.\n'
-               'To your left, a closed door leads to a balcony, teasing glimpses of the outside world. \n'
-               'To your right, a slightly ajar door reveals a cramped closet, holding secrets within its limited space.\n'
-               'Straight ahead, a closed door guards the elevator, its faint hum echoing through the corridor.\n'
-               'You observe two items: a fuse, laying on a shelf, and a magnifying glass, somehow waiting for a firm hand to pick it up.\n'
-               'Anticipation settles upon you as you stand in this hallway, ready to unlock the stories within each room.\n'
-               'The adventure awaits, just beyond the threshold.\n')
+    message = ('You enter the dimly lit hallway, caught between the safety of your room and the mysteries ahead. '
+               'The air is still, carrying a hint of aged wood. The faded wallpaper peels, revealing the passage of time. '
+               'To your left, a closed door leads to a balcony, teasing glimpses of the outside world.  '
+               'To your right, a slightly ajar door reveals a cramped closet, holding secrets within its limited space. '
+               'Straight ahead, a closed door guards the elevator, its faint hum echoing through the corridor. '
+               'You observe two items: a fuse, laying on a shelf, and a magnifying glass, somehow waiting for a firm hand to pick it up. '
+               'Anticipation settles upon you as you stand in this hallway, ready to unlock the stories within each room. '
+               'The adventure awaits, just beyond the threshold. ')
     game_file.display_message(1, message)
     time.sleep(2)
     game_file.screen.fill(game_file.black)
 
     while player.check1 is False:
 
-        mixer.music.load('level2.mp3')
+        mixer.music.load('level1.mp3')  #it was level 2
         mixer.music.play(loops=-1, fade_ms=5000)
 
         if len(player.items1) > 0:
@@ -69,7 +69,7 @@ def room1():
             player.action = game_file.get_player_input()
             game_file.screen.fill(game_file.black)
 
-        else:
+        elif len(player.items1) == 0:
             game_file.display_message(1, 'What is your next move?')
             choices = ['>Go to rooms']
             game_file.display_message(2, choices)
@@ -190,6 +190,13 @@ def room1():
                 mixer.music.play(start=19)
 
                 player.check1 = True
+
+        else:
+            message = 'I did not understand that. Please repeat. '
+            game_file.display_message(1, message)
+            time.sleep(2)
+            game_file.screen.fill(game_file.black)
+            continue
 
 
 def room2():
@@ -854,6 +861,13 @@ def room2():
                     choices.sort()
                     player.temp_check = True
 
+        else:
+            message = 'I did not understand that. Please repeat. '
+            game_file.display_message(1, message)
+            time.sleep(2)
+            game_file.screen.fill(game_file.black)
+            continue
+
 
 def room3():
     message = ('The three doors opened up ways to different worlds, that\'s for sure, you think... '
@@ -883,215 +897,224 @@ def room3():
         time.sleep(2)
         game_file.screen.fill(game_file.black)
 
-        if 'Bloody Letter' in player.inventory:
-            message = (
-                'You notice a red spot on your jacket. Blood, definitely. At this point, it\'s something rather regular. '
-                'And then you remember where it came from. '
-                'You took the bloody letter that was on the desk and stuffed it into the inner pocket. Perhaps this '
-                'letter will offer some context to the rooms that you went through. Or the hotel itself. '
-                'So then, will you open it? Or will you let the information fly away?')
-            choices = ['>Open the letter', '>Don\'t open the letter']
-            game_file.display_message(1, message)
-            game_file.display_message(2, choices, (50, 180))
-            player.action = game_file.get_player_input()
-            game_file.screen.fill(game_file.black)
-
-            if player.action.lower() == 'open the letter':
+        while True:
+            if 'Bloody Letter' in player.inventory:
                 message = (
-                    'No, you won\'t let it fly away. Taking this decision makes you feel empowered. As if you\'re finally starting to fight back. '
-                    'You will get out of this hotel, alive. You are hellbent on it. Now, for the letter. ')
+                    'You notice a red spot on your jacket. Blood, definitely. At this point, it\'s something rather regular. '
+                    'And then you remember where it came from. '
+                    'You took the bloody letter that was on the desk and stuffed it into the inner pocket. Perhaps this '
+                    'letter will offer some context to the rooms that you went through. Or the hotel itself. '
+                    'So then, will you open it? Or will you let the information fly away?')
+                choices = ['>Open the letter', '>Don\'t open the letter']
                 game_file.display_message(1, message)
-                player.inventory.append('Opened Letter')
-                time.sleep(2)
-                game_file.screen.fill(game_file.black)
-
-                message = (
-                    'The crimson seal of the letter is the only thing between you and its contents. You could rip it off. '
-                    'Perhaps it\'s better to carefully slice it open, though. ')
-                choices = ['>Rip it off', '>Slice it open']
-                game_file.display_message(1, message)
-                game_file.display_message(2, choices, (50, 100))
+                game_file.display_message(2, choices, (50, 180))
                 player.action = game_file.get_player_input()
                 game_file.screen.fill(game_file.black)
 
-                if player.action.lower() == 'rip it off':
-                    message = ('You choose to brute force your way through a delicate letter. Your choice, not mine... '
-                               'The crimson seal is strong enough to oppose your first attempt at ripping it off. '
-                               'But, since you are very stubborn, you try again, and you rip half of the letter along with the seal. '
-                               'Succces.')
-                    game_file.display_message(1, message)
-                    time.sleep(2)
-                    game_file.screen.fill(game_file.black)
-
-                    message = ('However, the damage done to the letter isn\'t too bad, and you can still read it. '
-                               'The two halves can be put together. The paper is stained with a dried black sludge. The handwriting is frantic, as if penned by a soul trapped in eternal torment. '
-                               'It unveils the grim history of this place, a sanctuary turned into a house of horrors. You read the following...')
-                    game_file.display_message(1, message)
-                    time.sleep(2)
-                    game_file.screen.fill(game_file.black)
-
-                elif player.action.lower() == 'slice it open':
-                    message = 'Gentle does it. Be the scalpel, not the hammer.'
-                    game_file.display_message(1, message)
-                    time.sleep(2)
-                    game_file.screen.fill(game_file.black)
-
-                    if player.pclass == 'room 09':
-                        message = (
-                            'You reach for one of your hairpins and try to use its sharp point to open the letter.'
-                            'The seal is tougher than you expected. After a bit of struggle, you succeed. ')
-                        game_file.display_message(1, message)
-                        time.sleep(2)
-                        game_file.screen.fill(game_file.black)
-
-                    elif player.pclass == 'room 13':
-                        message = (
-                            'There was not a time when your pen didn\'t come in handy. It always serves you right, no matter the job. '
-                            'You take out your pen with the grace of a swordsman and carefully remove the crimson seal from the letter '
-                            'Another success. ')
-                        game_file.display_message(1, message)
-                        time.sleep(2)
-                        game_file.screen.fill(game_file.black)
-
-                    elif player.pclass == 'room 256':
-                        message = (
-                            'It looks likey were right to gift you a pocket knife. A businessman\'s surprise tool, they said. '
-                            'So then, time to put it to work. A smooth quick slash later, the letter stands opened before you. '
-                            'Good job, knife. And good job, you.')
-                        game_file.display_message(1, message)
-                        time.sleep(2)
-                        game_file.screen.fill(game_file.black)
-
-                message = f'Dear {player.name}, '
-                game_file.display_message(1, message)
-                message = (
-                    'Be not surprised, as these events were bound to happen. All of us knew. Except for, well, you. ')
-                game_file.display_message(1, message, (50, 110))
-                message = (
-                    'The reason you are reading this is because I wanted you to. That is correct. Me. And my choice. ')
-                game_file.display_message(1, message, (50, 160))
-                message = (
-                    'The choice to break free of the Great Plan. Of...him. The shadow. The pursuer. The reason for my torment. ')
-                game_file.display_message(1, message, (50, 210))
-                message = (
-                    'My punishment is eternal, now I know this. But I will try to ensure the salvation of my hotel. To rid it of its curse. ')
-                game_file.display_message(1, message, (50, 260))
-                message = (
-                    'This, that you hold in your hands, is a chronicle of unspeakable events that have happened between these very walls. ')
-                game_file.display_message(1, message, (50, 310))
-                message = (
-                    'The hotel is as old as 300 years old. It was supposed to be a beacon in the night for weary travelers. ')
-                game_file.display_message(1, message, (50, 360))
-                message = (
-                    'A refuge for those in need. A place where people could be safe in the night. Somewhere where there would be no harm. ')
-                game_file.display_message(1, message, (50, 410))
-                message = (
-                    'And it was, for quite some time. In those old days, Hotel Margot was one of a kind. A sanctuary through and through. ')
-                game_file.display_message(1, message, (50, 460))
-                message = (
-                    'There was not a soul that had anything ill to say about my hotel. These grounds were marked by kindness and safety. ')
-                game_file.display_message(1, message, (50, 510))
-                message = (
-                    'That was all changed in a dreadful night, marked by a red moon and a cold, freezing wind, when they arrived.')
-                game_file.display_message(1, message, (50, 560))
-                time.sleep(3)
-                game_file.screen.fill(game_file.black)
-
-                message = (
-                    'A group of people dressed in red gowns, like the moon itself. A single black, vertical stripe marked each of their foreheads.')
-                game_file.display_message(1, message)
-                message = (
-                    'They came and promised things we could only dream of. A life that would never end, devoid of any kind of pain. Youth, eternal. ')
-                game_file.display_message(1, message, (50, 110))
-                message = (
-                    'All in exchange for our loyalty. Loyalty signed in blood. And, the Hotel Margot. Relinquish the claim over its grounds, for it to be forever cursed. ')
-                game_file.display_message(1, message, (50, 160))
-                message = (
-                    'We did just that. Unknowingly selling our souls and lives to darkness and evil. The Hotel Margot became a place tainted by blood and death. ')
-                game_file.display_message(1, message, (50, 210))
-                message = (
-                    'Many of us died. And many more, that came to seek shelter between its walls. Sacrifices to a god beyond our time and existence. ')
-                game_file.display_message(1, message, (50, 260))
-                message = (
-                    'A god that would require endless rivers of blood and pain. A god of death. Or rather, of undeath. ')
-                game_file.display_message(1, message, (50, 310))
-                message = (
-                    'And so, the rest of us that remained, for partaking in these blasphemies and perversions of life, were given what we bargained for. ')
-                game_file.display_message(1, message, (50, 360))
-                message = (
-                    'A curse. Along with an eternal guest of the Hotel. Forever bound in servitude to him. That was, until I broke free. ')
-                game_file.display_message(1, message, (50, 410))
-                message = (
-                    'The Great Plan had been laid out to us from the very beginning. You were prophesied to arrive to Hotel Margot, along with your blood. ')
-                game_file.display_message(1, message, (50, 460))
-                message = (
-                    'Your blood is that of an ancient family, known for being close to the Saints. A blood so pure and innocent, evil shakes at the thought of it.')
-                game_file.display_message(1, message, (50, 510))
-                message = (
-                    'And so, your sacrifice would ensure darkness would hold the grasp in this world for a very long time. Hence, I thwarted as much as I could of the Plan.')
-                game_file.display_message(1, message, (50, 560))
-                time.sleep(3)
-                game_file.screen.fill(game_file.black)
-
-                message = (
-                    'The five objects of the red room are all mine. Blood of mine spilled on each of them, and they were sanctified by God. ')
-                game_file.display_message(1, message)
-                message = (
-                    'The act of allying with God has given me the power to overcome the shadow\'s will. But even so, I could not escape him. ')
-                game_file.display_message(1, message, (50, 120))
-                message = (
-                    'It was enough to give you the help and information that you needed. I hope you chose the right object, for only with it can you hope to destroy the shadow. ')
-                game_file.display_message(1, message, (50, 180))
-                message = (
-                    'As for the Hotel Margot, your blood will cleanse it and bring peace to it. And all the restless souls within it. Me included. ')
-                game_file.display_message(1, message, (50, 230))
-                message = (
-                    'Destroy the shadow, and the cult will fall with it. Trust your gut. At some point, your blood will have to meet my object. I put my last ounce of faith into you.')
-                game_file.display_message(1, message, (50, 280))
-                message = 'May faith be your guide. '
-                game_file.display_message(1, message, (50, 330))
-                message = 'Yours in dread, '
-                game_file.display_message(1, message, (50, 400))
-                message = 'Count Elrah'
-                game_file.display_message(1, message, (50, 420))
-                time.sleep(3)
-                game_file.screen.fill(game_file.black)
-
-                message = (
-                    'Having read these words, you take a second to ponder everything. It almost all makes sense. '
-                    'How you felt that everything is tied to you... Made, and placed for you. It isn\'t some egotistical thought. '
-                    'It is a reality. And this reality is very scary. You don\'t feel like you are up to the task Count Elrah has given you. '
-                    'Your head starts hurting, and it feels like it will only get worse. You do not understand how exactly to destroy the shadow. '
-                    'Or where. You remember what the reception told you. The main lobby is the end point for all of it. It\'s where you need to be. '
-                    'A few hours ago, you wouldn\'t have thought any of this would be possible. That it\'s pure fantasy to think of these things. '
-                    'That\'s changed. You\'re changed. You take a few more minutes to rest before standing up. Scared, for sure, but also faithful, and, '
-                    'with a bit of luck, confident. This letter has given you the direction that you needed. It brought to you a larger perspective. '
-                    'And a purpose. You feel like you owe Count Elrah your life. He sacrificed himself for this knowledge to get to you. '
-                    'If it weren\'t for him, you would have been clueless, and you would have fallen right into the cult\'s death trap. '
-                    'You will destroy them before any of that happens. ')
-                game_file.display_message(1, message)
-                time.sleep(3)
-                game_file.screen.fill(game_file.black)
-
-            elif player.action.lower() == 'don\'t open the letter':
-                player.inventory.append('Unopened Letter')
-
-                if 'Cursed Mark' in player.inventory:
+                if player.action.lower() == 'open the letter':
                     message = (
-                        'Perhaps whatever is written on this letter is not meant for prying eyes. You think this while clutching your mark on the arm. '
-                        'Even though, it might have helped getting rid of...your affliction. Or perhaps, it could have made it worse. '
-                        'Anyway, you need to continue searching for the slightest clue as to what\'s going on. ')
+                        'No, you won\'t let it fly away. Taking this decision makes you feel empowered. As if you\'re finally starting to fight back. '
+                        'You will get out of this hotel, alive. You are hellbent on it. Now, for the letter. ')
                     game_file.display_message(1, message)
+                    player.inventory.append('Opened Letter')
                     time.sleep(2)
                     game_file.screen.fill(game_file.black)
+
+                    message = (
+                        'The crimson seal of the letter is the only thing between you and its contents. You could rip it off. '
+                        'Perhaps it\'s better to carefully slice it open, though. ')
+                    choices = ['>Rip it off', '>Slice it open']
+                    game_file.display_message(1, message)
+                    game_file.display_message(2, choices, (50, 100))
+                    player.action = game_file.get_player_input()
+                    game_file.screen.fill(game_file.black)
+
+                    if player.action.lower() == 'rip it off':
+                        message = ('You choose to brute force your way through a delicate letter. Your choice, not mine... '
+                                   'The crimson seal is strong enough to oppose your first attempt at ripping it off. '
+                                   'But, since you are very stubborn, you try again, and you rip half of the letter along with the seal. '
+                                   'Succces.')
+                        game_file.display_message(1, message)
+                        time.sleep(2)
+                        game_file.screen.fill(game_file.black)
+
+                        message = ('However, the damage done to the letter isn\'t too bad, and you can still read it. '
+                                   'The two halves can be put together. The paper is stained with a dried black sludge. The handwriting is frantic, as if penned by a soul trapped in eternal torment. '
+                                   'It unveils the grim history of this place, a sanctuary turned into a house of horrors. You read the following...')
+                        game_file.display_message(1, message)
+                        time.sleep(2)
+                        game_file.screen.fill(game_file.black)
+
+                    elif player.action.lower() == 'slice it open':
+                        message = 'Gentle does it. Be the scalpel, not the hammer.'
+                        game_file.display_message(1, message)
+                        time.sleep(2)
+                        game_file.screen.fill(game_file.black)
+
+                        if player.pclass == 'room 09':
+                            message = (
+                                'You reach for one of your hairpins and try to use its sharp point to open the letter.'
+                                'The seal is tougher than you expected. After a bit of struggle, you succeed. ')
+                            game_file.display_message(1, message)
+                            time.sleep(2)
+                            game_file.screen.fill(game_file.black)
+
+                        elif player.pclass == 'room 13':
+                            message = (
+                                'There was not a time when your pen didn\'t come in handy. It always serves you right, no matter the job. '
+                                'You take out your pen with the grace of a swordsman and carefully remove the crimson seal from the letter '
+                                'Another success. ')
+                            game_file.display_message(1, message)
+                            time.sleep(2)
+                            game_file.screen.fill(game_file.black)
+
+                        elif player.pclass == 'room 256':
+                            message = (
+                                'It looks likey were right to gift you a pocket knife. A businessman\'s surprise tool, they said. '
+                                'So then, time to put it to work. A smooth quick slash later, the letter stands opened before you. '
+                                'Good job, knife. And good job, you.')
+                            game_file.display_message(1, message)
+                            time.sleep(2)
+                            game_file.screen.fill(game_file.black)
+
+                    message = f'Dear {player.name}, '
+                    game_file.display_message(1, message)
+                    message = (
+                        'Be not surprised, as these events were bound to happen. All of us knew. Except for, well, you. ')
+                    game_file.display_message(1, message, (50, 110))
+                    message = (
+                        'The reason you are reading this is because I wanted you to. That is correct. Me. And my choice. ')
+                    game_file.display_message(1, message, (50, 160))
+                    message = (
+                        'The choice to break free of the Great Plan. Of...him. The shadow. The pursuer. The reason for my torment. ')
+                    game_file.display_message(1, message, (50, 210))
+                    message = (
+                        'My punishment is eternal, now I know this. But I will try to ensure the salvation of my hotel. To rid it of its curse. ')
+                    game_file.display_message(1, message, (50, 260))
+                    message = (
+                        'This, that you hold in your hands, is a chronicle of unspeakable events that have happened between these very walls. ')
+                    game_file.display_message(1, message, (50, 310))
+                    message = (
+                        'The hotel is as old as 300 years old. It was supposed to be a beacon in the night for weary travelers. ')
+                    game_file.display_message(1, message, (50, 360))
+                    message = (
+                        'A refuge for those in need. A place where people could be safe in the night. Somewhere where there would be no harm. ')
+                    game_file.display_message(1, message, (50, 410))
+                    message = (
+                        'And it was, for quite some time. In those old days, Hotel Margot was one of a kind. A sanctuary through and through. ')
+                    game_file.display_message(1, message, (50, 460))
+                    message = (
+                        'There was not a soul that had anything ill to say about my hotel. These grounds were marked by kindness and safety. ')
+                    game_file.display_message(1, message, (50, 510))
+                    message = (
+                        'That was all changed in a dreadful night, marked by a red moon and a cold, freezing wind, when they arrived.')
+                    game_file.display_message(1, message, (50, 560))
+                    time.sleep(3)
+                    game_file.screen.fill(game_file.black)
+
+                    message = (
+                        'A group of people dressed in red gowns, like the moon itself. A single black, vertical stripe marked each of their foreheads.')
+                    game_file.display_message(1, message)
+                    message = (
+                        'They came and promised things we could only dream of. A life that would never end, devoid of any kind of pain. Youth, eternal. ')
+                    game_file.display_message(1, message, (50, 110))
+                    message = (
+                        'All in exchange for our loyalty. Loyalty signed in blood. And, the Hotel Margot. Relinquish the claim over its grounds, for it to be forever cursed. ')
+                    game_file.display_message(1, message, (50, 160))
+                    message = (
+                        'We did just that. Unknowingly selling our souls and lives to darkness and evil. The Hotel Margot became a place tainted by blood and death. ')
+                    game_file.display_message(1, message, (50, 210))
+                    message = (
+                        'Many of us died. And many more, that came to seek shelter between its walls. Sacrifices to a god beyond our time and existence. ')
+                    game_file.display_message(1, message, (50, 260))
+                    message = (
+                        'A god that would require endless rivers of blood and pain. A god of death. Or rather, of undeath. ')
+                    game_file.display_message(1, message, (50, 310))
+                    message = (
+                        'And so, the rest of us that remained, for partaking in these blasphemies and perversions of life, were given what we bargained for. ')
+                    game_file.display_message(1, message, (50, 360))
+                    message = (
+                        'A curse. Along with an eternal guest of the Hotel. Forever bound in servitude to him. That was, until I broke free. ')
+                    game_file.display_message(1, message, (50, 410))
+                    message = (
+                        'The Great Plan had been laid out to us from the very beginning. You were prophesied to arrive to Hotel Margot, along with your blood. ')
+                    game_file.display_message(1, message, (50, 460))
+                    message = (
+                        'Your blood is that of an ancient family, known for being close to the Saints. A blood so pure and innocent, evil shakes at the thought of it.')
+                    game_file.display_message(1, message, (50, 510))
+                    message = (
+                        'And so, your sacrifice would ensure darkness would hold the grasp in this world for a very long time. Hence, I thwarted as much as I could of the Plan.')
+                    game_file.display_message(1, message, (50, 560))
+                    time.sleep(3)
+                    game_file.screen.fill(game_file.black)
+
+                    message = (
+                        'The five objects of the red room are all mine. Blood of mine spilled on each of them, and they were sanctified by God. ')
+                    game_file.display_message(1, message)
+                    message = (
+                        'The act of allying with God has given me the power to overcome the shadow\'s will. But even so, I could not escape him. ')
+                    game_file.display_message(1, message, (50, 120))
+                    message = (
+                        'It was enough to give you the help and information that you needed. I hope you chose the right object, for only with it can you hope to destroy the shadow. ')
+                    game_file.display_message(1, message, (50, 180))
+                    message = (
+                        'As for the Hotel Margot, your blood will cleanse it and bring peace to it. And all the restless souls within it. Me included. ')
+                    game_file.display_message(1, message, (50, 230))
+                    message = (
+                        'Destroy the shadow, and the cult will fall with it. Trust your gut. At some point, your blood will have to meet my object. I put my last ounce of faith into you.')
+                    game_file.display_message(1, message, (50, 280))
+                    message = 'May faith be your guide. '
+                    game_file.display_message(1, message, (50, 330))
+                    message = 'Yours in dread, '
+                    game_file.display_message(1, message, (50, 400))
+                    message = 'Count Elrah'
+                    game_file.display_message(1, message, (50, 420))
+                    time.sleep(3)
+                    game_file.screen.fill(game_file.black)
+
+                    message = (
+                        'Having read these words, you take a second to ponder everything. It almost all makes sense. '
+                        'How you felt that everything is tied to you... Made, and placed for you. It isn\'t some egotistical thought. '
+                        'It is a reality. And this reality is very scary. You don\'t feel like you are up to the task Count Elrah has given you. '
+                        'Your head starts hurting, and it feels like it will only get worse. You do not understand how exactly to destroy the shadow. '
+                        'Or where. You remember what the reception told you. The main lobby is the end point for all of it. It\'s where you need to be. '
+                        'A few hours ago, you wouldn\'t have thought any of this would be possible. That it\'s pure fantasy to think of these things. '
+                        'That\'s changed. You\'re changed. You take a few more minutes to rest before standing up. Scared, for sure, but also faithful, and, '
+                        'with a bit of luck, confident. This letter has given you the direction that you needed. It brought to you a larger perspective. '
+                        'And a purpose. You feel like you owe Count Elrah your life. He sacrificed himself for this knowledge to get to you. '
+                        'If it weren\'t for him, you would have been clueless, and you would have fallen right into the cult\'s death trap. '
+                        'You will destroy them before any of that happens. ')
+                    game_file.display_message(1, message)
+                    time.sleep(3)
+                    game_file.screen.fill(game_file.black)
+
+                elif player.action.lower() == 'don\'t open the letter':
+                    player.inventory.append('Unopened Letter')
+
+                    if 'Cursed Mark' in player.inventory:
+                        message = (
+                            'Perhaps whatever is written on this letter is not meant for prying eyes. You think this while clutching your mark on the arm. '
+                            'Even though, it might have helped getting rid of...your affliction. Or perhaps, it could have made it worse. '
+                            'Anyway, you need to continue searching for the slightest clue as to what\'s going on. ')
+                        game_file.display_message(1, message)
+                        time.sleep(2)
+                        game_file.screen.fill(game_file.black)
+
+                    else:
+                        message = (
+                            'Perhaps whatever is written on this letter is not meant for prying eyes. There is a slim chance it could hide a clue... '
+                            'But it is a chance nonetheless. Anyway, best to search other things for it. ')
+                        game_file.display_message(1, message)
+                        time.sleep(2)
+                        game_file.screen.fill(game_file.black)
 
                 else:
-                    message = (
-                        'Perhaps whatever is written on this letter is not meant for prying eyes. There is a slim chance it could hide a clue... '
-                        'But it is a chance nonetheless. Anyway, best to search other things for it. ')
+                    message = ('I did not understand that. Please repeat. ')
                     game_file.display_message(1, message)
                     time.sleep(2)
                     game_file.screen.fill(game_file.black)
+                    continue
+            break
 
         message = (
             'You stand up shortly after your internal monologue and take a look around. The Lounge is a room with turquoise, dirty walls, supported by '
@@ -1213,7 +1236,14 @@ def room4():
                         player.check4 = True
                         break
 
+                elif player.temp_check.lower() == 'no':
+                    continue
+
                 else:
+                    message = 'I did not understand that. Please repeat. '
+                    game_file.display_message(1, message)
+                    time.sleep(2)
+                    game_file.screen.fill(game_file.black)
                     continue
 
             else:
@@ -1229,6 +1259,7 @@ def room4():
 
                 player.change_state()
                 player.check4 = True
+                break
 
         message = (
             'You walk carefully, but hastily, to the entrance. You are careful not to touch or interact with the man in any way. '
