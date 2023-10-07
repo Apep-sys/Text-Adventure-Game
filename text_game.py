@@ -1221,7 +1221,7 @@ def room4():
                         game_file.screen.fill(game_file.black)
                         break
 
-                    else:
+                    elif 'hand over the' in player.action.lower():
                         message = (
                             f'You hand him the {player.action.lower()[13:]}. He holds it in his hand for a second, then proceeds to crush it. '
                             f'His black eyes settle upon you. A piercing gaze, quite literally. You feel your heart being strangled. '
@@ -1235,6 +1235,14 @@ def room4():
                         player.change_state()
                         player.check4 = True
                         break
+
+                    else:
+                        message = 'I did not understand that. Please repeat. '
+                        game_file.display_message(1, message)
+                        time.sleep(2)
+                        game_file.screen.fill(game_file.black)
+                        continue
+
 
                 elif player.temp_check.lower() == 'no':
                     continue
@@ -1317,7 +1325,6 @@ def room4():
         game_file.screen.fill(game_file.black)
 
         while player.check4 is False:
-
             message = (
                 'You must reach deep into yourself and bring out your innermost trait. The information you have received and collected so far will make the difference. What will you do now? ')
             choices = ['>Stand and fight', '>Run towards the second exit', '>Offer yourself to the shadow']
@@ -1326,150 +1333,103 @@ def room4():
             player.action = game_file.get_player_input()
             game_file.screen.fill(game_file.black)
 
-            while True:
+            if player.action.lower() == 'stand and fight':
+                while True:
+                    message = (
+                        'You need to check your pockets. Whatever you have, you must use it. It\'s now or never. ')
+                    choices = []
+                    for i in player.inventory:
+                        choices.append('>' + i)
+                    game_file.display_message(1, message)
+                    game_file.display_message(2, choices, (50, 110))
+                    message = 'What will you do with these items?'
+                    choices = ['>Combine the items', '>Renounce the items']
+                    game_file.display_message(1, message, (50, 320))
+                    game_file.display_message(2, choices, (50, 330))
+                    player.action = game_file.get_player_input()
+                    game_file.screen.fill(game_file.black)
 
-                try:
-
-                    if player.action.lower() == 'stand and fight':
-                        message = (
-                            'You need to check your pockets. Whatever you have, you must use it. It\'s now or never. ')
+                    if player.action.lower() == 'combine the items':
+                        message = 'Which items will you combine?'
                         choices = []
-                        for i in player.inventory:
-                            choices.append('>' + i)
+
+                        if 'Magnifying Glass' in player.inventory and 'Black Mirror' in player.inventory:
+                            choices.append('>Combine the magnifying glass and the black mirror')
+
+                        if 'Fuse' in player.inventory and 'Silver Ring' in player.inventory:
+                            choices.append('>Combine the fuse and the silver ring')
+
+                        if 'Magnifying Glass' in player.inventory and 'Ancient Tome' in player.inventory:
+                            choices.append('>Combine the magnifying glass and the ancient tome')
+
                         game_file.display_message(1, message)
-                        game_file.display_message(2, choices, (50, 110))
-                        message = 'What will you do with these items?'
-                        choices = ['>Combine the items', '>Renounce the items']
-                        game_file.display_message(1, message, (50, 320))
-                        game_file.display_message(2, choices, (50, 330))
+                        game_file.display_message(2, choices, (50, 90))
                         player.action = game_file.get_player_input()
                         game_file.screen.fill(game_file.black)
 
+                        # Loop for Stand And Fight endings
                         while True:
-                            try:
 
-                                if player.action.lower() == 'combine the items':
-                                    message = 'Which items will you combine?'
-                                    choices = []
+                            # Ending 1 - Darkness Pierced
+                            if player.action.lower() == 'combine the magnifying glass and the black mirror':
+                                message = (
+                                    'The gloomy light coming through the magnifying glass seems to clear itself and come out pure. '
+                                    'By taking the magnifying glass to the black mirror, the purity of the light starts dispelling the blackness of the mirror. '
+                                    'As you hold them aloft, their energies resonate and intertwine, creating a blinding vortex of light and shadow. '
+                                    'The people of the lobby now rather resemble gaunt-faced creatures, with vampiric features. '
+                                    'They wail as the light and shadow dance around you, seemingly forced to go after you. They vaporize at the touch of the vortex. '
+                                    'The shadow grows larger, but it is now erratic, chaotic, spreading everywhere and trying to push as many creatures towards you. '
+                                    'It is scared. The vortex becomes faster and faster, creating a sound akin to hearing a tornado through the creaks of a window. '
+                                    'The vampiric creatures ignore the shadow and are now trying to escape the vortex. The entire Lobby is affected by it, as the '
+                                    'walls are shaking and cracking, and the chandelier is swinging wildly. '
+                                    'With a mighty burst of energy, a colossal portal emerges, bridging the gap between worlds. '
+                                    'It draws the shadow into its depths, along with several vampiric creatures. The shadow is fighting, trying to escape, but the light binds it '
+                                    'and the darkness pulls on it. The shadow is visibly being ripped apart. It screams in agony.')
+                                game_file.display_message(1, message)
+                                time.sleep(2)
+                                game_file.screen.fill(game_file.black)
 
-                                    if 'Magnifying Glass' in player.inventory and 'Black Mirror' in player.inventory:
-                                        choices.append('>Combine the magnifying glass and the black mirror')
+                            # Ending 2 - Shine of Tomorrow
+                            elif player.action.lower() == 'combine the fuse and the silver ring':
+                                message = (
+                                    'Equipped with the Silver Ring, Count Elrah\'s symbol against evil, and the Magnifying Glass, you confront the shadow that engulfs the Main Lobby. '
+                                    'The shadow grows more menacing as you approach, and the people, now emerging with vampiric features from under their masks, hiss and growl, eager to draw your blood. '
+                                    'You activate the Fuse, creating a blinding explosion of light. The Silver Ring catches the light onto itself and purifies it, enhancing it tenfold. '
+                                    'You are now holding a shining halo in your hand, blinding everyone in the lobby. The shadow\'s power is visibly being diminished by the light. '
+                                    'The vampiric creatures flee to hide from the light or get burnt from being too close. With a grave sound, the shadow rushes towards you. '
+                                    'It is its last attempt at defeating you. A long, black arm extends towards you, as coming from an abyss, its claws almost reaching you. '
+                                    'The light denies it from hurting you in any way. The shadow is being ripped apart by the light. It screams and wails with otherwordly sounds. '
+                                    'Its orange, mad eyes are fixating you. You are looking true evil in the face. With mercy in your heart, you extend your arm to the shadow\'s. '
+                                    'And grab it. As you grab it, the shadow is consumed by the light, filling all its evil with purity. It explodes and dissipates into thin air with a last scream. '
+                                    'The remaining vampire creatures fall to the ground. The entire lobby goes dark for a few seconds, only to make place to the warm, inviting light, falling through its ceiling. '
+                                    'The chandelier ignites gently, its flames now reminding of a peaceful hearth. ')
+                                game_file.display_message(1, message)
+                                time.sleep(2)
+                                game_file.screen.fill(game_file.black)
 
-                                    if 'Fuse' in player.inventory and 'Silver Ring' in player.inventory:
-                                        choices.append('>Combine the fuse and the silver ring')
+                            # Ending 3 - Flames of Salvation
+                            elif player.action.lower() == 'combine the magnifying glass and the ancient tome':
+                                message = (
+                                    'The gloomy light coming through the magnifying glass seems to clear itself and come out pure. '
+                                    'With this in mind, you open the Ancient Tome that was in the Red Room. '
+                                    'You see bloody drawings and symbols, markings, belonging to the occult. '
+                                    'You take a wild guess and believe what you have in your hands now is a tome containing witchcraft, rituatls and the like. '
+                                    'And perhaps, it is not even a random tome. It might hold special importance. Count Elrah has given it for a reason. '
+                                    'What you thought were people now turn out to be something akin to vampires, with very gaunt and sharp features. They hiss and growl, ready to pounce on you. '
+                                    'The shadow enlarges itself and seems to be covering the entire Main Lobby in a dome of darkness. The only logical move here is obvious. '
+                                    'With no other source of heat in your vicinity, you reflect the chandelier\'s light towards the tome. The purified light acts instantly. '
+                                    'The tome catches on fire, with the blood and black ink on it gaining...life? They shrivel and writhe, but to no avail. '
+                                    'The fire consumes them and pages of the book. The shadow is visibly hurt by this, as its shreaks hurt your ears. The vampiric creatures follow its example. '
+                                    'You seem to have hurt the hivemind. The tome might be the same tome used to have summoned this creature of darkness. It binds it here. '
+                                    'The entire tome is engulfed by the fire, radiating a heat that expunges your enemies. The shadow catches on fire too, burning in agony. '
+                                    'In a matter of minutes, nothing is left of the shadow, nor of its evil and heavy presence. The air is no longer hard to breathe. '
+                                    'A feeling of serenity fills you. Calmness.')
+                                game_file.display_message(1, message)
+                                time.sleep(2)
+                                game_file.screen.fill(game_file.black)
 
-                                    if 'Magnifying Glass' in player.inventory and 'Ancient Tome' in player.inventory:
-                                        choices.append('>Combine the magnifying glass and the ancient tome')
-
-                                    game_file.display_message(1, message)
-                                    game_file.display_message(2, choices, (50, 90))
-                                    player.action = game_file.get_player_input()
-                                    game_file.screen.fill(game_file.black)
-
-                                    while True:
-
-                                        try:
-
-                                            if player.action.lower() == 'combine the magnifying glass and the black mirror':
-                                                message = (
-                                                    'The gloomy light coming through the magnifying glass seems to clear itself and come out pure. '
-                                                    'By taking the magnifying glass to the black mirror, the purity of the light starts dispelling the blackness of the mirror. '
-                                                    'As you hold them aloft, their energies resonate and intertwine, creating a blinding vortex of light and shadow. '
-                                                    'The people of the lobby now rather resemble gaunt-faced creatures, with vampiric features. '
-                                                    'They wail as the light and shadow dance around you, seemingly forced to go after you. They vaporize at the touch of the vortex. '
-                                                    'The shadow grows larger, but it is now erratic, chaotic, spreading everywhere and trying to push as many creatures towards you. '
-                                                    'It is scared. The vortex becomes faster and faster, creating a sound akin to hearing a tornado through the creaks of a window. '
-                                                    'The vampiric creatures ignore the shadow and are now trying to escape the vortex. The entire Lobby is affected by it, as the '
-                                                    'walls are shaking and cracking, and the chandelier is swinging wildly. '
-                                                    'With a mighty burst of energy, a colossal portal emerges, bridging the gap between worlds. '
-                                                    'It draws the shadow into its depths, along with several vampiric creatures. The shadow is fighting, trying to escape, but the light binds it '
-                                                    'and the darkness pulls on it. The shadow is visibly being ripped apart. It screams in agony.')
-                                                game_file.display_message(1, message)
-                                                time.sleep(2)
-                                                game_file.screen.fill(game_file.black)
-
-                                            elif player.action.lower() == 'combine the fuse and the silver ring':
-                                                message = (
-                                                    'Equipped with the Silver Ring, Count Elrah\'s symbol against evil, and the Magnifying Glass, you confront the shadow that engulfs the Main Lobby. '
-                                                    'The shadow grows more menacing as you approach, and the people, now emerging with vampiric features from under their masks, hiss and growl, eager to draw your blood. '
-                                                    'You activate the Fuse, creating a blinding explosion of light. The Silver Ring catches the light onto itself and purifies it, enhancing it tenfold. '
-                                                    'You are now holding a shining halo in your hand, blinding everyone in the lobby. The shadow\'s power is visibly being diminished by the light. '
-                                                    'The vampiric creatures flee to hide from the light or get burnt from being too close. With a grave sound, the shadow rushes towards you. '
-                                                    'It is its last attempt at defeating you. A long, black arm extends towards you, as coming from an abyss, its claws almost reaching you. '
-                                                    'The light denies it from hurting you in any way. The shadow is being ripped apart by the light. It screams and wails with otherwordly sounds. '
-                                                    'Its orange, mad eyes are fixating you. You are looking true evil in the face. With mercy in your heart, you extend your arm to the shadow\'s. '
-                                                    'And grab it. As you grab it, the shadow is consumed by the light, filling all its evil with purity. It explodes and dissipates into thin air with a last scream. '
-                                                    'The remaining vampire creatures fall to the ground. The entire lobby goes dark for a few seconds, only to make place to the warm, inviting light, falling through its ceiling. '
-                                                    'The chandelier ignites gently, its flames now reminding of a peaceful hearth. ')
-                                                game_file.display_message(1, message)
-                                                time.sleep(2)
-                                                game_file.screen.fill(game_file.black)
-
-                                            elif player.action.lower() == 'combine the magnifying glass and the ancient tome':
-                                                message = (
-                                                    'The gloomy light coming through the magnifying glass seems to clear itself and come out pure. '
-                                                    'With this in mind, you open the Ancient Tome that was in the Red Room. '
-                                                    'You see bloody drawings and symbols, markings, belonging to the occult. '
-                                                    'You take a wild guess and believe what you have in your hands now is a tome containing witchcraft, rituatls and the like. '
-                                                    'And perhaps, it is not even a random tome. It might hold special importance. Count Elrah has given it for a reason. '
-                                                    'What you thought were people now turn out to be something akin to vampires, with very gaunt and sharp features. They hiss and growl, ready to pounce on you. '
-                                                    'The shadow enlarges itself and seems to be covering the entire Main Lobby in a dome of darkness. The only logical move here is obvious. '
-                                                    'With no other source of heat in your vicinity, you reflect the chandelier\'s light towards the tome. The purified light acts instantly. '
-                                                    'The tome catches on fire, with the blood and black ink on it gaining...life? They shrivel and writhe, but to no avail. '
-                                                    'The fire consumes them and pages of the book. The shadow is visibly hurt by this, as its shreaks hurt your ears. The vampiric creatures follow its example. '
-                                                    'You seem to have hurt the hivemind. The tome might be the same tome used to have summoned this creature of darkness. It binds it here. '
-                                                    'The entire tome is engulfed by the fire, radiating a heat that expunges your enemies. The shadow catches on fire too, burning in agony. '
-                                                    'In a matter of minutes, nothing is left of the shadow, nor of its evil and heavy presence. The air is no longer hard to breathe. '
-                                                    'A feeling of serenity fills you. Calmness.')
-                                                game_file.display_message(1, message)
-                                                time.sleep(2)
-                                                game_file.screen.fill(game_file.black)
-
-                                        except:
-
-                                            message = 'I did not understand that. Please repeat.'
-                                            game_file.display_message(1, message)
-                                            time.sleep(2)
-                                            game_file.screen.fill(game_file.black)
-                                            continue
-
-                                        break
-
-                                    message = (
-                                        'As the dust settles, you find yourself standing in a transformed Main Lobby. '
-                                        'The curse is lifted, and the once malevolent shadows have given way to warm, inviting light. '
-                                        'The hotel is free from the darkness that plagued it for centuries. '
-                                        'Several of the creatures are laying around, their masks shattered and their humanity returned to them. '
-                                        'They are weak and frail, and will need help to fully restore. The calmness of the Main Lobby brings '
-                                        'tranquility to your heart. Your journey comes to an end, leaving you with a sense of fulfillment and accomplishment. ')
-                                    game_file.display_message(1, message)
-                                    time.sleep(3)
-                                    game_file.screen.fill(game_file.black)
-                                    player.check4 = True
-
-                                    if 'Cursed Mark' in player.inventory:
-                                        message = (
-                                            'As you walk out of the hotel, your Cursed Mark, no longer glowing, remains etched onto your skin. An evil chill is felt as you lay eyes on it. '
-                                            'No longer scared, you valiantly brush it off and have faith in what is to come. ')
-                                    game_file.display_message(1, message)
-                                    time.sleep(3)
-                                    game_file.screen.fill(game_file.black)
-
-                                    break
-
-                                elif player.action.lower() == 'renounce the items':
-                                    message = (
-                                        'None of these items have any real value. They are all just...random objects. You do not see how any of them could stop an entire army of people. '
-                                        'And the shadow. Best to let them be and see if there is anything else in the Main Lobby that could help you. ')
-                                    game_file.display_message(1, message)
-                                    time.sleep(2)
-                                    game_file.screen.fill(game_file.black)
-                                    player.inventory = []
-                                    player.action = 'run towards the second exit'
-                                    break
-
-                            except:
-                                message = 'I did not understand that. Please repeat.'
+                            else:
+                                message = 'I did not understand that. Please repeat. '
                                 game_file.display_message(1, message)
                                 time.sleep(2)
                                 game_file.screen.fill(game_file.black)
@@ -1477,279 +1437,315 @@ def room4():
 
                             break
 
-                    elif player.action.lower() == 'run towards the second exit':
                         message = (
-                            'You are surrounded here. You must gain better ground. Or, be somewhere close to the exit, in case things go awry. '
-                            'The main exit seems to be the answer here. ')
+                            'As the dust settles, you find yourself standing in a transformed Main Lobby. '
+                            'The curse is lifted, and the once malevolent shadows have given way to warm, inviting light. '
+                            'The hotel is free from the darkness that plagued it for centuries. '
+                            'Several of the creatures are laying around, their masks shattered and their humanity returned to them. '
+                            'They are weak and frail, and will need help to fully restore. The calmness of the Main Lobby brings '
+                            'tranquility to your heart. Your journey comes to an end, leaving you with a sense of fulfillment and accomplishment. ')
                         game_file.display_message(1, message)
-                        time.sleep(2)
+                        time.sleep(3)
                         game_file.screen.fill(game_file.black)
-
-                        message = (
-                            'You dart to the exit and find yourself on an elevated scene of sorts. You see all of them coming towards you. Their vampiric features have now '
-                            'surfaced. The shadow is behind them, controlling and pushing them forward. ')
-                        game_file.display_message(1, message)
-                        game_file.screen.fill(game_file.black)
-
-                        if 'Ancient Tome' not in player.inventory:
-                            message = (
-                                'You spot a large book sitting on your right, on a white, circular chair. It looks just like the one from the Red Room. '
-                                'This could be your second chance to pick the right option. ')
-                            game_file.display_message(1, message)
-                            game_file.screen.fill(game_file.black)
-
-                        elif 'Ancient Tome' in player.inventory:
-                            message = (
-                                'Before your eyes flashes a short vision: the Ancient Tome, sitting wide opened on the table from the Red Room. '
-                                'The image moves closer, towards revealing its pages. A fast flurry of pages go by, until it reaches the page depicting the shadow. '
-                                'The shadow\'s eyes can be seen glowing, and as you get closer, it tries dragging you in. '
-                                'The Ancient Tome is the one containing the Shadow, then. It must be destroyed.')
-                            game_file.display_message(1, message)
-                            time.sleep(2)
-                            game_file.screen.fill(game_file.black)
+                        player.check4 = True
 
                         if 'Cursed Mark' in player.inventory:
                             message = (
-                                'You pick up the Ancient Tome and hold it tightly. As you open it, your entire body freezes. The mark on your arm responds to it. '
-                                'You feel the connection between the two. The tome\'s pages are covered in various symbols and markings, all done in an ink that resembles your mark. '
-                                'It writhes and moves, almost as if it\'s alive. Some of the pages are stained by blood. Rituals, must be. '
-                                'You can almost hear the shadow whispering. You feel its voice inside your head. You want it to get out. It won\'t stop. '
-                                'It is fearful. Scared of what you might do with the ancient tome. This is its weakness. ')
-                            game_file.display_message(1, message)
-                            time.sleep(2)
-                            game_file.screen.fill(game_file.black)
+                                'As you walk out of the hotel, your Cursed Mark, no longer glowing, remains etched onto your skin. An evil chill is felt as you lay eyes on it. '
+                                'No longer scared, you valiantly brush it off and have faith in what is to come. ')
+                        game_file.display_message(1, message)
+                        time.sleep(3)
+                        game_file.screen.fill(game_file.black)
 
-                            while True:
+                        break
+
+                    elif player.action.lower() == 'renounce the items':
+                        message = (
+                            'None of these items have any real value. They are all just...random objects. You do not see how any of them could stop an entire army of people. '
+                            'And the shadow. Best to let them be and see if there is anything else in the Main Lobby that could help you. ')
+                        game_file.display_message(1, message)
+                        time.sleep(2)
+                        game_file.screen.fill(game_file.black)
+                        player.inventory = []
+                        player.action = 'run towards the second exit'
+
+                    else:
+                        message = 'I did not understand that. Please repeat. '
+                        game_file.display_message(1, message)
+                        time.sleep(2)
+                        game_file.screen.fill(game_file.black)
+                        continue
+
+            elif player.action.lower() == 'run towards the second exit':
+                message = (
+                    'You are surrounded here. You must gain better ground. Or, be somewhere close to the exit, in case things go awry. '
+                    'The main exit seems to be the answer here. ')
+                game_file.display_message(1, message)
+                time.sleep(2)
+                game_file.screen.fill(game_file.black)
+
+                message = (
+                    'You dart to the exit and find yourself on an elevated scene of sorts. You see all of them coming towards you. Their vampiric features have now '
+                    'surfaced. The shadow is behind them, controlling and pushing them forward. ')
+                game_file.display_message(1, message)
+                game_file.screen.fill(game_file.black)
+
+                if 'Ancient Tome' not in player.inventory:
+                    message = (
+                        'You spot a large book sitting on your right, on a white, circular chair. It looks just like the one from the Red Room. '
+                        'This could be your second chance to pick the right option. ')
+                    game_file.display_message(1, message)
+                    game_file.screen.fill(game_file.black)
+
+                elif 'Ancient Tome' in player.inventory:
+                    message = (
+                        'Before your eyes flashes a short vision: the Ancient Tome, sitting wide opened on the table from the Red Room. '
+                        'The image moves closer, towards revealing its pages. A fast flurry of pages go by, until it reaches the page depicting the shadow. '
+                        'The shadow\'s eyes can be seen glowing, and as you get closer, it tries dragging you in. '
+                        'The Ancient Tome is the one containing the Shadow, then. It must be destroyed.')
+                    game_file.display_message(1, message)
+                    time.sleep(2)
+                    game_file.screen.fill(game_file.black)
+
+                if 'Cursed Mark' in player.inventory:
+                    message = (
+                        'You pick up the Ancient Tome and hold it tightly. As you open it, your entire body freezes. The mark on your arm responds to it. '
+                        'You feel the connection between the two. The tome\'s pages are covered in various symbols and markings, all done in an ink that resembles your mark. '
+                        'It writhes and moves, almost as if it\'s alive. Some of the pages are stained by blood. Rituals, must be. '
+                        'You can almost hear the shadow whispering. You feel its voice inside your head. You want it to get out. It won\'t stop. '
+                        'It is fearful. Scared of what you might do with the ancient tome. This is its weakness. ')
+                    game_file.display_message(1, message)
+                    time.sleep(2)
+                    game_file.screen.fill(game_file.black)
+
+                    while True:
+                        message = (
+                            'Will you use the Ancient Tome by itself? Or perhaps, you will combine it with another item from the Red Room?')
+                        choices = ['>Use the Ancient Tome by itself', '>Combine the Ancient Tome']
+                        game_file.display_message(1, message)
+                        game_file.display_message(2, choices, (50, 100))
+                        player.action = game_file.get_player_input()
+                        game_file.screen.fill(game_file.black)
+
+                        try:
+
+                            if player.action.lower() == 'use the ancient tome by itself':
                                 message = (
-                                    'Will you use the Ancient Tome by itself? Or perhaps, you will combine it with another item from the Red Room?')
-                                choices = ['>Use the Ancient Tome by itself', '>Combine the Ancient Tome']
+                                    'The tome alone will do. So you hope. The connection between you, or rather, the shadow, and the book is undeniable. '
+                                    'The whispering is louder and louder, and it even suppresses your own thoughts. You can not begin to process or think about how to handle this. '
+                                    'The vampiric creatures are getting closer to you. One comes from the side and reaches your arm, trying to throw you to the ground. '
+                                    'In a panic, you do the only thing anyone would do in your situation: you use the ancient tome to bash its head. A hit is enough. '
+                                    'The creature is taken down. The blood that was splattered from the hit landed on the pages. The symbols glow crimson and spread all over the page. '
+                                    'Your arm is shaking uncontrollably, now taken by the Cursed Mark\'s power. The tome is activated by blood, of course. This is what strengthens the shadow. '
+                                    'So then, the opposite of blood must stop everything. But what is it the opposite of blood? As you try to get a grasp of yourself, all seems lost. '
+                                    'The whispers are now loud voices that suppress your own thoughts, your own body is being slowly taken by the shadow and the creatures are reaching their hands '
+                                    'to grab you. Yet again, you do the only thing anyone would do in your situation: you weep. You cry, as everything is taken out from under you. '
+                                    'The shadow swallows the last dim light. ')
                                 game_file.display_message(1, message)
-                                game_file.display_message(2, choices, (50, 100))
+                                time.sleep(3)
+                                game_file.screen.fill(game_file.black)
+
+                                message = (
+                                    'As your tears roll down your cheeks, they catch a glitter of hope. Quite literally. Your tears are the only source of light in that dark place. '
+                                    'A rain of tears tears through the ancient tome, as if they were acid. The tome starts disintegrating into thin air, your tears undoing its corruption and '
+                                    'rituals. The symbols and markings on it disappear, writhing away to their deaths. The vampiric creatures all scream in unison, in agony, falling to the ground. '
+                                    'Some who touched you also disintegrate. The shadow\'s darkness is filled with holes of light, akin to the ancient tome. The tome kept it binded to this world. '
+                                    'Its screams of agony vibrate through your head and make you pass out...')
+                                game_file.display_message(1, message)
+                                time.sleep(2)
+                                game_file.screen.fill(game_file.black)
+
+                            elif player.action.lower() == 'combine the ancient tome':
+                                message = 'What will you combine it with?'
+                                choices = []
+                                temp_choices_0 = ['Silver Ring', 'Magnifying Glass', 'Rosary',
+                                                  'Perfumed Satchel',
+                                                  'Black Mirror']
+                                temp_choices_1 = ['combine the ancient tome with the magnifying glass',
+                                                  'combine the ancient tome with the silver ring',
+                                                  'combine the ancient tome with the black mirror']
+                                temp_choices_2 = ['combine the ancient tome with the perfumed satchel',
+                                                  'combine the ancient tome with the rosary']
+
+                                if 'Magnifying Glass' in player.inventory:
+                                    choices.append('>Combine the ancient tome with the magnifying glass')
+                                if 'Silver Ring' in player.inventory:
+                                    choices.append('>Combine the ancient tome with the silver ring')
+                                if 'Black Mirror' in player.inventory:
+                                    choices.append('>Combine the ancient tome with the black mirror')
+                                if 'Perfumed Satchel' in player.inventory:
+                                    choices.append('>Combine the ancient tome with the perfumed satchel')
+                                if 'Rosary' in player.inventory:
+                                    choices.append('>Combine the ancient tome with the rosary')
+                                else:
+                                    pass
+
+                                game_file.display_message(1, message)
+                                game_file.display_message(2, choices, (50, 90))
                                 player.action = game_file.get_player_input()
                                 game_file.screen.fill(game_file.black)
 
-                                try:
+                                while True:
 
-                                    if player.action.lower() == 'use the ancient tome by itself':
+                                    item_check = 0
+                                    for i in temp_choices_0:
+                                        if i not in player.inventory:
+                                            item_check += 1
+                                    if item_check == 6:
                                         message = (
-                                            'The tome alone will do. So you hope. The connection between you, or rather, the shadow, and the book is undeniable. '
-                                            'The whispering is louder and louder, and it even suppresses your own thoughts. You can not begin to process or think about how to handle this. '
-                                            'The vampiric creatures are getting closer to you. One comes from the side and reaches your arm, trying to throw you to the ground. '
-                                            'In a panic, you do the only thing anyone would do in your situation: you use the ancient tome to bash its head. A hit is enough. '
-                                            'The creature is taken down. The blood that was splattered from the hit landed on the pages. The symbols glow crimson and spread all over the page. '
-                                            'Your arm is shaking uncontrollably, now taken by the Cursed Mark\'s power. The tome is activated by blood, of course. This is what strengthens the shadow. '
-                                            'So then, the opposite of blood must stop everything. But what is it the opposite of blood? As you try to get a grasp of yourself, all seems lost. '
-                                            'The whispers are now loud voices that suppress your own thoughts, your own body is being slowly taken by the shadow and the creatures are reaching their hands '
-                                            'to grab you. Yet again, you do the only thing anyone would do in your situation: you weep. You cry, as everything is taken out from under you. '
-                                            'The shadow swallows the last dim light. ')
+                                            'You have nothing on you that could be combined with it. Your only option is to use it as it is. ')
                                         game_file.display_message(1, message)
-                                        time.sleep(3)
                                         game_file.screen.fill(game_file.black)
+                                        continue
 
-                                        message = (
-                                            'As your tears roll down your cheeks, they catch a glitter of hope. Quite literally. Your tears are the only source of light in that dark place. '
-                                            'A rain of tears tears through the ancient tome, as if they were acid. The tome starts disintegrating into thin air, your tears undoing its corruption and '
-                                            'rituals. The symbols and markings on it disappear, writhing away to their deaths. The vampiric creatures all scream in unison, in agony, falling to the ground. '
-                                            'Some who touched you also disintegrate. The shadow\'s darkness is filled with holes of light, akin to the ancient tome. The tome kept it binded to this world. '
-                                            'Its screams of agony vibrate through your head and make you pass out...')
-                                        game_file.display_message(1, message)
-                                        time.sleep(2)
-                                        game_file.screen.fill(game_file.black)
+                                    try:
 
-                                    elif player.action.lower() == 'combine the ancient tome':
-                                        message = 'What will you combine it with?'
-                                        choices = []
-                                        temp_choices_0 = ['Silver Ring', 'Magnifying Glass', 'Rosary',
-                                                          'Perfumed Satchel',
-                                                          'Black Mirror']
-                                        temp_choices_1 = ['combine the ancient tome with the magnifying glass',
-                                                          'combine the ancient tome with the silver ring',
-                                                          'combine the ancient tome with the black mirror']
-                                        temp_choices_2 = ['combine the ancient tome with the perfumed satchel',
-                                                          'combine the ancient tome with the rosary']
+                                        if player.action.lower() in temp_choices_1:
+                                            message = (
+                                                'No matter what you\'re trying to do with your items, it just won\'t work. '
+                                                'The vampiric creatures are being pushed towards you by the shadow. It stays behind them, controlling each and every one. '
+                                                'The light of the room is slowly filled by the darkness of the shadow. Your cursed mark is the only one glowing with a crimson glow. '
+                                                'Your arm starts twitching uncontrollably, dragging you towards the mass of creatures. You try to fight it, but it easily overpowers you. '
+                                                'The arm is no longer listening to you. Slowly, but surely, it\'s spreading to the rest of your body. Your limbs and senses betray you in the most critical moment. '
+                                                'You drop to your knees, beaten. Hope is lost now. The shadow towers over you, with its orange mad eyes smiling. '
+                                                'A gaping mouth forms out of its darkness. And so ends your...journey. You died.')
+                                            game_file.display_message(1, message)
+                                            game_file.screen.fill(game_file.black)
+                                            time.sleep(3)
+                                            player.change_state()
+                                            player.check4 = True
 
-                                        if 'Magnifying Glass' in player.inventory:
-                                            choices.append('>Combine the ancient tome with the magnifying glass')
-                                        if 'Silver Ring' in player.inventory:
-                                            choices.append('>Combine the ancient tome with the silver ring')
-                                        if 'Black Mirror' in player.inventory:
-                                            choices.append('>Combine the ancient tome with the black mirror')
-                                        if 'Perfumed Satchel' in player.inventory:
-                                            choices.append('>Combine the ancient tome with the perfumed satchel')
-                                        if 'Rosary' in player.inventory:
-                                            choices.append('>Combine the ancient tome with the rosary')
-                                        else:
-                                            pass
+                                            break
 
-                                        game_file.display_message(1, message)
-                                        game_file.display_message(2, choices, (50, 90))
-                                        player.action = game_file.get_player_input()
-                                        game_file.screen.fill(game_file.black)
-
-                                        while True:
-
-                                            item_check = 0
-                                            for i in temp_choices_0:
-                                                if i not in player.inventory:
-                                                    item_check += 1
-                                            if item_check == 6:
+                                        elif player.action.lower() in temp_choices_2:
+                                            if player.action.lower() == 'combine the ancient tome with the rosary':
                                                 message = (
-                                                    'You have nothing on you that could be combined with it. Your only option is to use it as it is. ')
-                                                game_file.display_message(1, message)
-                                                game_file.screen.fill(game_file.black)
-                                                continue
-
-                                            try:
-
-                                                if player.action.lower() in temp_choices_1:
-                                                    message = (
-                                                        'No matter what you\'re trying to do with your items, it just won\'t work. '
-                                                        'The vampiric creatures are being pushed towards you by the shadow. It stays behind them, controlling each and every one. '
-                                                        'The light of the room is slowly filled by the darkness of the shadow. Your cursed mark is the only one glowing with a crimson glow. '
-                                                        'Your arm starts twitching uncontrollably, dragging you towards the mass of creatures. You try to fight it, but it easily overpowers you. '
-                                                        'The arm is no longer listening to you. Slowly, but surely, it\'s spreading to the rest of your body. Your limbs and senses betray you in the most critical moment. '
-                                                        'You drop to your knees, beaten. Hope is lost now. The shadow towers over you, with its orange mad eyes smiling. '
-                                                        'A gaping mouth forms out of its darkness. And so ends your...journey. You died.')
-                                                    game_file.display_message(1, message)
-                                                    game_file.screen.fill(game_file.black)
-                                                    time.sleep(3)
-                                                    player.change_state()
-                                                    player.check4 = True
-
-                                                    break
-
-                                                elif player.action.lower() in temp_choices_2:
-                                                    if player.action.lower() == 'combine the ancient tome with the rosary':
-                                                        message = (
-                                                            'The vampiric creatures are being pushed towards you by the shadow. It stays behind them, controlling each and every one. '
-                                                            'The light of the room is slowly filled by the darkness of the shadow. '
-                                                            'In a daring act of bravery, you hold the Rosary, its beads glowing with a divine light, and the Ancient Tome, a sinister relic pulsating with dark power. '
-                                                            'As you put the Rosary on the wide opened Ancient Tome, the symbols on the tome writhe and squirm, as if resisting the impending ritual. '
-                                                            'The shadow seems to be directly tied to the tome, as you can hear its panicked whispers inside your head. '
-                                                            'Drops of blood-stained history drip from its pages, forming a pool of crimson beneath you. '
-                                                            'A blinding surge of energy envelops the Main Lobby. The Rosary\'s light clashes with the tome\'s darkness, creating a dazzling spectacle. '
-                                                            'The very air crackles with intensity as the ritual unfolds, challenging the very fabric of the hotel\'s existence. '
-                                                            'With a final push of faith, the bindings of the Shadow are shattered. The Ancient Tome, once a source of the hotel\'s curse, disintegrates into ash. '
-                                                            'The Rosary\'s glow intensifies, banishing the last vestiges of darkness. '
-                                                            'The Main Lobby transforms, its atmosphere cleansing into an aura of tranquility and hope. '
-                                                            'You feel lightheaded, as if your energy was just drawn out. You pass out, soundly. ')
-                                                        game_file.display_message(1, message)
-                                                        time.sleep(2)
-                                                        game_file.screen.fill(game_file.black)
-
-                                                    if player.action.lower() == 'combine the ancient tome with the perfumed satchel':
-                                                        message = (
-                                                            'Gripping the Perfumed Satchel and the Ancient Tome tightly, you embark on the ritual. '
-                                                            'The Ancient Tome, its pages stained with drops of blood, resists your touch, but you persist, guided by determination. '
-                                                            'The shadow seems to be directly tied to the tome, as you can hear its panicked whispers inside your head. '
-                                                            'A powerful surge of energy envelops the Main Lobby. '
-                                                            'The Perfumed Satchel releases a soothing aroma, intertwining with the darkness emanating from the tome. '
-                                                            'The air crackles with a blend of fragrant sweetness and ancient power. '
-                                                            'In a decisive moment, the bindings of the Shadow snap. The Ancient Tome crumbles into ash, its malevolent essence neutralized. '
-                                                            'The Main Lobby undergoes a profound transformation, its atmosphere cleansing into an aura of tranquility and hope. '
-                                                            'You\'ve severed the sinister connection between the cult\'s rituals and the Shadow, saving not only the hotel but also countless souls trapped within. '
-                                                            'The Perfumed Satchel, now infused with the essence of liberation, remains in your hands. '
-                                                            'Your journey concludes with the hotel bathed in newfound light, a sanctuary of peace rising from the remnants of an ancient malevolence. '
-                                                            'However, the battle was not without consequence, as you now feel tired and exhausted. As if your energy was just drawn out. '
-                                                            'You try to stand, but you end up passing out. ')
-                                                        game_file.display_message(1, message)
-                                                        time.sleep(2)
-                                                        game_file.screen.fill(game_file.black)
-
-                                            except:
-                                                message = 'I did not understand that. Please repeat.'
+                                                    'The vampiric creatures are being pushed towards you by the shadow. It stays behind them, controlling each and every one. '
+                                                    'The light of the room is slowly filled by the darkness of the shadow. '
+                                                    'In a daring act of bravery, you hold the Rosary, its beads glowing with a divine light, and the Ancient Tome, a sinister relic pulsating with dark power. '
+                                                    'As you put the Rosary on the wide opened Ancient Tome, the symbols on the tome writhe and squirm, as if resisting the impending ritual. '
+                                                    'The shadow seems to be directly tied to the tome, as you can hear its panicked whispers inside your head. '
+                                                    'Drops of blood-stained history drip from its pages, forming a pool of crimson beneath you. '
+                                                    'A blinding surge of energy envelops the Main Lobby. The Rosary\'s light clashes with the tome\'s darkness, creating a dazzling spectacle. '
+                                                    'The very air crackles with intensity as the ritual unfolds, challenging the very fabric of the hotel\'s existence. '
+                                                    'With a final push of faith, the bindings of the Shadow are shattered. The Ancient Tome, once a source of the hotel\'s curse, disintegrates into ash. '
+                                                    'The Rosary\'s glow intensifies, banishing the last vestiges of darkness. '
+                                                    'The Main Lobby transforms, its atmosphere cleansing into an aura of tranquility and hope. '
+                                                    'You feel lightheaded, as if your energy was just drawn out. You pass out, soundly. ')
                                                 game_file.display_message(1, message)
                                                 time.sleep(2)
                                                 game_file.screen.fill(game_file.black)
-                                                continue
 
-                                        break
+                                            if player.action.lower() == 'combine the ancient tome with the perfumed satchel':
+                                                message = (
+                                                    'Gripping the Perfumed Satchel and the Ancient Tome tightly, you embark on the ritual. '
+                                                    'The Ancient Tome, its pages stained with drops of blood, resists your touch, but you persist, guided by determination. '
+                                                    'The shadow seems to be directly tied to the tome, as you can hear its panicked whispers inside your head. '
+                                                    'A powerful surge of energy envelops the Main Lobby. '
+                                                    'The Perfumed Satchel releases a soothing aroma, intertwining with the darkness emanating from the tome. '
+                                                    'The air crackles with a blend of fragrant sweetness and ancient power. '
+                                                    'In a decisive moment, the bindings of the Shadow snap. The Ancient Tome crumbles into ash, its malevolent essence neutralized. '
+                                                    'The Main Lobby undergoes a profound transformation, its atmosphere cleansing into an aura of tranquility and hope. '
+                                                    'You\'ve severed the sinister connection between the cult\'s rituals and the Shadow, saving not only the hotel but also countless souls trapped within. '
+                                                    'The Perfumed Satchel, now infused with the essence of liberation, remains in your hands. '
+                                                    'Your journey concludes with the hotel bathed in newfound light, a sanctuary of peace rising from the remnants of an ancient malevolence. '
+                                                    'However, the battle was not without consequence, as you now feel tired and exhausted. As if your energy was just drawn out. '
+                                                    'You try to stand, but you end up passing out. ')
+                                                game_file.display_message(1, message)
+                                                time.sleep(2)
+                                                game_file.screen.fill(game_file.black)
 
-                                    message = (
-                                        'A multitude of faint voices wake you up. Your eyes are greeted by the light that now fills the Main Lobby, and the Hotel Margot itself. A team of medics '
-                                        'arrived to take care of everyone. You are being carried on a stretcher towards the ambulance. As you turn your head from left to right, you see that the vampiric '
-                                        'creatures have had their humanity returned to them. They are all passed out, in a circle, around the spot you were taken from. The light flooding the lobby puts a smile on your face, '
-                                        'as you now know the curse has been lifted. You defeated the shadow. You touch your arm, trying to find the Cursed Mark. All you find is a faint scar, that looks as if it\'s almost healed. '
-                                        'You\'ve won. You survived. ')
-                                    game_file.display_message(1, message)
-                                    time.sleep(2)
-                                    game_file.screen.fill(game_file.black)
-                                    player.check4 = True
-
-                                    if 'Opened Letter' in player.inventory:
-                                        message = (
-                                            'As you are taken outside the hotel, the painting of Count Elrah slowly starts fading away. In its stead, a beautiful scenery of a green meadow, covered in coloured flowers, '
-                                            'under a golden, warm sun, remains. '
-                                            'The patches of dried blood around it turn into beautiful floral patterns. The grime and dirt is slowly replaced by patches of green grass. '
-                                            'A silver ring is picked up by one of the medics. Its shine is beautiful and hence, appraised. The medic leaves it where it was found, to find its way to its owner. ')
+                                    except:
+                                        message = 'I did not understand that. Please repeat.'
                                         game_file.display_message(1, message)
                                         time.sleep(2)
                                         game_file.screen.fill(game_file.black)
+                                        continue
 
-                                    break
+                                break
 
-                                except:
-                                    message = 'I did not understand that. Please repeat.'
-                                    game_file.display_message(1, message)
-                                    time.sleep(2)
-                                    game_file.screen.fill(game_file.black)
-                                    continue
-
-                            break
-
-                        elif 'Cursed Mark' not in player.inventory:
                             message = (
-                                'As you put your hand on it, your body freezes. You are unable to move any muscle. You can only move your eyes around. '
-                                'The vampiric creatures are creepily making their way towards you. The shadow is slowly pushing them from behind. '
-                                'Your entire arm begins to be covered in ritualistic symbols and marking. It spreads all over your body. '
-                                'Your eyes are no exception. You see the symbols floating around you, everywhere. They glow and pulse crimson. '
-                                'An evil laugh can be heard throughout the Main Lobby. You feel as if your energy, your life force, is being drained away. '
-                                'You drop on the floor. The last thing you see is the shadow standing above you, with those glowing, orange eyes. '
-                                'An intense cold is spread across your body, as the shadow starts engulfing you. Your journey is over. You died. ')
+                                'A multitude of faint voices wake you up. Your eyes are greeted by the light that now fills the Main Lobby, and the Hotel Margot itself. A team of medics '
+                                'arrived to take care of everyone. You are being carried on a stretcher towards the ambulance. As you turn your head from left to right, you see that the vampiric '
+                                'creatures have had their humanity returned to them. They are all passed out, in a circle, around the spot you were taken from. The light flooding the lobby puts a smile on your face, '
+                                'as you now know the curse has been lifted. You defeated the shadow. You touch your arm, trying to find the Cursed Mark. All you find is a faint scar, that looks as if it\'s almost healed. '
+                                'You\'ve won. You survived. ')
                             game_file.display_message(1, message)
                             time.sleep(2)
                             game_file.screen.fill(game_file.black)
                             player.check4 = True
-                            player.change_state()
+
+                            if 'Opened Letter' in player.inventory:
+                                message = (
+                                    'As you are taken outside the hotel, the painting of Count Elrah slowly starts fading away. In its stead, a beautiful scenery of a green meadow, covered in coloured flowers, '
+                                    'under a golden, warm sun, remains. '
+                                    'The patches of dried blood around it turn into beautiful floral patterns. The grime and dirt is slowly replaced by patches of green grass. '
+                                    'A silver ring is picked up by one of the medics. Its shine is beautiful and hence, appraised. The medic leaves it where it was found, to find its way to its owner. ')
+                                game_file.display_message(1, message)
+                                time.sleep(2)
+                                game_file.screen.fill(game_file.black)
 
                             break
 
-                    elif player.action.lower() == 'offer yourself to the shadow':
-                        message = (
-                            'In a moment of despair, you choose to surrender yourself to the encroaching shadow. '
-                            'The Main Lobby grows darker as the malevolent presence envelops you entirely. '
-                            'The room seems to sigh in relief as your essence merges with the darkness. ')
-                        game_file.display_message(1, message)
-                        time.sleep(2)
-                        game_file.screen.fill(game_file.black)
-
-                        if 'Cursed Mark' in player.inventory:
-                            message = (
-                                'The cursed mark on your arm pulses once, then fades, as if acknowledging the inevitable. '
-                                'The ancient evil claims you, and your existence becomes one with the shadow that has haunted the hotel for centuries. ')
+                        except:
+                            message = 'I did not understand that. Please repeat.'
                             game_file.display_message(1, message)
                             time.sleep(2)
                             game_file.screen.fill(game_file.black)
+                            continue
 
-                        message = (
-                            'Your sacrifice, though heartbreaking, serves a purpose. The hotel\'s curse deepens, but the shadow\'s hunger is momentarily sated.'
-                            'The Main Lobby, once a battleground, falls into an eerie stillness. The Cult of the Shadow, sensing victory, withdraws, leaving the hotel in a state of eerie tranquility.'
-                            'The world outside continues, unaware of the sacrifice made within the hotel\'s walls. A choice that will affect the world, even if the world knows it not. ')
-                        game_file.display_message(1, message)
-                        time.sleep(2)
-                        game_file.screen.fill(game_file.black)
-                        player.change_state()
-                        player.check4 = True
+                    break
 
-                except:
-
-                    message = 'I did not understand that. Please repeat.'
+                elif 'Cursed Mark' not in player.inventory:
+                    message = (
+                        'As you put your hand on it, your body freezes. You are unable to move any muscle. You can only move your eyes around. '
+                        'The vampiric creatures are creepily making their way towards you. The shadow is slowly pushing them from behind. '
+                        'Your entire arm begins to be covered in ritualistic symbols and marking. It spreads all over your body. '
+                        'Your eyes are no exception. You see the symbols floating around you, everywhere. They glow and pulse crimson. '
+                        'An evil laugh can be heard throughout the Main Lobby. You feel as if your energy, your life force, is being drained away. '
+                        'You drop on the floor. The last thing you see is the shadow standing above you, with those glowing, orange eyes. '
+                        'An intense cold is spread across your body, as the shadow starts engulfing you. Your journey is over. You died. ')
                     game_file.display_message(1, message)
                     time.sleep(2)
                     game_file.screen.fill(game_file.black)
-                    continue
+                    player.check4 = True
+                    player.change_state()
 
-                break
+                    break
+
+            elif player.action.lower() == 'offer yourself to the shadow':
+                message = (
+                    'In a moment of despair, you choose to surrender yourself to the encroaching shadow. '
+                    'The Main Lobby grows darker as the malevolent presence envelops you entirely. '
+                    'The room seems to sigh in relief as your essence merges with the darkness. ')
+                game_file.display_message(1, message)
+                time.sleep(2)
+                game_file.screen.fill(game_file.black)
+
+                if 'Cursed Mark' in player.inventory:
+                    message = (
+                        'The cursed mark on your arm pulses once, then fades, as if acknowledging the inevitable. '
+                        'The ancient evil claims you, and your existence becomes one with the shadow that has haunted the hotel for centuries. ')
+                    game_file.display_message(1, message)
+                    time.sleep(2)
+                    game_file.screen.fill(game_file.black)
+
+                message = (
+                    'Your sacrifice, though heartbreaking, serves a purpose. The hotel\'s curse deepens, but the shadow\'s hunger is momentarily sated.'
+                    'The Main Lobby, once a battleground, falls into an eerie stillness. The Cult of the Shadow, sensing victory, withdraws, leaving the hotel in a state of eerie tranquility.'
+                    'The world outside continues, unaware of the sacrifice made within the hotel\'s walls. A choice that will affect the world, even if the world knows it not. ')
+                game_file.display_message(1, message)
+                time.sleep(2)
+                game_file.screen.fill(game_file.black)
+                player.change_state()
+                player.check4 = True
+
+            else:
+                message = 'I did not understand that. Please repeat. '
+                game_file.display_message(1, message)
+                time.sleep(2)
+                game_file.screen.fill(game_file.black)
+                continue
 
 
 start()
