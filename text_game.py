@@ -6,7 +6,7 @@ import game_py as game_file
 
 mixer.init()
 
-mixer.music.load('level1.mp3')
+mixer.music.load('intro.mp3')
 mixer.music.set_volume(0.2)
 mixer.music.play(loops=-1, fade_ms=5000)
 
@@ -42,7 +42,7 @@ def room1():
     time.sleep(2)
     game_file.screen.fill(game_file.black)
 
-    mixer.music.load('level1.mp3') # it was level2
+    mixer.music.load('level1.mp3')
     mixer.music.play(loops=-1, fade_ms=5000)
 
     message = ('You enter the dimly lit hallway, caught between the safety of your room and the mysteries ahead. '
@@ -59,7 +59,7 @@ def room1():
 
     while player.check1 is False:
 
-        mixer.music.load('level1.mp3')  #it was level 2
+        mixer.music.load('level1.mp3')
         mixer.music.play(loops=-1, fade_ms=5000)
 
         if len(player.items1) > 0:
@@ -196,7 +196,7 @@ def room1():
 
 def room2():
 
-    mixer.music.load('level2.mp3')
+    mixer.music.load('level1.mp3')
     mixer.music.play(loops=-1, fade_ms=5000)
 
     if player.pclass == 'room 09':
@@ -231,7 +231,7 @@ def room2():
 
     while player.check2 == False:
 
-        mixer.music.load('level2.mp3')
+        mixer.music.load('level1.mp3')
         mixer.music.play(loops=-1, fade_ms=5000)
 
         if progression_check == -1:
@@ -333,6 +333,10 @@ def room2():
                             game_file.screen.fill(game_file.black)
 
                             if player.action.lower() == 'yes':
+
+                                mixer.music.load('slide_door.mp3')
+                                mixer.music.play()
+
                                 gunshot = True
                                 message = (
                                     'You rush towards the black door, propelled by the piercing sound of the gunshot.\n'
