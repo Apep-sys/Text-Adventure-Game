@@ -1871,6 +1871,8 @@ def room4():
                 game_file.screen.fill(game_file.black)
                 continue
 
+def dead_room():
+    message = 'You found a body...'
 
 function_list = [room1, room2, room3, room4]
 
@@ -1892,16 +1894,27 @@ while player.state == 'alive':
         if player.action.lower() == 'yes':
             player.state = 'alive'
             game.phases += 1
+
+            if game.phases == 4:
+                message = ('What a disappointment you are. This is the end. You are dead. ')
+                game_file.display_message(1, message)
+                game_file.screen.fill(game_file.black)
+                game_file.play_music('Music\\bad_ending.mp3')
+                time.sleep(5)
+                break
+
+            temp_inventory = player.inventory
+            del player
+            player = adv_file.Player()
             continue
 
         else:
+            game_file.play_music('Music\\bad_ending.mp3')
             message = ('What a disappointment you are. So be it. Let the end be the end and nothing else. ')
-            game_file.display_message(2, message)
+            game_file.display_message(1, message)
             game_file.screen.fill(game_file.black)
             break
 
-
-game_file.play_music('Music\\bad_ending.mp3')
 
 game_file.pygame.display.update()
 game_file.clock.tick(60)

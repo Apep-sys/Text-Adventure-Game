@@ -101,7 +101,7 @@ class Player:
 
 
 class Game(Player):
-    phases = 1
+    phases = 3
     def narrator1(self):
         message = ("Tonight, we have a special guest. He is here to begin a journey that will lead him...places."
               " It is all up to him to make the right choices. Or the ones that seem right, anyway. ")
