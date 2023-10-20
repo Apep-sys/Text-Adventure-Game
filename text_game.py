@@ -5,10 +5,11 @@ import text_adventure as adv_file
 import game_py as game_file
 
 mixer.init()
-
-mixer.music.load('intro.mp3')
 mixer.music.set_volume(0.2)
-mixer.music.play(loops=-1, fade_ms=5000)
+
+game_file.play_music('Music\intro.mp3', -1, 5000)
+
+
 
 player = adv_file.Player()
 game = adv_file.Game()
@@ -42,8 +43,7 @@ def room1():
     time.sleep(2)
     game_file.screen.fill(game_file.black)
 
-    mixer.music.load('level1.mp3')
-    mixer.music.play(loops=-1, fade_ms=5000)
+    game_file.play_music('Music\level1.mp3', -1, 5000)
 
     message = ('You enter the dimly lit hallway, caught between the safety of your room and the mysteries ahead. '
                'The air is still, carrying a hint of aged wood. The faded wallpaper peels, revealing the passage of time. '
@@ -59,8 +59,7 @@ def room1():
 
     while player.check1 is False:
 
-        mixer.music.load('level1.mp3')
-        mixer.music.play(loops=-1, fade_ms=5000)
+        game_file.play_music('Music\level1.mp3', -1, 5000)
 
         if len(player.items1) > 0:
             game_file.display_message(1, 'What is your next move?')
@@ -88,8 +87,7 @@ def room1():
 
             if player.action.lower() == 'magnifying glass':
 
-                mixer.music.load('pickup.mp3')
-                mixer.music.play()
+                game_file.play_music('Music\pickup.mp3')
 
                 message = 'You pick up a magnifying glass. Hopefully, it will be useful in the way that you think. '
                 game_file.display_message(1, message)
@@ -100,8 +98,7 @@ def room1():
 
             elif player.action.lower() == 'fuse':
 
-                mixer.music.load('pickup.mp3')
-                mixer.music.play()
+                game_file.play_music('Music\pickup.mp3')
 
                 message = 'You picked up a fuse. Someone might miss it. '
                 game_file.display_message(1, message)
@@ -120,8 +117,7 @@ def room1():
 
             if player.action.lower() == 'closet' and 'Fuse' not in player.inventory:
 
-                mixer.music.load('slide_door.mp3')
-                mixer.music.play()
+                game_file.play_music('Music\slide_door.mp3.mp3')
 
                 message = (
                     'You enter the cramped closet. The janitor\'s tools are lying about. The stingy smell of cleaning '
@@ -137,9 +133,7 @@ def room1():
 
             elif player.action.lower() == 'closet' and 'Fuse' in player.inventory:
 
-                mixer.music.load('slide_door.mp3')
-                mixer.music.play()
-
+                game_file.play_music('Music\pickup.mp3')
                 # Death ending nr. 1
                 message = (
                     'As you enter the cramped closet, you hear an ominous buzz, followed by a cable having a sudden jolt of electricity. '
@@ -160,9 +154,7 @@ def room1():
 
             if player.action.lower() == 'balcony':
 
-                mixer.music.load('slide_door.mp3')
-                mixer.music.queue('balcony.mp3')
-                mixer.music.play(fade_ms=3000)
+                game_file.play_music('Music\slide_door.mp3',fade=3000, queue='Music\balcony.mp3')
 
                 message = (
                     'The wind lifts your hair...The fresh smell of the air makes you inhale with a sense of relief. '
@@ -181,9 +173,7 @@ def room1():
 
             if player.action.lower() == 'elevator':
 
-                mixer.music.load('elevator.mp3')
-                mixer.music.play(start=19)
-
+                game_file.play_music('Music\elevator.mp3', start=19)
                 player.check1 = True
 
         else:
@@ -196,8 +186,7 @@ def room1():
 
 def room2():
 
-    mixer.music.load('level1.mp3')
-    mixer.music.play(loops=-1, fade_ms=5000)
+    game_file.play_music('Music\level2.mp3', loops=-1, fade=5000)
 
     if player.pclass == 'room 09':
         message = 'Level 2: The Upper Level'
@@ -231,8 +220,7 @@ def room2():
 
     while player.check2 == False:
 
-        mixer.music.load('level1.mp3')
-        mixer.music.play(loops=-1, fade_ms=5000)
+        game_file.play_music('Music\level2.mp3', loops=-1, fade=5000)
 
         if progression_check == -1:
             message = 'Where do you choose to go?'
@@ -255,8 +243,7 @@ def room2():
 
         if player.action.lower() == 'go to the green door':
 
-            mixer.music.load('slide_door.mp3')
-            mixer.music.play()
+            game_file.play_music('Music\slide_door.mp3')
 
             if first_door is None:
 
@@ -274,8 +261,7 @@ def room2():
 
                     if player.action.lower() == 'yes':
 
-                        mixer.music.load('door_creak.mp3')
-                        mixer.music.play()
+                        game_file.play_music('Music\door_creak.mp3')
 
                         # Death ending nr. 2
                         message = ('You enter the bathroom with careful steps. The door creaks as you open it. '
@@ -303,8 +289,7 @@ def room2():
 
                         if player.action.lower() == 'yes':
 
-                            mixer.music.load('pickup.mp3')
-                            mixer.music.play()
+                            game_file.play_music('Music\pickup.mp3')
 
                             message = 'You carefully put the ticket in your jacket\'s inner pocket. '
                             game_file.display_message(1, message)
@@ -320,8 +305,7 @@ def room2():
 
                         if first_door == 'Green':
 
-                            mixer.music.load('gunshot.mp3')
-                            mixer.music.play()
+                            game_file.play_music('Music\gunshot.mp3')
 
                             message = (
                                 'Before leaving the room, a gunshot draws your attention. It seems like it came from the room '
@@ -334,8 +318,7 @@ def room2():
 
                             if player.action.lower() == 'yes':
 
-                                mixer.music.load('slide_door.mp3')
-                                mixer.music.play()
+                                game_file.play_music('Music\slide_door.mp3')
 
                                 gunshot = True
                                 message = (
@@ -354,6 +337,9 @@ def room2():
                                 game_file.screen.fill(game_file.black)
 
                                 if player.action.lower() == 'yes':
+
+                                    game_file.play_music('Music\dread.mp3', loops=-1)
+
                                     message = ('The trail of blood leads you through the hidden door of a wardrobe.\n'
                                                'You enter something akin to a tunnel. The walls are carved and made of stone.\n'
                                                'The air becomes denser as you walk through the never-ending tunnel.\n'
@@ -380,6 +366,9 @@ def room2():
                                         game_file.screen.fill(game_file.black)
 
                                         if player.action.lower() == 'introduce the magnifying glass in the carving representing it':
+
+                                            game_file.play_music('Music\pickup.mp3')
+
                                             message = (
                                                 'You take out your magnifying glass and fit it into the block\'s carving.\n'
                                                 'You are surprised it worked, as it seemed to be an odd choice.\n\n')
@@ -391,6 +380,9 @@ def room2():
                                             continue
 
                                         elif player.action.lower() == 'push the blocks of rock':
+
+                                            game_file.play_music('Music\stone.mp3')
+
                                             message = (
                                                 'As the blocks of rock are protruding, you decide they could also be made '
                                                 'to fit in.\nBut, there\'s a catch: in what order should you push them back in?')
@@ -429,6 +421,9 @@ def room2():
                                                     continue
 
                                                 else:
+
+                                                    game_file.play_music('Music\epic.mp3')
+
                                                     message = (
                                                         'As you push the blocks back into place, stairs are starting to form below the rock wall. '
                                                         'They seem to be leading towards a bright, white light. '
@@ -493,6 +488,9 @@ def room2():
                                     game_file.screen.fill(game_file.black)
 
                                     if player.action.lower() == 'yes':
+
+                                        game_file.play_music('Music\pickup.mp3')
+
                                         message = (
                                             'Your curiosity got the better of you. You quickly take the letter and stuff it well.\n'
                                             'Now, nobody will know what you\'ve been up to.')
@@ -526,6 +524,9 @@ def room2():
                                     'This place is physically hurting you. You need to get to the end of it.\n'
                                     'As. Soon. As. Possible.'
                                     'And so, after giving the room one last look, you ponder which door to explore next.')
+
+                                game_file.play_music('Music\slide_door.mp3')
+
                                 game_file.display_message(1, message)
                                 time.sleep(2)
                                 game_file.screen.fill(game_file.black)
@@ -549,14 +550,16 @@ def room2():
 
         elif player.action.lower() == 'go to the black door':
 
-            mixer.music.load('slide_door.mp3')
-            mixer.music.play()
+            game_file.play_music('Music\slide_door.mp3')
 
             first_door = 'Black'
             progression_check = 'The Black Door'
 
             if gunshot is False:
                 while True:
+
+                    game_file.play_music('Music\drama.mp3')
+
                     message = (
                         'You feel an irresistible urge to explore the black door, driven by an inexplicable force. '
                         'As the door creaks open, a wave of cold dread washes over you. '
@@ -582,6 +585,9 @@ def room2():
                     game_file.screen.fill(game_file.black)
 
                     if player.action.lower() == 'yes':
+
+                        game_file.play_music('Music\dread.mp3')
+
                         message = ('You follow the blood trail through a secret door in the wardrobe. '
                                    'But, as soon as you step through, a darkness quickly engulfs you and throws you out of the room with force. '
                                    'The door immediately slams shut. You feel shivers everywhere in your body. You\'re too fearful to get off the ground and look around. '
@@ -597,6 +603,9 @@ def room2():
 
                     elif player.action.lower() == 'no':
                         while True:
+
+                            game_file.play_music('Music\drama.mp3')
+
                             message = (
                                 'The chilling scene unfolds, overwhelming fear grips your heart. An eerie foreboding takes hold as you witness the nightmarish tableau. '
                                 'The wardrobe\'s door creaks open, cold dread washes over you, freezing you in place. '
@@ -623,6 +632,9 @@ def room2():
                             game_file.screen.fill(game_file.black)
 
                             if player.action.lower() == 'yes':
+
+                                game_file.play_music('Music\pickup.mp3')
+
                                 message = (
                                     'If anything will serve you as proof of what happened here, it\'s this. You quickly took the letter and stuffed it well. '
                                     'Now, maybe you will live to show the world what is truly happening here. ')
@@ -657,6 +669,9 @@ def room2():
 
 
             elif gunshot is True:
+
+                game_file.play_music('Music\locked_door.mp3.mp3')
+
                 message = ('The door won\'t even budge. It now refuses to let you in. '
                            'Should have been thorough with the room the first time. '
                            'It is as if the door became a part of the wall itself. Curious indeed.  ')
@@ -666,8 +681,7 @@ def room2():
 
         elif player.action.lower() == 'go to the red door':
 
-            mixer.music.load('slide_door.mp3')
-            mixer.music.play()
+            game_file.play_music('Music\slide_door.mp3.mp3')
 
             progression_check = 'The Red Door'
             message = (

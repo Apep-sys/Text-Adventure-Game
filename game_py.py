@@ -1,6 +1,10 @@
 import sys
 import pygame
 import time
+from pygame import mixer
+
+mixer.init()
+
 
 
 def split_text(text, font, max_width):
@@ -124,6 +128,11 @@ def get_player_input():
 
     return player_input
 
+def play_music(music_file, loops=0, fade=0, queue='', start=0):
+    mixer.music.load(music_file)
+    if queue:
+        mixer.music.queue(queue)
+    mixer.music.play(loops, fade, start)
 
 pygame.init()
 
