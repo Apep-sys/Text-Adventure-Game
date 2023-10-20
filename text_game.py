@@ -133,7 +133,7 @@ def room1():
 
             elif player.action.lower() == 'closet' and 'Fuse' in player.inventory:
 
-                game_file.play_music('Music\pickup.mp3')
+                game_file.play_music('Music\slide_door.mp3')
                 # Death ending nr. 1
                 message = (
                     'As you enter the cramped closet, you hear an ominous buzz, followed by a cable having a sudden jolt of electricity. '
@@ -681,7 +681,8 @@ def room2():
 
         elif player.action.lower() == 'go to the red door':
 
-            game_file.play_music('Music\slide_door.mp3.mp3')
+            game_file.play_music('Music\slide_door.mp3')
+            game_file.play_music('Music\letter_read.mp3', loops=-1)
 
             progression_check = 'The Red Door'
             message = (
@@ -696,7 +697,10 @@ def room2():
             choices = ['Crystal ball', 'Tarot cards', 'Table of objects', 'Go outside of the room']
             game_file.display_message(1, message)
             display_check = False
+
             while player.temp_check is False:
+
+                game_file.play_music('Music\letter_read.mp3', loops=-1)
 
                 if display_check is False:
                     game_file.display_message(2, 'So then, what path do you choose?', (50, 290))
@@ -771,6 +775,9 @@ def room2():
                         choices.sort()
 
                 elif player.action.lower() == 'tarot cards':
+
+                    game_file.play_music('Music\epic.mp3', loops=-1)
+
                     message = (
                         'As you gingerly reach out to touch the deck, a sense of trepidation and excitement intertwines within you. '
                         'The cards seem to respond to your presence, almost as if they were awaiting your arrival. '
@@ -832,6 +839,9 @@ def room2():
                         choices.sort()
 
                 elif player.action.lower() == 'table of objects':
+
+                    game_file.play_music('Music\epic.mp3', loops=-1)
+
                     message = (
                         'From the second you laid eyes on it, you knew it was there for you. All of this, was for you, somehow. '
                         'You feel an unexplainable connection to everything that is happening. You must see this through. '
@@ -900,6 +910,9 @@ def room2():
                         player.inventory.append('Rosary')
 
                 elif player.action.lower() == 'go outside of the room':
+
+                    game_file.play_music('Music\slide_door.mp3')
+
                     message = ('Now, having seen enough of the room, you better leave it for now. '
                                'Hopefully for you, you explored it thoroughly. You have a feeling it was crucial. ')
                     game_file.display_message(1, message)
@@ -940,6 +953,9 @@ def room3():
     game_file.screen.fill(game_file.black)
 
     while player.check3 is False:
+
+        game_file.play_music('Music\level3.mp3', loops=-1)
+
         message = ('Having arrived to Hotel Margot\'s Lounge area, you decide it would be best for you to rest some. '
                    'Continuing in your current state would not be smart. Besides, you need to understand what is going on. '
                    'And to do that, you must think through the events and try to find a logic, a pattern, a connection. '
@@ -1001,6 +1017,9 @@ def room3():
                         game_file.screen.fill(game_file.black)
 
                     elif player.action.lower() == 'slice it open':
+
+                        game_file.play_music('Music\open_letter.mp3')
+
                         message = 'Gentle does it. Be the scalpel, not the hammer.'
                         game_file.display_message(1, message)
                         time.sleep(2)
@@ -1031,6 +1050,8 @@ def room3():
                             game_file.display_message(1, message)
                             time.sleep(2)
                             game_file.screen.fill(game_file.black)
+
+                    game_file.play_music('Music\letter_read.mp3', loops=-1)
 
                     message = f'Dear {player.name}, '
                     game_file.display_message(1, message)
@@ -1191,6 +1212,8 @@ def room3():
         time.sleep(3)
         game_file.screen.fill(game_file.black)
 
+        game_file.play_music('Music\drama.mp3', loops=-1)
+
         if 'Opened Letter' in player.inventory:
             message = (
                 'So this is him. The one that wrote and left you the letter. The man that, in a strange way, tried saving your life. '
@@ -1232,6 +1255,9 @@ def room4():
     game_file.screen.fill(game_file.black)
 
     while player.check4 is False:
+
+        game_file.play_music('Music\dread.mp3', loops=-1)
+
         message = (
             'Walking down the hall towards the Main Lobby, you arrive at its entrance. A large, tall man is standing there. '
             'His mask is made of bone, with ornate symbols etched into it. As you get closer, you realize he is towering over you. '
@@ -1327,6 +1353,8 @@ def room4():
                 player.check4 = True
                 break
 
+        game_file.play_music('Music\level4.mp3', loops=-1)
+
         message = (
             'You walk carefully, but hastily, to the entrance. You are careful not to touch or interact with the man in any way. '
             'Upon entering the Main Lobby, you set your sight on the people before you. Their red masks shine in the eerie, dim, orange light of the Lobby. '
@@ -1383,6 +1411,9 @@ def room4():
         game_file.screen.fill(game_file.black)
 
         while player.check4 is False:
+
+            game_file.play_music('Music\level4.mp3', loops=-1)
+
             message = (
                 'You must reach deep into yourself and bring out your innermost trait. The information you have received and collected so far will make the difference. What will you do now? ')
             choices = ['>Stand and fight', '>Run towards the second exit', '>Offer yourself to the shadow']
@@ -1430,6 +1461,8 @@ def room4():
 
                             # Loop for Stand And Fight endings
                             while True:
+
+                                game_file.play_music('Music\epic.mp3', loops=-1)
 
                                 # Ending 1 - Darkness Pierced Variation
                                 if player.action.lower() == 'combine the magnifying glass and the black mirror':
@@ -1499,6 +1532,9 @@ def room4():
                                 break
 
                             # Good Ending - As The Dust Settles
+
+                            game_file.play_music('Music\good_ending.mp3', loops=-1)
+
                             message = (
                                 'As the dust settles, you find yourself standing in a transformed Main Lobby. '
                                 'The curse is lifted, and the once malevolent shadows have given way to warm, inviting light. '
@@ -1582,6 +1618,9 @@ def room4():
                     game_file.screen.fill(game_file.black)
 
                 # True Ending section for having the Mark
+
+                game_file.play_music('Music\epic.mp3', loops=-1)
+
                 if 'Cursed Mark' in player.inventory:
                     message = (
                         'You pick up the Ancient Tome and hold it tightly. As you open it, your entire body freezes. The mark on your arm responds to it. '
@@ -1604,6 +1643,9 @@ def room4():
                         game_file.screen.fill(game_file.black)
 
                         # Ending 4 - Tears of Silver
+
+                        game_file.play_music('Music\letter_read.mp3', loops=-1)
+
                         if player.action.lower() == 'use the ancient tome by itself':
                             message = (
                                 'The tome alone will do. So you hope. The connection between you, or rather, the shadow, and the book is undeniable. '
@@ -1693,6 +1735,9 @@ def room4():
                                 elif player.action.lower() in temp_choices_2:
 
                                     # Ending 6 - Faith and Despair
+
+                                    game_file.play_music('Music\epic.mp3', loops=-1)
+
                                     if player.action.lower() == 'combine the ancient tome with the rosary':
                                         message = (
                                             'The vampiric creatures are being pushed towards you by the shadow. It stays behind them, controlling each and every one. '
@@ -1712,6 +1757,9 @@ def room4():
                                         game_file.screen.fill(game_file.black)
 
                                     # Ending 7 - Fragrance of Purity
+
+                                    game_file.play_music('Music\epic.mp3', loops=-1)
+
                                     if player.action.lower() == 'combine the ancient tome with the perfumed satchel':
                                         message = (
                                             'Gripping the Perfumed Satchel and the Ancient Tome tightly, you embark on the ritual. '
@@ -1741,6 +1789,9 @@ def room4():
                             continue
 
                         # True Ending - Purification
+
+                        game_file.play_music('Music\good_ending.mp3', loops=-1)
+
                         message = (
                             'A multitude of faint voices wake you up. Your eyes are greeted by the light that now fills the Main Lobby, and the Hotel Margot itself. A team of medics '
                             'arrived to take care of everyone. You are being carried on a stretcher towards the ambulance. As you turn your head from left to right, you see that the vampiric '
@@ -1787,6 +1838,9 @@ def room4():
 
             # Bad Endings - 1 ending + 2 extras
             elif player.action.lower() == 'offer yourself to the shadow':
+
+                game_file.play_music('Music\bad_ending.mp3', loops=-1)
+
                 message = (
                     'In a moment of despair, you choose to surrender yourself to the encroaching shadow. '
                     'The Main Lobby grows darker as the malevolent presence envelops you entirely. '
@@ -1820,23 +1874,23 @@ def room4():
                 game_file.screen.fill(game_file.black)
                 continue
 
+while player.state == 'alive':
+    start()
+    game_file.screen.fill(game_file.black)
 
-start()
-game_file.screen.fill(game_file.black)
+    room1()
+    game_file.screen.fill(game_file.black)
 
-room1()
-game_file.screen.fill(game_file.black)
+    room2()
+    game_file.screen.fill(game_file.black)
 
-room2()
-game_file.screen.fill(game_file.black)
+    if player.passing is True:
+        pass
+    else:
+        room3()
+    game_file.screen.fill(game_file.black)
 
-if player.passing is True:
-    pass
-else:
-    room3()
-game_file.screen.fill(game_file.black)
-
-room4()
+    room4()
 
 game_file.pygame.display.update()
 game_file.clock.tick(60)

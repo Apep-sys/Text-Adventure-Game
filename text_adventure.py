@@ -16,7 +16,7 @@ class Player:
         
         self.choice = None
         self.action = None
-        self.state = None  # State of the player - Dead/Alive
+        self.state = 'alive'  # State of the player - Dead/Alive
         
         self.inventory = []
         
