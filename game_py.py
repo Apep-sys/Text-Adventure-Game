@@ -6,7 +6,6 @@ from pygame import mixer
 mixer.init()
 
 
-
 def split_text(text, font, max_width):
     words = text.split()
     lines = []
@@ -133,6 +132,23 @@ def play_music(music_file, loops=0, fade=0, queue='', start=0):
     if queue:
         mixer.music.queue(queue)
     mixer.music.play(loops, fade, start)
+
+def check_state(player, function_list):
+    for room in function_list:
+
+        if player.state == 'alive':
+
+            if player.passing is True:
+                screen.fill(black)
+                pass
+            else:
+                room()
+                screen.fill(black)
+
+        else:
+            return False
+
+
 
 pygame.init()
 

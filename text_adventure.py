@@ -102,39 +102,30 @@ class Player:
 
 class Game(Player):
     phases = 1
-    places = [' Forest Trip', 'Fantasy Adventure', 'Murder Mystery']
-    adventure_count = 0
-
     def narrator1(self):
         message = ("Tonight, we have a special guest. He is here to begin a journey that will lead him...places."
-              " It is all up to him to make the right choices. Or the ones that seem right, anyway.\n")
-        #self.print_message(message)
+              " It is all up to him to make the right choices. Or the ones that seem right, anyway. ")
         return message
 
     def narrator2(self):
-        print("Tonight, we have a special guest.\nHe is here to begin a journey that will lead him...places."
-              "\nHopefully, this time, he will be better. Better than those before him.\n Life is so short nowadays.\n")
+        message = ("Tonight, we have a special guest. I think you all know him by now. Know what he is capable of. "
+              "Or rather, what he's incapable of. Ha-ha-ha...-ha. ")
+        return message
 
     def narrator3(self):
-        print("Tonight, we have a special guest.\nI think you all know him by now. Know what he is capable of.\n"
-              "Or rather, what he's incapable of. Ha-ha-ha...-ha.\n")
+        message = ("You are very close to the end of your adventure. Closer than you would like. ")
+        return message
 
     def narrator4(self):
-        print("You are very close to the end of your adventure. Closer than you would like.\n")
+        message = ("... ... ... ... YOU ARE SUCH A DISAPPOINTMENT. YOU. ARE. DEAD. ")
+        return message
 
-    def narrator5(self):
-        print("...\n...\n...\n...\nYOU ARE SUCH A DISAPPOINTMENT.\nYOU. ARE. DEAD.\n")
-
-    def game_start(self, player):
-        Game.adventure_count += 1
-        if Game.phases == 1:
-            self.narrator1()
-        elif Game.phases == 2:
-            self.narrator2()
-        elif Game.phases == 3:
-            self.narrator3()
-        elif Game.phases == 4:
-            self.narrator4()
-        elif Game.phases == 5:
-            self.narrator5()
-
+    def game_start(self, game):
+        if game.phases == 1:
+            return self.narrator1()
+        elif game.phases == 2:
+            return self.narrator2()
+        elif game.phases == 3:
+            return self.narrator3()
+        elif game.phases == 4:
+            return self.narrator4()

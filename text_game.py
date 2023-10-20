@@ -9,14 +9,12 @@ mixer.music.set_volume(0.2)
 
 game_file.play_music('Music\intro.mp3', -1, 5000)
 
-
-
 player = adv_file.Player()
 game = adv_file.Game()
 
 
 def start():
-    message = game.narrator1()
+    message = game.game_start(game)
     game_file.display_message(1, message)
     adv_file.time.sleep(2)
     player.place_choice = 'Murder Mystery'
@@ -36,6 +34,7 @@ def start():
     game_file.display_message(1, player.intro)
 
     mixer.music.fadeout(2000)
+
 
 def room1():
     message = 'Level 1: Hallway'
@@ -153,8 +152,7 @@ def room1():
                 player.check1 = True
 
             if player.action.lower() == 'balcony':
-
-                game_file.play_music('Music\slide_door.mp3',fade=3000, queue='Music\balcony.mp3')
+                game_file.play_music('Music\slide_door.mp3', fade=3000, queue='Music\balcony.mp3')
 
                 message = (
                     'The wind lifts your hair...The fresh smell of the air makes you inhale with a sense of relief. '
@@ -172,7 +170,6 @@ def room1():
                 continue
 
             if player.action.lower() == 'elevator':
-
                 game_file.play_music('Music\elevator.mp3', start=19)
                 player.check1 = True
 
@@ -185,7 +182,6 @@ def room1():
 
 
 def room2():
-
     game_file.play_music('Music\level2.mp3', loops=-1, fade=5000)
 
     if player.pclass == 'room 09':
@@ -1001,10 +997,11 @@ def room3():
                     game_file.screen.fill(game_file.black)
 
                     if player.action.lower() == 'rip it off':
-                        message = ('You choose to brute force your way through a delicate letter. Your choice, not mine... '
-                                   'The crimson seal is strong enough to oppose your first attempt at ripping it off. '
-                                   'But, since you are very stubborn, you try again, and you rip half of the letter along with the seal. '
-                                   'Succces.')
+                        message = (
+                            'You choose to brute force your way through a delicate letter. Your choice, not mine... '
+                            'The crimson seal is strong enough to oppose your first attempt at ripping it off. '
+                            'But, since you are very stubborn, you try again, and you rip half of the letter along with the seal. '
+                            'Succces.')
                         game_file.display_message(1, message)
                         time.sleep(2)
                         game_file.screen.fill(game_file.black)
@@ -1839,7 +1836,7 @@ def room4():
             # Bad Endings - 1 ending + 2 extras
             elif player.action.lower() == 'offer yourself to the shadow':
 
-                game_file.play_music('Music\bad_ending.mp3', loops=-1)
+                game_file.play_music('Music\\bad_ending.mp3', loops=-1)
 
                 message = (
                     'In a moment of despair, you choose to surrender yourself to the encroaching shadow. '
@@ -1874,23 +1871,37 @@ def room4():
                 game_file.screen.fill(game_file.black)
                 continue
 
+
+function_list = [room1, room2, room3, room4]
+
 while player.state == 'alive':
+
     start()
     game_file.screen.fill(game_file.black)
 
-    room1()
-    game_file.screen.fill(game_file.black)
+    check = game_file.check_state(player, function_list)
 
-    room2()
-    game_file.screen.fill(game_file.black)
+    if check is False:
+        message = ('It seems you have perished. How unfortunate. Would you like to try your luck again? ')
+        choices = ['>Yes', '>No']
+        game_file.display_message(1, message)
+        game_file.display_message(2, choices, (50, 90))
+        player.action = game_file.get_player_input()
+        game_file.screen.fill(game_file.black)
 
-    if player.passing is True:
-        pass
-    else:
-        room3()
-    game_file.screen.fill(game_file.black)
+        if player.action.lower() == 'yes':
+            player.state = 'alive'
+            game.phases += 1
+            continue
 
-    room4()
+        else:
+            message = ('What a disappointment you are. So be it. Let the end be the end and nothing else. ')
+            game_file.display_message(2, message)
+            game_file.screen.fill(game_file.black)
+            break
+
+
+game_file.play_music('Music\\bad_ending.mp3')
 
 game_file.pygame.display.update()
 game_file.clock.tick(60)
