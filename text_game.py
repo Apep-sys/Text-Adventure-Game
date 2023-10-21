@@ -1960,11 +1960,18 @@ while player.state == 'alive':
     start()
     game_file.screen.fill(game_file.black)
 
+
+    # Checking the game object's phases attribute.
+    # phase = 1 -> first playthrough, no temp_inventory needed
+    # phase = 2+ -> second or more playthrough, temp_inventory needed for dead_room function
+    # check_state executes the room functions and checks the player state for dead OR alive
     if game.phases == 1:
         check = game_file.check_state(player, function_list)
     else:
         check = game_file.check_state(player, function_list, temp_inventory)
 
+
+    # If the player state is dead -> it will give the player the option to replay or end the game session there
     if check is False:
         message = ('It seems you have perished. How unfortunate. Would you like to try your luck again? ')
         choices = ['>Yes', '>No']
@@ -1973,10 +1980,13 @@ while player.state == 'alive':
         player.action = game_file.get_player_input()
         game_file.screen.fill(game_file.black)
 
+        # Upon agreeing to play again, the phases attribute of the game object is increased to 2, now moving into
+        # dead_room function
         if player.action.lower() == 'yes':
             player.state = 'alive'
             game.phases += 1
 
+            # Upon reaching the fourth phase/playthrough, the game is officially over.
             if game.phases == 4:
                 message = ('What a disappointment you are. This is the end. You are dead. ')
                 game_file.display_message(1, message)
@@ -1985,12 +1995,16 @@ while player.state == 'alive':
                 time.sleep(5)
                 break
 
+            # In case the player does another playthrough, their inventory will be saved in temp_inventory
+            # The current player object will be deleted, with a new one taking its place in the NEW PLAYTHROUGH
             temp_inventory = player.inventory
             del player
             player = adv_file.Player()
             continue
 
         else:
+
+            # In case the player chooses not to play again, it will be game over.
             game_file.play_music('Music\\bad_ending.mp3')
             message = ('What a disappointment you are. So be it. Let the end be the end and nothing else. ')
             game_file.display_message(1, message)

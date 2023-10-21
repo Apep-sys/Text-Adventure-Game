@@ -89,7 +89,8 @@ class Player:
                 self.level2 = 'The Lower Floor'
                 
             self.rooms2 = ['The Green Door', 'The Black Door', 'The Red Door']
-            self.items2 = ['Bloody Letter', 'VIP Ticket', 'Cursed Mark']
+            self.items2 = ['Bloody Letter', 'VIP Ticket', 'Cursed Mark', 'Silver Ring', 'Black Mirror', 'Ancient Tome',
+                           'Perfumed Satchel', 'Rosary']
 
             self.level3 = 'Lounge'
             self.items3 = ['Opened Letter', 'Unopened Letter']

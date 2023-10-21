@@ -41,7 +41,7 @@ def display_message(value, message, coordinates=(50, 70)):
                 if event.type == pygame.KEYDOWN:
 
                     if event.key == pygame.K_SPACE:
-                        time_delayed = 0.03
+                        time_delayed = 0.01
 
                 elif event.type == pygame.KEYUP:
                     time_delayed = 0.08
