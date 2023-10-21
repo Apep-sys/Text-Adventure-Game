@@ -93,15 +93,15 @@ class Player:
 
             self.level3 = 'Lounge'
             self.items3 = ['Opened Letter', 'Unopened Letter']
+
             self.level4 = 'Main Lobby'
-            self.items4 = []
 
     def change_state(self):
         self.state = 'dead'
 
 
 class Game(Player):
-    phases = 3
+    phases = 1
     def narrator1(self):
         message = ("Tonight, we have a special guest. He is here to begin a journey that will lead him...places."
               " It is all up to him to make the right choices. Or the ones that seem right, anyway. ")
@@ -120,6 +120,8 @@ class Game(Player):
         message = ("... ... ... ... YOU ARE SUCH A DISAPPOINTMENT. YOU. ARE. DEAD. ")
         return message
 
+    # Depending on the phase/playthrough the game is currently on, it will select a different intro.
+    # It does so by checking the game object's "phases" attribute.
     def game_start(self, game):
         if game.phases == 1:
             return self.narrator1()

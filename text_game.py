@@ -1,6 +1,6 @@
 import time
-
 from pygame import mixer
+
 import text_adventure as adv_file
 import game_py as game_file
 
@@ -13,8 +13,13 @@ player = adv_file.Player()
 game = adv_file.Game()
 
 
+# Function for starting the game - choosing a name, room and the intro.
 def start():
+
+    # The game will select an intro depending on the phase/playthrough the game is currently on.
+    # Useful for replayability and detecting if the player has died beforehand.
     message = game.game_start(game)
+
     game_file.display_message(1, message)
     adv_file.time.sleep(2)
     player.place_choice = 'Murder Mystery'
@@ -1871,17 +1876,94 @@ def room4():
                 game_file.screen.fill(game_file.black)
                 continue
 
-def dead_room():
-    message = 'You found a body...'
 
-function_list = [room1, room2, room3, room4]
+# Function for the case where a second game is began in the same playthrough and the player stumbles upon their old body
+# The room can be stumbled upon OR NOT after the second level/room
+def dead_room(temp_inventory):
+    message = ('Suddenly, the ceiling opens wide open right in front of you. From the gaping darkness comes falling a...'
+               'body. It nonchalantly lands on the floor, as if that\'s where it was supposed to be, in the first place. '
+               'Upon closer inspection, you notice a crucial detail: the body is faceless. It somehow sports similar clothes to yours...'
+               'Quite peculiar, even for this hotel. ')
+    game_file.display_message(1, message)
+    time.sleep(2)
+    game_file.screen.fill(game_file.black)
+
+    while True:
+        message = 'So then, will  you rummage through the...thing\'s pockets, or let it rest peacefully? '
+        choices = ['>Rummage through pockets', '>Let it rest']
+        game_file.display_message(1, message)
+        game_file.display_message(2, choices, (50, 90))
+        player.action = game_file.get_player_input()
+        game_file.screen.fill(game_file.black)
+
+        if player.action.lower() == 'rummage through pockets':
+            inventory = []
+            message = 'You find and take the following: '
+            game_file.display_message(1, message)
+
+            if temp_inventory:
+                if 'Cursed Mark' in temp_inventory:
+                    message = ('Sadly, the end. The glowing mark on its arm catches life and jumps onto you, as you reach out '
+                               'your hand. You can feel it crawling on your skin. It quickly reaches your throat and...'
+                               'Snuffs out your life. A tragic end. ')
+                    game_file.display_message(1, message, (50, 90))
+                    game_file.screen.fill(game_file.black)
+                    player.change_state()
+
+                elif 'Black Mirror' in temp_inventory:
+                    message = ('Sadly, the end. As you draw out what seems to be a black mirror, your eyes meet its glass. '
+                               'But the reflection is all wrong. You do not see yourself, but a pair of orange, mad eyes, '
+                               'looking back at you. And that grin...The grin is all you remember as you slowly fade out... '
+                               'A hand reaches towards you, from the black mirror, and drags you in. A tragic end. ')
+                    game_file.display_message(1, message, (50, 90))
+                    game_file.screen.fill(game_file.black)
+                    player.change_state()
+
+                else:
+                    for x in temp_inventory:
+                        if x not in player.inventory:
+                            inventory.append(x)
+                            player.inventory.append(x)
+                            game_file.display_message(2, inventory, (50, 90))
+
+                    if not inventory:
+                        message = 'You didn\'t find anything which you didn\'t already own. Good try, nevertheless. '
+                        game_file.display_message(1, message, (50, 90))
+                        game_file.screen.fill(game_file.black)
+
+            else:
+                message = ('There is nothing to be found on the body. Couldn\'t hurt to try. Actually, it could. Maybe this '
+                           'is for the better. ')
+                game_file.display_message(1, message, (50, 90))
+                game_file.screen.fill(game_file.black)
+
+        elif player.action.lower() == 'let it rest':
+            message = ('You decided it is best not to disturb the dead...especially when they are faceless and make an '
+                       'appearance like that.')
+            game_file.display_message(1, message)
+            game_file.screen.fill(game_file.black)
+
+        else:
+            message = 'I did not understand that. Please repeat. '
+            game_file.display_message(1, message)
+            time.sleep(2)
+            game_file.screen.fill(game_file.black)
+            continue
+
+        break
+
+
+function_list = [room1, room2, dead_room, room3, room4]
 
 while player.state == 'alive':
 
     start()
     game_file.screen.fill(game_file.black)
 
-    check = game_file.check_state(player, function_list)
+    if game.phases == 1:
+        check = game_file.check_state(player, function_list)
+    else:
+        check = game_file.check_state(player, function_list, temp_inventory)
 
     if check is False:
         message = ('It seems you have perished. How unfortunate. Would you like to try your luck again? ')

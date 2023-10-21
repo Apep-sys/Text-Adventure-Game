@@ -1,6 +1,7 @@
 import sys
 import pygame
 import time
+import random
 from pygame import mixer
 
 mixer.init()
@@ -29,7 +30,7 @@ def display_message(value, message, coordinates=(50, 70)):
     displayed_text = ''
     index = 0
     lines = []
-    time_delayed = 0.01
+    time_delayed = 0.08
 
     if value == 1:
         x_position, y_position = coordinates
@@ -40,7 +41,7 @@ def display_message(value, message, coordinates=(50, 70)):
                 if event.type == pygame.KEYDOWN:
 
                     if event.key == pygame.K_SPACE:
-                        time_delayed = 0.001
+                        time_delayed = 0.03
 
                 elif event.type == pygame.KEYUP:
                     time_delayed = 0.08
@@ -133,7 +134,9 @@ def play_music(music_file, loops=0, fade=0, queue='', start=0):
         mixer.music.queue(queue)
     mixer.music.play(loops, fade, start)
 
-def check_state(player, function_list):
+
+# Function for executing the room function and checking the player state for dead or alive
+def check_state(player, function_list, param=None):
     for room in function_list:
 
         if player.state == 'alive':
@@ -141,7 +144,27 @@ def check_state(player, function_list):
             if player.passing is True:
                 screen.fill(black)
                 pass
+
             else:
+
+                # If the check_state function is given the temp_inventory argument, it will enter this case:
+                # Case if the player has died and stumbled upon their body
+                if param:
+
+                    # Chance of the dead room appearing
+                    dead_room_chance = random.randint(0, 1)
+                    if dead_room_chance:
+
+                        # If the result is 1, it will play the dead_room function
+                        room(param)
+
+                    else:
+                        # If the result is 0, it will just pass and go to the next room in line
+                        pass
+
+                    # To prevent the room always executing, we give back to param the value None
+                    param = None
+
                 room()
                 screen.fill(black)
 
