@@ -153,7 +153,8 @@ def check_state(player, function_list, param=None):
 
                 # If the check_state function is given the temp_inventory argument, it will enter this case:
                 # Case if the player has died and stumbled upon their body
-                if param:
+                # This case will only play when the function_list reaches the dead_room while iterating
+                if param and room == function_list[2]:
 
                     # Chance of the dead room appearing
                     dead_room_chance = random.randint(0, 1)

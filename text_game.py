@@ -7,8 +7,6 @@ import game_py as game_file
 mixer.init()
 mixer.music.set_volume(0.2)
 
-game_file.play_music('Music\intro.mp3', -1, 5000)
-
 player = adv_file.Player()
 game = adv_file.Game()
 
@@ -19,6 +17,8 @@ def start():
     # The game will select an intro depending on the phase/playthrough the game is currently on.
     # Useful for replayability and detecting if the player has died beforehand.
     message = game.game_start(game)
+
+    game_file.play_music('Music\intro.mp3', -1, 5000)
 
     game_file.display_message(1, message)
     adv_file.time.sleep(2)
