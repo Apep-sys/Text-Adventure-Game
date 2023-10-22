@@ -47,6 +47,8 @@ def room1():
     time.sleep(2)
     game_file.screen.fill(game_file.black)
 
+    game_file.screen.blit(game_file.level1_img, (0, 0))
+
     game_file.play_music('Music\level1.mp3', -1, 5000)
 
     message = ('You enter the dimly lit hallway, caught between the safety of your room and the mysteries ahead. '
@@ -62,6 +64,8 @@ def room1():
     game_file.screen.fill(game_file.black)
 
     while player.check1 is False:
+
+        game_file.screen.blit(game_file.level1_img, (0, 0))
 
         game_file.play_music('Music\level1.mp3', -1, 5000)
 
@@ -192,16 +196,18 @@ def room2():
     if player.pclass == 'room 09':
         message = 'Level 2: The Upper Level'
         level = 'the upper level'
-        game_file.display_message(1, message, (395, 70))
+        game_file.display_message(1, message, (375, 70))
         time.sleep(2)
         game_file.screen.fill(game_file.black)
 
     elif player.pclass == 'room 13' or player.pclass == 'room 256':
         message = 'Level 2: The Lower Level'
         level = 'the lower level'
-        game_file.display_message(1, message, (395, 70))
+        game_file.display_message(1, message, (375, 70))
         time.sleep(2)
         game_file.screen.fill(game_file.black)
+
+
 
     message = (
         f'The elevator descends smoothly, carrying you to {level}. As the doors open, a cool atmosphere greets you. '
@@ -319,7 +325,7 @@ def room2():
 
                             if player.action.lower() == 'yes':
 
-                                game_file.play_music('Music\slide_door.mp3')
+                                game_file.play_music('Music\slide_door.mp3', queue='Music\drama.mp3')
 
                                 gunshot = True
                                 message = (
@@ -551,6 +557,8 @@ def room2():
 
         elif player.action.lower() == 'go to the black door':
 
+            game_file.screen.blit(game_file.level2_img_black, (0, 0))
+
             game_file.play_music('Music\slide_door.mp3')
 
             first_door = 'Black'
@@ -681,6 +689,8 @@ def room2():
                 game_file.screen.fill(game_file.black)
 
         elif player.action.lower() == 'go to the red door':
+
+            game_file.screen.blit(game_file.level2_img_red, (0, 0))
 
             game_file.play_music('Music\slide_door.mp3')
             game_file.play_music('Music\letter_read.mp3', loops=-1)

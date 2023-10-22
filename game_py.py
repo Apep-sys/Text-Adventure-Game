@@ -6,6 +6,10 @@ from pygame import mixer
 
 mixer.init()
 
+# Loading the images for the levels
+level1_img = pygame.image.load('Images\Level1_new.jpg')
+level2_img_red = pygame.image.load('Images\Level2_Red.jpg')
+level2_img_black = pygame.image.load('Images\Level2_Black.jpg')
 
 def split_text(text, font, max_width):
     words = text.split()
