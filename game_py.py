@@ -10,6 +10,11 @@ mixer.init()
 level1_img = pygame.image.load('Images\Level1_new.jpg')
 level2_img_red = pygame.image.load('Images\Level2_Red.jpg')
 level2_img_black = pygame.image.load('Images\Level2_Black.jpg')
+level2_img_green = pygame.image.load('Images\Level2_Green.jpg')
+level2_img_wardrobe = pygame.image.load('Images\Level2_Wardrobe.jpg')
+level2_img_crystal = pygame.image.load('Images\Level2_Crystal.jpg')
+level2_img_table = pygame.image.load('Images\Level2_Table.jpg')
+level2_img_b_room = pygame.image.load('Images\Level2_B_room.jpg')
 
 def split_text(text, font, max_width):
     words = text.split()

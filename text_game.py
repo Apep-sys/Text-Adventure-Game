@@ -141,7 +141,7 @@ def room1():
 
             elif player.action.lower() == 'closet' and 'Fuse' in player.inventory:
 
-                game_file.play_music('Music\slide_door.mp3')
+                game_file.play_music('Music\slide_door.mp3', queue='Music\electricity.mp3')
                 # Death ending nr. 1
                 message = (
                     'As you enter the cramped closet, you hear an ominous buzz, followed by a cable having a sudden jolt of electricity. '
@@ -196,14 +196,14 @@ def room2():
     if player.pclass == 'room 09':
         message = 'Level 2: The Upper Level'
         level = 'the upper level'
-        game_file.display_message(1, message, (375, 70))
+        game_file.display_message(1, message, (365, 70))
         time.sleep(2)
         game_file.screen.fill(game_file.black)
 
     elif player.pclass == 'room 13' or player.pclass == 'room 256':
         message = 'Level 2: The Lower Level'
         level = 'the lower level'
-        game_file.display_message(1, message, (375, 70))
+        game_file.display_message(1, message, (365, 70))
         time.sleep(2)
         game_file.screen.fill(game_file.black)
 
@@ -249,6 +249,8 @@ def room2():
         game_file.screen.fill(game_file.black)
 
         if player.action.lower() == 'go to the green door':
+
+            game_file.screen.blit(game_file.level2_img_green, (0, 0))
 
             game_file.play_music('Music\slide_door.mp3')
 
@@ -346,6 +348,8 @@ def room2():
                                 if player.action.lower() == 'yes':
 
                                     game_file.play_music('Music\dread.mp3', loops=-1)
+
+                                    game_file.screen.blit(game_file.level2_img_wardrobe, (0, 0))
 
                                     message = ('The trail of blood leads you through the hidden door of a wardrobe.\n'
                                                'You enter something akin to a tunnel. The walls are carved and made of stone.\n'
@@ -490,7 +494,7 @@ def room2():
                                     choices = ['>Yes',
                                                '>No']
                                     game_file.display_message(1, message)
-                                    game_file.display_message(2, choices, (50, 220))
+                                    game_file.display_message(2, choices, (50, 250))
                                     player.action = game_file.get_player_input()
                                     game_file.screen.fill(game_file.black)
 
@@ -501,6 +505,7 @@ def room2():
                                         message = (
                                             'Your curiosity got the better of you. You quickly take the letter and stuff it well.\n'
                                             'Now, nobody will know what you\'ve been up to.')
+                                        player.inventory.append('Bloody Letter')
                                         game_file.display_message(1, message)
                                         time.sleep(2)
                                         game_file.screen.fill(game_file.black)
@@ -553,7 +558,6 @@ def room2():
                         continue
 
                     break
-
 
         elif player.action.lower() == 'go to the black door':
 
@@ -612,6 +616,8 @@ def room2():
 
                     elif player.action.lower() == 'no':
                         while True:
+
+                            game_file.screen.blit(game_file.level2_img_b_room, (0, 0))
 
                             game_file.play_music('Music\drama.mp3')
 
@@ -736,6 +742,9 @@ def room2():
                     game_file.screen.fill(game_file.black)
 
                 if player.action.lower() == 'crystal ball':
+
+                    game_file.screen.blit(game_file.level2_img_crystal, (0, 0))
+
                     if 'Cursed Mark' in player.inventory:
                         message = (
                             'Carefully walking closer to the ornate stand, you instinctively reach out to the crystal ball. '
@@ -850,6 +859,8 @@ def room2():
                         choices.sort()
 
                 elif player.action.lower() == 'table of objects':
+
+                    game_file.screen.blit(game_file.level2_img_table, (0, 0))
 
                     game_file.play_music('Music\epic.mp3', loops=-1)
 
