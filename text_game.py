@@ -796,6 +796,8 @@ def room2():
 
                 elif player.action.lower() == 'tarot cards':
 
+
+
                     game_file.play_music('Music\epic.mp3', loops=-1)
 
                     message = (

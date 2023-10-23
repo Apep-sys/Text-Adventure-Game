@@ -16,6 +16,9 @@ level2_img_crystal = pygame.image.load('Images\Level2_Crystal.jpg')
 level2_img_table = pygame.image.load('Images\Level2_Table.jpg')
 level2_img_b_room = pygame.image.load('Images\Level2_B_room.jpg')
 
+
+# Function for splitting the text, to make it fit within the window size and have the letters go to the next line
+# Upon reaching the window's boundaries
 def split_text(text, font, max_width):
     words = text.split()
     lines = []
@@ -35,6 +38,8 @@ def split_text(text, font, max_width):
     return lines
 
 
+# Function for displaying the message given letter-by-letter, with the respective colours, and for temporarily increasing
+# scrolling speed
 def display_message(value, message, coordinates=(50, 70)):
     displayed_text = ''
     index = 0
@@ -106,6 +111,8 @@ def display_message(value, message, coordinates=(50, 70)):
 
     return displayed_text
 
+
+# Function for taking the input of the player in its given rectangle and further relaying said input
 def get_player_input():
     player_input = '> '
     input_rect = pygame.Rect(50, 500, 140, 32)
@@ -137,6 +144,8 @@ def get_player_input():
 
     return player_input
 
+
+# Function for playing music, allowing music queueing and usage of parameters such as loops and fade
 def play_music(music_file, loops=0, fade=0, queue='', start=0):
     mixer.music.load(music_file)
     if queue:
