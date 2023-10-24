@@ -15,6 +15,13 @@ level2_img_wardrobe = pygame.image.load('Images\Level2_Wardrobe.jpg')
 level2_img_crystal = pygame.image.load('Images\Level2_Crystal.jpg')
 level2_img_table = pygame.image.load('Images\Level2_Table.jpg')
 level2_img_b_room = pygame.image.load('Images\Level2_B_room.jpg')
+level2_img_tarot = pygame.image.load('Images\Level2_Tarot.jpg')
+level2_img_mark = pygame.image.load('Images\Level2_Mark.jpg')
+level3_img_lounge = pygame.image.load('Images\Level3_Lounge.jpg')
+level3_img_letter = pygame.image.load('Images\Level3_Letter.jpg')
+level4_img_guard = pygame.image.load('Images\Level4_Guard.jpg')
+level4_img_party1 = pygame.image.load('Images\Level4_Party1.jpg')
+level4_img_party2 = pygame.image.load('Images\Level4_Party2.jpg')
 
 
 # Function for splitting the text, to make it fit within the window size and have the letters go to the next line

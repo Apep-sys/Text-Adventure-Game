@@ -610,6 +610,9 @@ def room2():
                                    'The mark glows with an eerie, crimson light, casting an ominous shadow over your surroundings. It throbs with an unseen power, as if the malevolence from the black room has now bonded with your very being.\n'
                                    'Fear and confusion grip you as you realize you are now marked by an otherworldly force, and the sense of foreboding intensifies with each passing second. ')
                         game_file.display_message(1, message)
+
+                        game_file.screen.blit(game_file.level2_img_mark, (0, 0))
+
                         time.sleep(2)
                         player.inventory.append('Cursed Mark')
                         game_file.screen.fill(game_file.black)
@@ -796,7 +799,7 @@ def room2():
 
                 elif player.action.lower() == 'tarot cards':
 
-
+                    game_file.screen.blit(game_file.level2_img_tarot, (0, 0))
 
                     game_file.play_music('Music\epic.mp3', loops=-1)
 
@@ -978,6 +981,8 @@ def room3():
 
     while player.check3 is False:
 
+        game_file.screen.blit(game_file.level3_img_lounge, (0, 0))
+
         game_file.play_music('Music\level3.mp3', loops=-1)
 
         message = ('Having arrived to Hotel Margot\'s Lounge area, you decide it would be best for you to rest some. '
@@ -994,6 +999,9 @@ def room3():
 
         while True:
             if 'Bloody Letter' in player.inventory:
+
+                game_file.screen.blit(game_file.level3_img_letter, (0, 0))
+
                 message = (
                     'You notice a red spot on your jacket. Blood, definitely. At this point, it\'s something rather regular. '
                     'And then you remember where it came from. '
@@ -1217,6 +1225,8 @@ def room3():
                     continue
             break
 
+        game_file.screen.blit(game_file.level2_img_red, (0, 0))
+
         message = (
             'You stand up shortly after your internal monologue and take a look around. The Lounge is a room with turquoise, dirty walls, supported by '
             'gold tinted-columns. A grand chandelier hangs from the middle of its ceiling. The chandelier seems to have been unused for a long time. '
@@ -1280,6 +1290,8 @@ def room4():
     game_file.screen.fill(game_file.black)
 
     while player.check4 is False:
+
+        game_file.screen.blit(game_file.level4_img_guard, (0, 0))
 
         game_file.play_music('Music\dread.mp3', loops=-1)
 
@@ -1378,6 +1390,8 @@ def room4():
                 player.check4 = True
                 break
 
+        game_file.screen.blit(game_file.level4_img_party1, (0, 0))
+
         game_file.play_music('Music\level4.mp3', loops=-1)
 
         message = (
@@ -1422,6 +1436,8 @@ def room4():
             game_file.display_message(1, message)
             time.sleep(2)
             game_file.screen.fill(game_file.black)
+
+        game_file.screen.blit(game_file.level4_img_party2, (0, 0))
 
         message = (
             'As these thoughts go through your mind, the air quickly becomes denser. It gets hard to breathe. The people in the lobby stop any form of activity and stand up to watch you dead in the eye. '
