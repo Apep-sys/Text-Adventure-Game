@@ -85,6 +85,7 @@ def display_message(value, message, coordinates=(50, 70)):
 
             displayed_text += message[index]
             index += 1
+
             # Update the lines based on displayed_text
             lines = split_text(displayed_text, font, 1000 - 2 * 50)
 
@@ -126,7 +127,7 @@ def display_message(value, message, coordinates=(50, 70)):
                 x_position += text_surface.get_width()   # To avoid adding the letters on the same coordinate of x, we increase it.
 
                 pygame.display.update()
-                time.sleep(time_delayed)    #pygame.wait
+                time.sleep(time_delayed)
 
     return displayed_text
 
@@ -135,7 +136,7 @@ def display_message(value, message, coordinates=(50, 70)):
 def get_player_input():
     player_input = '> '
     input_rect = pygame.Rect(50, 500, 140, 32)
-    color = color_danger #pygame.Color('lightskyblue3')
+    color = color_danger
     waiting = True
 
     while waiting:
