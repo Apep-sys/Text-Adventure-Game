@@ -120,24 +120,34 @@ def display_message(value, message, coordinates=(50, 70)):
     return displayed_text
 
 
-# Function for taking the input of the player in its given rectangle and further relaying said input
+# Function for taking the input of the player in its given rectangle and returning said input
 def get_player_input():
     player_input = '> '
     input_rect = pygame.Rect(50, 500, 140, 32)
-    color = color_danger#pygame.Color('lightskyblue3')
+    color = color_danger #pygame.Color('lightskyblue3')
     waiting = True
 
     while waiting:
+
+        # General event check for quitting the game and typing
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
+
+                # If the Enter key is pressed, the 'waiting' value is made False so the next iteration is cancelled
+                # And the arrow symbol '>' that is shown when giving input with the get_player_input function
+                # gets replaced with an empty string, for ease of usage and manipulation of the player's input
                 if event.key == pygame.K_RETURN:
                     waiting = False
                     player_input = player_input.replace('> ', '')
+
+                # Pressing backspace for deleting a letter
                 elif event.key == pygame.K_BACKSPACE:
                     player_input = player_input[:-1]
+
+                # The letters are added to the input and final message as they are typed
                 else:
                     player_input += event.unicode
 
@@ -156,8 +166,11 @@ def get_player_input():
 # Function for playing music, allowing music queueing and usage of parameters such as loops and fade
 def play_music(music_file, loops=0, fade=0, queue='', start=0):
     mixer.music.load(music_file)
+
+    # It will only queue music in the case the queue parameter is given at the function's call
     if queue:
         mixer.music.queue(queue)
+
     mixer.music.play(loops, fade, start)
 
 
@@ -165,8 +178,9 @@ def play_music(music_file, loops=0, fade=0, queue='', start=0):
 def check_state(player, function_list, param=None):
     for room in function_list:
 
-        if player.state == 'alive':
+        if player.state == 'alive' and room == function_list[3]:
 
+            # If the passing variable of the player object is true, it passes the execution of the third room
             if player.passing is True:
                 screen.fill(black)
                 pass
@@ -192,6 +206,7 @@ def check_state(player, function_list, param=None):
                     # To prevent the room always executing, we give back to param the value None
                     param = None
 
+                # Generally, this function just executes the room/level functions
                 room()
                 screen.fill(black)
 
@@ -199,7 +214,7 @@ def check_state(player, function_list, param=None):
             return False
 
 
-
+# Initialization of the game, game title, window size, fonts, and colours
 pygame.init()
 
 screen = pygame.display.set_mode((1000, 667))
