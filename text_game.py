@@ -1453,6 +1453,8 @@ def room4():
 
         while player.check4 is False:
 
+            game_file.screen.blit(game_file.level4_img_shadow, (0, 0))
+
             game_file.play_music('Music\level4.mp3', loops=-1)
 
             message = (

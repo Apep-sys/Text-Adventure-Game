@@ -22,6 +22,7 @@ level3_img_letter = pygame.image.load('Images\Level3_Letter.jpg')
 level4_img_guard = pygame.image.load('Images\Level4_Guard.jpg')
 level4_img_party1 = pygame.image.load('Images\Level4_Party1.jpg')
 level4_img_party2 = pygame.image.load('Images\Level4_Party2.jpg')
+level4_img_shadow = pygame.image.load('Images\Level4_Shadow.jpg')
 
 
 # Function for splitting the text, to make it fit within the window size and have the letters go to the next line
