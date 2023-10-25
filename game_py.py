@@ -1,3 +1,14 @@
+""" Module for storing the functions for handling music, message displays, image displays, player input,
+    controlled execution of the individual level functions and initialization of the game
+
+Functions:
+    split_text(text, font, max_width): Function for splitting text, to make it able to fit in the game window
+    display_message(value, message, coordinates=(50, 70)): Function for displaying messages, at given coordinates
+    get_player_input(): Function for taking the player's input
+    play_music(music_file, loops=0, fade=0, queue='', start=0): Function for playing music and customizing the songs
+    check_state(player, function_list, param=None): Function for controlled execution of game level functions
+"""
+
 import sys
 import pygame
 import time
