@@ -571,7 +571,7 @@ def room2():
             if gunshot is False:
                 while True:
 
-                    game_file.play_music('Music\drama.mp3')
+                    game_file.play_music('Music\drama.mp3', loops=-1)
 
                     message = (
                         'You feel an irresistible urge to explore the black door, driven by an inexplicable force. '
@@ -599,7 +599,7 @@ def room2():
 
                     if player.action.lower() == 'yes':
 
-                        game_file.play_music('Music\dread.mp3')
+                        game_file.play_music('Music\dread.mp3', loops=-1)
 
                         message = ('You follow the blood trail through a secret door in the wardrobe. '
                                    'But, as soon as you step through, a darkness quickly engulfs you and throws you out of the room with force. '
