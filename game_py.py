@@ -293,7 +293,7 @@ def check_state(player, function_list, param=None):
 pygame.init()
 
 screen = pygame.display.set_mode((1000, 667))
-pygame.display.set_caption('Text Adventure with Python')
+pygame.display.set_caption('Hotel Margot - Text Adventure')
 font = pygame.font.Font("freesansbold.ttf", 22)
 clock = pygame.time.Clock()
 black = (0, 0, 0)
