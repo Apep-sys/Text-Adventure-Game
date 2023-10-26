@@ -253,10 +253,10 @@ def check_state(player, function_list, param=None):
 
     for room in function_list:
 
-        if player.state == 'alive' and room == function_list[3]:
+        if player.state == 'alive':
 
             # If the passing variable of the player object is true, it passes the execution of the third room
-            if player.passing is True:
+            if player.passing is True and room == function_list[3]:
                 screen.fill(black)
                 pass
 
@@ -280,6 +280,7 @@ def check_state(player, function_list, param=None):
 
                     # To prevent the room always executing, we give back to param the value None
                     param = None
+                    continue
 
                 # Generally, this function just executes the room/level functions
                 room()
