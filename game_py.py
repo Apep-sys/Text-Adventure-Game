@@ -42,6 +42,18 @@ level4_img_dead = pygame.image.load('Images\Level4_Dead.jpg')
 # Function for splitting the text, to make it fit within the window size and have the letters go to the next line
 # Upon reaching the window's boundaries
 def split_text(text, font, max_width):
+    """ Function for splitting the text, to make it fit within the window size and have the letters go to the next line
+         Upon reaching the window's boundaries
+
+    Args:
+        text (str): Takes the text to be split
+        font (str): Takes the used font for the text to be split
+        max_width (int): Takes the amount of width accepted for text
+
+    Returns:
+        lines: A list of lines separated by space
+    """
+
     words = text.split()
     lines = []
     current_line = ''
@@ -63,6 +75,17 @@ def split_text(text, font, max_width):
 # Function for displaying the message given letter-by-letter, with the respective colours, and for temporarily increasing
 # scrolling speed
 def display_message(value, message, coordinates=(50, 70)):
+    """ Function for displaying the message to the screen, letter by letter
+
+        Args:
+            value (int): Takes either 1 or 2, displaying a message as a paragraph for 2 and as new lines for 1
+            message (str): Takes the message that is to be displayed
+            coordinates (int, optional): Takes the coordinates of where to display the message
+                        (default is (50, 70))
+
+        Returns:
+            displayed_text (str): The text to be displayed, formed letter by letter every 0.08 seconds
+        """
     displayed_text = ''
     index = 0
     lines = []
@@ -137,6 +160,14 @@ def display_message(value, message, coordinates=(50, 70)):
 
 # Function for taking the input of the player in its given rectangle and returning said input
 def get_player_input():
+    """ Function for taking the input of the player in its given rectangle and returning said input
+
+        Args:
+            No arguments
+
+        Returns:
+            player_input: Returns the text of the player's input
+        """
     player_input = '> '
     input_rect = pygame.Rect(50, 500, 140, 32)
     color = color_danger
@@ -180,6 +211,23 @@ def get_player_input():
 
 # Function for playing music, allowing music queueing and usage of parameters such as loops and fade
 def play_music(music_file, loops=0, fade=0, queue='', start=0):
+    """ Function for playing music, allowing music queueing and usage of parameters such as loops and fade
+        Works best with mp3 files, because of the usage of the keyword arguments
+
+            Args:
+                music_file (str): The sound/music file to be played
+                loops (int, optional): How many times to loop a sound/music file
+                    (default is 0)
+                fade (int, optional): After how many seconds the sound file will start fading out
+                    (default is 0)
+                queue (str, optional): The next sound/music file to be played after the music_file arg
+                    (default is '', no file)
+                start (int, optional): The position in seconds from where the sound file should begin playing
+                    (default is 0)
+
+            Returns:
+                Nothing
+    """
     mixer.music.load(music_file)
 
     # It will only queue music in the case the queue parameter is given at the function's call
@@ -189,8 +237,20 @@ def play_music(music_file, loops=0, fade=0, queue='', start=0):
     mixer.music.play(loops, fade, start)
 
 
-# Function for executing the room function and checking the player state for dead or alive
+# Function for calling the room function and checking the player state for dead or alive
 def check_state(player, function_list, param=None):
+    """ Function for executing the room function and checking the player state for dead or alive
+
+                Args:
+                    player (object): The object whose attributes we're checking
+                    function_list (list): The list of functions which we will consecutively call
+                    param (optional): Parameter for bypassing the third room function call
+                        (default is None)
+
+                Returns:
+                    False, in case the state attribute of the player object is 'dead'
+        """
+
     for room in function_list:
 
         if player.state == 'alive' and room == function_list[3]:
