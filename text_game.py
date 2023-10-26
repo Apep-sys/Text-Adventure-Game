@@ -1453,7 +1453,7 @@ def room4():
 
         while player.check4 is False:
 
-            game_file.screen.blit(game_file.level4_img_shadow, (0, 0))
+            game_file.screen.blit(game_file.level4_img_evil, (0, 0))
 
             game_file.play_music('Music\level4.mp3', loops=-1)
 
@@ -1575,6 +1575,8 @@ def room4():
                                 break
 
                             # Good Ending - As The Dust Settles
+
+                            game_file.screen.blit(game_file.level4_img_good, (0, 0))
 
                             game_file.play_music('Music\good_ending.mp3', loops=-1)
 
@@ -1760,6 +1762,9 @@ def room4():
 
                                 # Ending 5 - Mouth of Darkness
                                 if player.action.lower() in temp_choices_1:
+
+                                    game_file.screen.blit(game_file.level4_img_shadow, (0, 0))
+
                                     message = (
                                         'No matter what you\'re trying to do with your items, it just won\'t work. '
                                         'The vampiric creatures are being pushed towards you by the shadow. It stays behind them, controlling each and every one. '
@@ -1833,6 +1838,8 @@ def room4():
 
                         # True Ending - Purification
 
+                        game_file.screen.blit(game_file.level4_img_true, (0, 0))
+
                         game_file.play_music('Music\good_ending.mp3', loops=-1)
 
                         message = (
@@ -1863,6 +1870,9 @@ def room4():
 
                 # True Ending for not having the mark - Intrusion of Evil
                 elif 'Cursed Mark' not in player.inventory:
+
+                    game_file.screen.blit(game_file.level4_img_shadow, (0, 0))
+
                     message = (
                         'As you put your hand on it, your body freezes. You are unable to move any muscle. You can only move your eyes around. '
                         'The vampiric creatures are creepily making their way towards you. The shadow is slowly pushing them from behind. '
@@ -1881,6 +1891,8 @@ def room4():
 
             # Bad Endings - 1 ending + 2 extras
             elif player.action.lower() == 'offer yourself to the shadow':
+
+                game_file.screen.blit(game_file.level4_img_shadow, (0, 0))
 
                 game_file.play_music('Music\\bad_ending.mp3', loops=-1)
 
@@ -1921,6 +1933,11 @@ def room4():
 # Function for the case where a second game is began in the same playthrough and the player stumbles upon their old body
 # The room can be stumbled upon OR NOT after the second level/room
 def dead_room(temp_inventory):
+
+    game_file.screen.blit(game_file.level4_img_dead, (0, 0))
+
+    game_file.play_music('Music\drama.mp3')
+
     message = ('Suddenly, the ceiling opens wide open right in front of you. From the gaping darkness comes falling a...'
                'body. It nonchalantly lands on the floor, as if that\'s where it was supposed to be, in the first place. '
                'Upon closer inspection, you notice a crucial detail: the body is faceless. It somehow sports similar clothes to yours...'
