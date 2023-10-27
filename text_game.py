@@ -161,7 +161,7 @@ def room1():
                 player.check1 = True
 
             if player.action.lower() == 'balcony':
-                game_file.play_music('Music\slide_door.mp3', fade=3000, queue='Music\balcony.mp3')
+                game_file.play_music('Music\slide_door.mp3', fade=3000, queue='Music\\balcony.mp3')
 
                 message = (
                     'The wind lifts your hair...The fresh smell of the air makes you inhale with a sense of relief. '
@@ -276,7 +276,7 @@ def room2():
                         message = ('You enter the bathroom with careful steps. The door creaks as you open it. '
                                    'You\'re shocked by the sight before you. A man has committed suicide in the bathtub. '
                                    'The water has been running continuously and has overflowed, drenching your shoes. '
-                                   'As you try to quickly leave the room, in your panic, you slip on the wet floor, and hit your'
+                                   'As you try to quickly leave the room, in your panic, you slip on the wet floor, and hit your '
                                    'head on the sink. '
                                    'You are dead. ')
                         game_file.display_message(1, message)
@@ -308,7 +308,7 @@ def room2():
 
                         elif player.action.lower() == 'no':
                             message = (
-                                'You let the VIP ticket remain where it is. It is probably for the best, you think.\n')
+                                'You let the VIP ticket remain where it is. It is probably for the best, you think. ')
                             game_file.display_message(1, message)
                             game_file.screen.fill(game_file.black)
 
