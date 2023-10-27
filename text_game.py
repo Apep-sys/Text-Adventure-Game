@@ -125,7 +125,7 @@ def room1():
 
             if player.action.lower() == 'closet' and 'Fuse' not in player.inventory:
 
-                game_file.play_music('Music\slide_door.mp3.mp3')
+                game_file.play_music('Music\slide_door.mp3')
 
                 message = (
                     'You enter the cramped closet. The janitor\'s tools are lying about. The stingy smell of cleaning '
@@ -688,7 +688,7 @@ def room2():
 
             elif gunshot is True:
 
-                game_file.play_music('Music\locked_door.mp3.mp3')
+                game_file.play_music('Music\locked_door.mp3')
 
                 message = ('The door won\'t even budge. It now refuses to let you in. '
                            'Should have been thorough with the room the first time. '
