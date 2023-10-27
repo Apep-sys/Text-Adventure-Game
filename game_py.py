@@ -30,7 +30,7 @@ level2_img_tarot = pygame.image.load('Images\Level2_Tarot.jpg')
 level2_img_mark = pygame.image.load('Images\Level2_Mark.jpg')
 level3_img_lounge = pygame.image.load('Images\Level3_Lounge.jpg')
 level3_img_letter = pygame.image.load('Images\Level3_Letter.jpg')
-level4_img_guard = pygame.image.load('Images\Level4_Guard.jpg')
+level4_img_guard = pygame.image.load('Images\Level4_Guard.png')
 level4_img_party1 = pygame.image.load('Images\Level4_Party1.jpg')
 level4_img_party2 = pygame.image.load('Images\Level4_Party2.jpg')
 level4_img_shadow = pygame.image.load('Images\Level4_Shadow.jpg')
@@ -38,6 +38,7 @@ level4_img_evil = pygame.image.load('Images\Level4_Evil.jpg')
 level4_img_good = pygame.image.load('Images\Level4_Good.jpg')
 level4_img_true = pygame.image.load('Images\Level4_True.jpg')
 level4_img_dead = pygame.image.load('Images\Level4_Dead.jpg')
+game_icon = pygame.image.load('Images\Hotel Margot.jpg')
 
 # Function for splitting the text, to make it fit within the window size and have the letters go to the next line
 # Upon reaching the window's boundaries
@@ -294,6 +295,7 @@ def check_state(player, function_list, param=None):
 pygame.init()
 
 screen = pygame.display.set_mode((1000, 667))
+pygame.display.set_icon(game_icon)
 pygame.display.set_caption('Hotel Margot - Text Adventure')
 font = pygame.font.Font("freesansbold.ttf", 22)
 clock = pygame.time.Clock()
