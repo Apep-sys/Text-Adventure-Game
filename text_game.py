@@ -473,7 +473,7 @@ def room2():
                                                         'A sensation that could be described as being engulfed, swallowed, by darkness that has teeth, is then felt. '
                                                         'In reality, your body is discovered in the room you heard the gunshot from. '
                                                         'It marks the beginning of the blood trail. You are found sitting on your knees, mouth wide open and eyes staring in awe at the ceiling. '
-                                                        'Your pupils are fully dilated. Your bodily liquids have found their way out... 
+                                                        'Your pupils are fully dilated. Your bodily liquids have found their way out... '
                                                         'An unfortunate end. '
                                                         'You are dead. ')
                                                     player.temp_check = True
@@ -914,7 +914,7 @@ def room2():
                             'The ancient tome definitely holds the information and secrets that will get you out of this place. '
                             'Safely. ')
                         game_file.display_message(1, message)
-                        time.sleep(5
+                        time.sleep(5)
                         game_file.screen.fill(game_file.black)
                         player.inventory.append('Ancient Tome')
 
@@ -1295,7 +1295,7 @@ def room2():
                                         'You could\'ve misheard. There is certainly no gun laying around. '
                                         'And there is certainly no way you will go after the blood trail. Perhaps in another life. ')
                                     game_file.display_message(1, message)
-                                    time.sleep(5
+                                    time.sleep(5)
                                     game_file.screen.fill(game_file.black)
 
                             elif player.action.lower() == 'no':
@@ -1304,7 +1304,7 @@ def room2():
                                     'You wonder if you should call the police, but decide not to. You hope this was not against your best interests. '
                                     'For a brief second, you feel a hand on your shoulder. Its grip is firm and violent. '
                                     'You turn around and survey the room. The shivers down your spine don\'t fail to appear. '
-                                    'You feel light headed. Your steps are uncertain and heavy. 
+                                    'You feel light headed. Your steps are uncertain and heavy. '
                                     'You hold onto the wall on your way out and take a short break. '
                                     'This place is physically hurting you. You need to get to the end of it. '
                                     'As. Soon. As. Possible.'
@@ -1988,7 +1988,7 @@ def room3():
                             'Perhaps whatever is written on this letter is not meant for prying eyes. There is a slim chance it could hide a clue... '
                             'But it is a chance nonetheless. Anyway, best to search other things for it. ')
                         game_file.display_message(1, message)
-                        time.sleep(5
+                        time.sleep(5)
                         game_file.screen.fill(game_file.black)
 
                 else:
@@ -2029,7 +2029,7 @@ def room3():
                 'And gave his in doing so. You notice a detail that eluded your sight before: a silver, shining ring, on his ring finger. '
                 'In fact, that\'s what he is actually holding. A silver...bullet? Why would anyone be immortalized while holding something as peculiar as a silver bullet?')
             game_file.display_message(1, message)
-            time.sleep(5
+            time.sleep(5)
             game_file.screen.fill(game_file.black)
 
         if 'Cursed Mark' in player.inventory:
@@ -2190,7 +2190,7 @@ def room4():
                 'You realize the whispers and hissing is mostly gone now. You have their attention. A light akin to a twilight with purple undertones is now basking everyone in the lobby. '
                 'The atmosphere has got much heavier. You get the feeling they are eagerly waiting for every breath you draw. It anticipates the moment of the last. ')
             game_file.display_message(1, message)
-            time.sleep(5
+            time.sleep(5)
             game_file.screen.fill(game_file.black)
 
         elif 'Opened Letter' in player.inventory:
